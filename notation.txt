@@ -1,9 +1,9 @@
 # Figma Components For TCC
 
-1. Input with Icon
+✅ 1. Input with Icon
 	_Variants:_
-	1.1 With background
-	1.2 With underline
+	✅ 1.1 With background
+	✅ 1.2 With underline
 
 2. Character
 
