@@ -5,7 +5,7 @@
 	✅ 1.1 With background
 	✅ 1.2 With underline
 
-2. Character
+✅ 2. Character
 
 3. Button
 	*Obs: Must receive a children react node*
