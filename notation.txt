@@ -1,0 +1,76 @@
+# Figma Components For TCC
+
+1. Input with Icon
+	_Variants:_
+	1.1 With background
+	1.2 With underline
+
+2. Character
+
+3. Button
+	*Obs: Must receive a children react node*
+	_Variants:_
+	3.1 Green
+	3.2 Red
+	3.3 Yellow
+	3.4 Blue
+	
+4. Double Selection
+	_Variants:_
+	4.1 Gender
+		4.1.1 Blue
+		4.1.2 Pink
+	4.2 Yes or No
+		4.2.1 Green
+		4.2.2 Red
+	
+5. Secondary Button
+
+6. Preferences button
+	*Obs: For sound and vibration configuration*
+	
+7. Navbar
+
+8. Challenge Number
+	_Variants:_
+	8.1 Completed (With Score)
+	8.2 Pending
+	8.3 Current Pending
+	
+9. Pontuation Box
+	_Variants:_
+	9.1 Total Stars
+	9.2 Total Diamonds
+
+10. Challenge Resume Container
+
+11. Title
+
+12. Podium Character
+
+13. General Classification Character
+
+14. Header Challenge Level Indicator
+
+15. Drag and Drop
+
+16. Challenge Title
+	*Obs: Must receive a children react node*
+	
+17. Response Option for Challenge
+	_Variants:_
+	17.1 Not Selected
+	17.2 Selected
+	
+18. Level Completation Modal
+	_Variants:_
+	18.1 One Star
+	18.2 Double Star
+	18.3 Three Star
+	18.4 Three Star With Diamond
+	
+19. Header Close Button
+	
+== GENERAL OBS == 
+
+- Specific components for challenges must be locate in specific challenge components folder
