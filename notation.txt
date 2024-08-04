@@ -7,7 +7,7 @@
 
 ✅ 2. Character
 
-3. Button
+✅ 3. Button
 	*Obs: Must receive a children react node*
 	_Variants:_
 	3.1 Green
