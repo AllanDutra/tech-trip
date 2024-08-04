@@ -4,6 +4,7 @@ import {
   Character,
   ContainedInput,
   DoubleSelection,
+  NavBar,
   PreferenceButton,
   SecondaryButton,
   UnderlinedInput,
@@ -60,6 +61,8 @@ export function TestComponentsPage() {
 
       <PreferenceButton variant="sound" active />
       <PreferenceButton variant="vibration" />
+
+      <NavBar.FullComponent />
     </StyledMain>
   );
 }

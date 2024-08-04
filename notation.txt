@@ -29,7 +29,7 @@
 ✅ 6. Preferences button
 	*Obs: For sound and vibration configuration*
 	
-7. Navbar
+✅ 7. Navbar
 
 8. Challenge Number
 	_Variants:_

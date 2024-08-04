@@ -10,4 +10,6 @@ export const StyledMain = styled.main`
     font-family: "Montserrat Alternates", sans-serif;
     margin-top: 1em;
   }
+
+  padding-bottom: 6em;
 `;
