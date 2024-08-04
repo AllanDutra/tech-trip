@@ -1,9 +1,13 @@
 import { StyledButton } from "./styles";
 
-interface ISecondaryButtonProps {
+interface ISecondaryButtonProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
   title: string;
 }
 
-export function SecondaryButton({ title }: ISecondaryButtonProps) {
-  return <StyledButton>{title}</StyledButton>;
+export function SecondaryButton({ title, ...rest }: ISecondaryButtonProps) {
+  return <StyledButton {...rest}>{title}</StyledButton>;
 }

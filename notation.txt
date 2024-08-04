@@ -26,7 +26,7 @@
 	
 ✅ 5. Secondary Button
 
-6. Preferences button
+✅ 6. Preferences button
 	*Obs: For sound and vibration configuration*
 	
 7. Navbar

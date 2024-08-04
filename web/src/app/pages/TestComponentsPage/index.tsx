@@ -4,6 +4,7 @@ import {
   Character,
   ContainedInput,
   DoubleSelection,
+  PreferenceButton,
   SecondaryButton,
   UnderlinedInput,
 } from "../../shared/components";
@@ -54,6 +55,11 @@ export function TestComponentsPage() {
 
       <SecondaryButton title="Já tenho uma conta" />
       <SecondaryButton title="Primeiro acesso" />
+
+      <h2>Preference Button</h2>
+
+      <PreferenceButton variant="sound" active />
+      <PreferenceButton variant="vibration" />
     </StyledMain>
   );
 }

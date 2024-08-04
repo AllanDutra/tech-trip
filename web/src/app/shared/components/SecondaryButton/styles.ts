@@ -11,7 +11,7 @@ export const StyledButton = styled.button`
   background-color: transparent;
   border-radius: 0.5em;
 
-  line-height: 160%;
+  line-height: normal;
   font-family: "Montserrat Alternates", sans-serif;
   color: #545456;
   font-weight: 600;
