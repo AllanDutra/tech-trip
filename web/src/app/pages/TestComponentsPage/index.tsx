@@ -3,6 +3,7 @@ import {
   Button,
   Character,
   ContainedInput,
+  DoubleSelection,
   UnderlinedInput,
 } from "../../shared/components";
 import { StyledMain } from "./styles";
@@ -40,6 +41,13 @@ export function TestComponentsPage() {
       <Button color="red" text="Falsa" />
       <Button color="yellow" text="Continuar" />
       <Button color="blue" text="Continuar" />
+
+      <h2>Double Selection</h2>
+
+      <DoubleSelection.FullComponent variant="gender" selected="female" />
+      <DoubleSelection.FullComponent variant="gender" selected="male" />
+      <DoubleSelection.FullComponent variant="yes-or-no" selected="no" />
+      <DoubleSelection.FullComponent variant="yes-or-no" selected="yes" />
     </StyledMain>
   );
 }

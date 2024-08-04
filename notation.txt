@@ -15,7 +15,7 @@
 	3.3 Yellow
 	3.4 Blue
 	
-4. Double Selection
+✅ 4. Double Selection
 	_Variants:_
 	4.1 Gender
 		4.1.1 Blue
