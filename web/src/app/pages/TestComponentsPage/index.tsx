@@ -1,7 +1,11 @@
-import { UserCircle } from "@phosphor-icons/react";
-import { ContainedInput, UnderlinedInput } from "../../shared/components";
+import { CaretUp, UserCircle } from "@phosphor-icons/react";
+import {
+  Button,
+  Character,
+  ContainedInput,
+  UnderlinedInput,
+} from "../../shared/components";
 import { StyledMain } from "./styles";
-import { Character } from "../../shared/components/Character";
 
 export function TestComponentsPage() {
   return (
@@ -26,6 +30,16 @@ export function TestComponentsPage() {
       <h2>Character</h2>
 
       <Character.FullComponent size="medium" number={1} />
+
+      <h2>Button</h2>
+
+      <Button color="green" text="Registrar" />
+      <Button color="green">
+        <CaretUp />
+      </Button>
+      <Button color="red" text="Falsa" />
+      <Button color="yellow" text="Continuar" />
+      <Button color="blue" text="Continuar" />
     </StyledMain>
   );
 }
