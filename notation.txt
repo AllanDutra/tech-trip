@@ -24,7 +24,7 @@
 		4.2.1 Green
 		4.2.2 Red
 	
-5. Secondary Button
+✅ 5. Secondary Button
 
 6. Preferences button
 	*Obs: For sound and vibration configuration*

@@ -22,7 +22,7 @@ export const StyledSelection = styled.button`
 
   line-height: 160%;
   font-family: "Montserrat Alternates", sans-serif;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 1em;
   color: #424243;
   text-align: center;
