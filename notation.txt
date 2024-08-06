@@ -31,24 +31,24 @@
 	
 ✅ 7. Navbar
 
-8. Challenge Number
+8. Challenge Number (EXCLUSIVE FROM MAP SCREEN)
 	_Variants:_
 	8.1 Completed (With Score)
 	8.2 Pending
 	8.3 Current Pending
 	
-9. Pontuation Box
+9. Pontuation Box (EXCLUSIVE FROM RESUME SCREEN)
 	_Variants:_
 	9.1 Total Stars
 	9.2 Total Diamonds
 
-10. Challenge Resume Container
+10. Challenge Resume Container (EXCLUSIVE FROM RESUME SCREEN)
 
 ✅ 11. Title
 
-12. Podium Character
+12. Podium Character (EXCLUSIVE FROM RANKING SCREEN)
 
-13. General Classification Character
+13. General Classification Character (EXCLUSIVE FROM RANKING SCREEN)
 
 14. Header Challenge Level Indicator
 
