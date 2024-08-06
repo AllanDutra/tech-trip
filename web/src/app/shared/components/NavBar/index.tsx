@@ -54,7 +54,7 @@ function Option({ variant }: IOptionProps) {
     <StyledOption className={selected ? "selected" : ""} to={linkPath}>
       <IconContext.Provider
         value={{
-          size: 35,
+          size: 25,
           weight: selected ? "fill" : "regular",
         }}
       >

@@ -15,7 +15,6 @@ export const StyledContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 25%;
-  padding: 0.625em 0;
   border-radius: 2.5em;
   overflow: hidden;
 
@@ -56,8 +55,8 @@ export const StyledOption = styled(Link)`
 
     & span.point {
       display: initial;
-      width: 0.5em;
-      height: 0.5em;
+      width: 0.3em;
+      height: 0.3em;
       border-radius: 50%;
       background-color: #2bcb9a;
     }

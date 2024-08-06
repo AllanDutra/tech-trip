@@ -7,6 +7,7 @@ export const StyledMain = styled.main`
   gap: 1em;
 
   h2 {
+    font-size: 1.3em;
     font-family: "Montserrat Alternates", sans-serif;
     margin-top: 1em;
   }
