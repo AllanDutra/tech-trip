@@ -10,6 +10,7 @@ import {
   UnderlinedInput,
 } from "../../shared/components";
 import { StyledMain } from "./styles";
+import { Title } from "../../shared/components/Title";
 
 export function TestComponentsPage() {
   return (
@@ -63,6 +64,17 @@ export function TestComponentsPage() {
       <PreferenceButton variant="vibration" />
 
       <NavBar.FullComponent />
+
+      <h2>Title</h2>
+
+      <Title value="TECH KIDs" />
+
+      <UnderlinedInput.FullComponent
+        label="Nome"
+        Icon={UserCircle}
+        placeholder="Digite seu nome aqui..."
+        value="Oliver da Silva Pereira"
+      />
     </StyledMain>
   );
 }
