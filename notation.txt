@@ -54,7 +54,7 @@
 
 15. Drag and Drop
 
-16. Challenge Title
+✅ 16. Challenge Message
 	*Obs: Must receive a children react node*
 	
 17. Response Option for Challenge
@@ -69,7 +69,7 @@
 	18.3 Three Star
 	18.4 Three Star With Diamond
 	
-19. Header Close Button
+✅ 19. Header Close Button
 	
 == GENERAL OBS == 
 

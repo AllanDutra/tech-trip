@@ -12,6 +12,7 @@ import {
 import { StyledMain } from "./styles";
 import { Title } from "../../shared/components/Title";
 import { Header } from "../../shared/components/Header";
+import { ChallengeMessage } from "../../shared/components/ChallengeMessage";
 
 export function TestComponentsPage() {
   return (
@@ -73,7 +74,12 @@ export function TestComponentsPage() {
       <h2>Header</h2>
 
       <Header.FullComponent currentLevel={6} totalLevels={15} />
-      <Button color="yellow" text="Continuar" />
+
+      <h2>Challenge Message</h2>
+
+      <ChallengeMessage>
+        Arraste os <strong>animais</strong> para o grupo a que eles pertencem
+      </ChallengeMessage>
     </StyledMain>
   );
 }
