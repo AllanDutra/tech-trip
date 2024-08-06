@@ -11,6 +11,7 @@ import {
 } from "../../shared/components";
 import { StyledMain } from "./styles";
 import { Title } from "../../shared/components/Title";
+import { Header } from "../../shared/components/Header";
 
 export function TestComponentsPage() {
   return (
@@ -68,6 +69,10 @@ export function TestComponentsPage() {
       <h2>Title</h2>
 
       <Title value="TECH KIDs" />
+
+      <h2>Header</h2>
+
+      <Header.FullComponent currentLevel={6} totalLevels={15} />
     </StyledMain>
   );
 }

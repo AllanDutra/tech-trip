@@ -50,7 +50,7 @@
 
 13. General Classification Character (EXCLUSIVE FROM RANKING SCREEN)
 
-14. Header Challenge Level Indicator
+✅ 14. Header Challenge Level Indicator
 
 15. Drag and Drop
 
