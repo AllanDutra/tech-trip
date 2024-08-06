@@ -73,6 +73,7 @@ export function TestComponentsPage() {
       <h2>Header</h2>
 
       <Header.FullComponent currentLevel={6} totalLevels={15} />
+      <Button color="yellow" text="Continuar" />
     </StyledMain>
   );
 }

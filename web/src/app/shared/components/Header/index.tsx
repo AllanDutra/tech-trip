@@ -38,7 +38,7 @@ function CloseButton({ ...rest }: ICloseButtonProps) {
   return (
     <StyledCloseButton {...rest}>
       <span>
-        <X weight="bold" size={30} color="#424243" />
+        <X weight="bold" size={20} color="#424243" />
       </span>
     </StyledCloseButton>
   );

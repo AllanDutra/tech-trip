@@ -6,12 +6,12 @@ export const StyledContainer = styled.header`
   align-items: center;
   gap: 0.625em;
 
-  height: 4em;
+  height: 3em;
 `;
 
 export const StyledCloseButton = styled.button`
   position: relative;
-  width: 15%;
+  width: 10%;
   height: 100%;
 
   border: none;
@@ -65,7 +65,7 @@ export const StyledCloseButton = styled.button`
 `;
 
 export const StyledLevelIndicator = styled.div`
-  width: 85%;
+  width: 90%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -78,7 +78,7 @@ export const StyledLevelIndicator = styled.div`
   .bar {
     flex: 1;
     background-color: #ebf1f1;
-    height: 0.625em;
+    height: 0.5em;
     border-radius: 0.625em;
     display: flex;
     align-items: flex-start;
@@ -93,7 +93,7 @@ export const StyledLevelIndicator = styled.div`
   span {
     font-family: "Lilita One", sans-serif;
     font-weight: 400;
-    font-size: 1.5em;
+    font-size: 1.15em;
     text-align: right;
     color: #424243;
   }
