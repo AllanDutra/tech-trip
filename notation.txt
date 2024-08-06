@@ -61,6 +61,7 @@
 	_Variants:_
 	17.1 Not Selected
 	17.2 Selected
+	(small: 12, medium: 14, large: 16)
 	
 18. Level Completation Modal
 	_Variants:_

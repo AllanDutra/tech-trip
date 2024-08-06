@@ -1,18 +1,18 @@
 import { CaretUp, UserCircle } from "@phosphor-icons/react";
 import {
   Button,
+  ChallengeMessage,
   Character,
   ContainedInput,
   DoubleSelection,
+  Header,
   NavBar,
   PreferenceButton,
   SecondaryButton,
+  Title,
   UnderlinedInput,
 } from "../../shared/components";
 import { StyledMain } from "./styles";
-import { Title } from "../../shared/components/Title";
-import { Header } from "../../shared/components/Header";
-import { ChallengeMessage } from "../../shared/components/ChallengeMessage";
 
 export function TestComponentsPage() {
   return (
