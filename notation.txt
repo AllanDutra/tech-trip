@@ -44,7 +44,7 @@
 
 10. Challenge Resume Container
 
-11. Title
+✅ 11. Title
 
 12. Podium Character
 

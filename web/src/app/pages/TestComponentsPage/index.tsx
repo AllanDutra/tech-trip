@@ -68,13 +68,6 @@ export function TestComponentsPage() {
       <h2>Title</h2>
 
       <Title value="TECH KIDs" />
-
-      <UnderlinedInput.FullComponent
-        label="Nome"
-        Icon={UserCircle}
-        placeholder="Digite seu nome aqui..."
-        value="Oliver da Silva Pereira"
-      />
     </StyledMain>
   );
 }
