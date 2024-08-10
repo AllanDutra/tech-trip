@@ -11,3 +11,4 @@ export * from "./Header";
 export * from "./ChallengeMessage";
 export * from "./ChallengeResponse";
 export * from "./LevelCompletionModal";
+export * from "./DragDrop";
