@@ -36,7 +36,7 @@ function Container({ children }: IContainerProps) {
 
 function CloseButton({ ...rest }: ICloseButtonProps) {
   return (
-    <StyledCloseButton {...rest}>
+    <StyledCloseButton className="close-button" {...rest}>
       <span>
         <X weight="bold" size={20} color="#424243" />
       </span>

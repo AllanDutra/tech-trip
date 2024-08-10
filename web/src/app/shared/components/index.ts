@@ -10,3 +10,4 @@ export * from "./Title";
 export * from "./Header";
 export * from "./ChallengeMessage";
 export * from "./ChallengeResponse";
+export * from "./LevelCompletionModal";

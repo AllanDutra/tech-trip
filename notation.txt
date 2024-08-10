@@ -53,6 +53,7 @@
 ✅ 14. Header Challenge Level Indicator
 
 15. Drag and Drop
+	- Link to tutorial (https://www.freecodecamp.org/portuguese/news/como-adicionar-a-funcionalidade-de-arrastar-e-soltar-em-react-com-a-biblioteca-react-beautiful-dnd/)
 
 ✅ 16. Challenge Message
 	*Obs: Must receive a children react node*
@@ -63,7 +64,7 @@
 	17.2 Selected
 	(small: 12, medium: 14, large: 16)
 	
-18. Level Completation Modal
+✅ 18. Level Completation Modal
 	_Variants:_
 	18.1 One Star
 	18.2 Double Star

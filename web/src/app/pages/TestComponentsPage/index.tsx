@@ -7,6 +7,7 @@ import {
   ContainedInput,
   DoubleSelection,
   Header,
+  LevelCompletionModal,
   NavBar,
   PreferenceButton,
   SecondaryButton,
@@ -153,6 +154,10 @@ export function TestComponentsPage() {
           },
         ]}
       />
+
+      <h2>Level Completion Modal</h2>
+
+      <LevelCompletionModal.FullComponent performance={4} />
     </StyledMain>
   );
 }
