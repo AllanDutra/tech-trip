@@ -12,5 +12,10 @@ export const StyledMain = styled.main`
     margin-top: 1em;
   }
 
+  h3 {
+    font-family: "Montserrat Alternates", sans-serif;
+    opacity: 0.6;
+  }
+
   padding-bottom: 6em;
 `;

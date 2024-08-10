@@ -2,6 +2,7 @@ import { CaretUp, UserCircle } from "@phosphor-icons/react";
 import {
   Button,
   ChallengeMessage,
+  ChallengeResponse,
   Character,
   ContainedInput,
   DoubleSelection,
@@ -80,6 +81,78 @@ export function TestComponentsPage() {
       <ChallengeMessage>
         Arraste os <strong>animais</strong> para o grupo a que eles pertencem
       </ChallengeMessage>
+
+      <h2>Response Option for Challenge</h2>
+
+      <h3>Small</h3>
+
+      <ChallengeResponse.FullComponent
+        size="small"
+        options={[
+          {
+            content: (
+              <>
+                <strong>Computador:</strong> Escrever e imprimir convites em
+                papel.
+              </>
+            ),
+            selected: false,
+          },
+          {
+            content: (
+              <>
+                <strong>Celular:</strong> Enviar mensagens de texto ou um
+                e-mail.
+              </>
+            ),
+            selected: true,
+          },
+          {
+            content: (
+              <>
+                <strong>Tablet:</strong> Fazer um vídeo convite e enviar para os
+                amigos.
+              </>
+            ),
+            selected: false,
+          },
+        ]}
+      />
+
+      <h3>Medium</h3>
+
+      <ChallengeResponse.FullComponent
+        options={[
+          {
+            text: "Impressora ou roteador",
+          },
+          {
+            text: "Fones de ouvido ou alto-falantes",
+            selected: true,
+          },
+          {
+            text: "Microfone ou teclado",
+          },
+        ]}
+      />
+
+      <h3>Large</h3>
+
+      <ChallengeResponse.FullComponent
+        size="large"
+        options={[
+          {
+            text: "0100 1111 0100 0001",
+          },
+          {
+            text: "0110 1001 0100 0001",
+          },
+          {
+            text: "0100 1111 0110 1001",
+            selected: true,
+          },
+        ]}
+      />
     </StyledMain>
   );
 }

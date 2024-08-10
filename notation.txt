@@ -57,7 +57,7 @@
 ✅ 16. Challenge Message
 	*Obs: Must receive a children react node*
 	
-17. Response Option for Challenge
+✅ 17. Response Option for Challenge
 	_Variants:_
 	17.1 Not Selected
 	17.2 Selected
