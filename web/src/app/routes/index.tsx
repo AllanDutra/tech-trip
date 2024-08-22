@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import { routeConfigs } from "../shared/configs";
 import { TestComponentsPage } from "../pages";
+import { RegisterPage } from "../pages";
 
 export function Routes() {
   return (
@@ -14,6 +15,10 @@ export function Routes() {
         <Route
           path={routeConfigs.TestComponents}
           element={<TestComponentsPage />}
+        />
+        <Route
+          path={routeConfigs.Register} 
+          element={<RegisterPage />}
         />
         <Route
           path="*"

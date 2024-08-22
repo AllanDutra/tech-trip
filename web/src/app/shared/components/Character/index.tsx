@@ -9,6 +9,7 @@ interface IContainerProps {
   size?: TCharacterSize;
   withShadow?: boolean;
   gray?: boolean;
+  onClick?: () => void;
 }
 
 interface ICharacterSvgProps {
@@ -20,6 +21,7 @@ interface IFullComponentProps {
   size?: TCharacterSize;
   withShadow?: boolean;
   gray?: boolean;
+  onClick?: () => void
 }
 
 function Container({
@@ -27,6 +29,7 @@ function Container({
   size = "small",
   withShadow = false,
   gray = false,
+  onClick,
 }: IContainerProps) {
   const sizeAsEM = useMemo(
     () => (size === "medium" ? "3.75em" : "3.25em"),
@@ -37,6 +40,7 @@ function Container({
     <StyledContainer
       className={`${withShadow ? "withShadow" : ""} ${gray ? "gray" : ""}`}
       style={{ width: sizeAsEM, height: sizeAsEM }}
+      onClick={onClick}
     >
       {children}
     </StyledContainer>

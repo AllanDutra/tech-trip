@@ -1,0 +1,75 @@
+.register-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    
+}
+
+.register-container h1{
+    text-align: left;
+}
+
+.register-container p{
+    font-family: "Montserrat Alternates", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.register-header{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.characters-container {
+    margin-bottom: 20px;
+}
+
+.characters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    justify-items: center;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.gender-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.register-footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .register-container {
+        max-width: 800px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .characters-container {
+        grid-column: 1 / span 2;
+    }
+
+    .register-form {
+        grid-column: 2 / span 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .register-footer {
+        grid-column: 1 / span 2;
+    }
+}
