@@ -10,7 +10,7 @@ CREATE TABLE "Students" (
   "Email" VARCHAR(150) UNIQUE NOT NULL,
   "User" VARCHAR(50) UNIQUE NOT NULL,
   "Password" VARCHAR(64) NOT NULL,
-  "Salt" VARCHAR(32) NOT NULL,
+  "Salt" VARCHAR(64) NOT NULL,
   "Birth" DATE,
   "Gender" VARCHAR(6),
   "Character_Id" SMALLINT,
