@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TechKids.Core.Interfaces.Notifications;
 using TechKids.Core.Models.ViewModels;
@@ -9,10 +10,12 @@ namespace TechKids.API.Controllers
     public class MainController : ControllerBase
     {
         protected readonly INotifier _notifier;
+        protected readonly IMediator _mediator;
 
-        public MainController(INotifier notifier)
+        public MainController(INotifier notifier, IMediator mediator)
         {
             _notifier = notifier;
+            _mediator = mediator;
         }
 
         protected ActionResult PersonalizedResponse(ActionResult actionResult)

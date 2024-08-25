@@ -21,6 +21,8 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddDomain();
 
+builder.Services.AddApplication();
+
 builder.Services.AddNotifications();
 
 var app = builder.Build();
