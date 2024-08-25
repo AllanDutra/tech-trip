@@ -1,7 +1,13 @@
 using TechKids.API.Extensions;
+using TechKids.API.Middlewares;
+using TechKids.Application;
+using TechKids.Core;
 using TechKids.Infrastructure;
+using TechKids.Shared.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.WebHost.ConfigureKestrel(p => p.ListenAnyIP(5999));
 
 // Add services to the container.
 
@@ -12,6 +18,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddDomain();
 
 builder.Services.AddNotifications();
 
