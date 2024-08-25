@@ -2,6 +2,13 @@
 
 public partial class Preference
 {
+    public Preference(bool? sound, bool? vibration, int? studentId)
+    {
+        Sound = sound;
+        Vibration = vibration;
+        StudentId = studentId;
+    }
+
     public short Id { get; set; }
 
     public bool? Sound { get; set; }

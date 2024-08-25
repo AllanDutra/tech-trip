@@ -2,6 +2,27 @@
 
 public partial class Student
 {
+    public Student(
+        string name,
+        string email,
+        string user,
+        string password,
+        string salt,
+        DateOnly? birth,
+        string? gender,
+        short? characterId
+    )
+    {
+        Name = name;
+        Email = email;
+        User = user;
+        Password = password;
+        Salt = salt;
+        Birth = birth;
+        Gender = gender;
+        CharacterId = characterId;
+    }
+
     public int Id { get; set; }
 
     public string Name { get; set; } = null!;
