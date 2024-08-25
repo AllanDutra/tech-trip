@@ -1,12 +1,13 @@
+using System.Net;
 using TechKids.Core.Models.ViewModels;
 
-namespace TechKids.Core.Interfaces
+namespace TechKids.Core.Interfaces.Notifications
 {
     public interface INotifier
     {
         void ClearNotification();
         bool HasNotification();
         List<NotificationViewModel> GetNotifications();
-        void Handle(NotificationViewModel notification);
+        void Handle(string message, HttpStatusCode statusCode);
     }
 }

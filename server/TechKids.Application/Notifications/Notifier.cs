@@ -1,4 +1,5 @@
-using TechKids.Core.Interfaces;
+using System.Net;
+using TechKids.Core.Interfaces.Notifications;
 using TechKids.Core.Models.ViewModels;
 
 namespace TechKids.Application.Notifications
@@ -9,7 +10,12 @@ namespace TechKids.Application.Notifications
 
         public Notifier() => _notifications = new List<NotificationViewModel>();
 
-        public void Handle(NotificationViewModel notification) => _notifications.Add(notification);
+        public void Handle(string message, HttpStatusCode statusCode)
+        {
+            NotificationViewModel notification = new(message, statusCode);
+
+            _notifications.Add(notification);
+        }
 
         public void ClearNotification()
         {

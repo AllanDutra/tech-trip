@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using TechKids.Core.Interfaces;
+using TechKids.Core.Interfaces.Notifications;
 using TechKids.Core.Models.ViewModels;
 
 namespace TechKids.API.Controllers

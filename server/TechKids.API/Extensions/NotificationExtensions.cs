@@ -1,5 +1,5 @@
 using TechKids.Application.Notifications;
-using TechKids.Core.Interfaces;
+using TechKids.Core.Interfaces.Notifications;
 
 namespace TechKids.API.Extensions
 {
