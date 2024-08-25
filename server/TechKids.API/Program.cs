@@ -24,6 +24,9 @@ builder.Services.AddDomain();
 builder.Services.AddApplication();
 
 builder.Services.AddNotifications();
+
+builder.Services.AddValidations();
+
 builder.Services.AddMiddlewares();
 
 var app = builder.Build();
