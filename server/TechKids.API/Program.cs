@@ -24,6 +24,7 @@ builder.Services.AddDomain();
 builder.Services.AddApplication();
 
 builder.Services.AddNotifications();
+builder.Services.AddMiddlewares();
 
 var app = builder.Build();
 
@@ -33,6 +34,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
