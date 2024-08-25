@@ -17,6 +17,8 @@ namespace TechKids.API.Extensions
 
             services.AddFluentValidationClientsideAdapters();
 
+            services.AddValidatorsFromAssemblyContaining<RegisterStudentCommandValidator>();
+
             return services;
         }
     }
