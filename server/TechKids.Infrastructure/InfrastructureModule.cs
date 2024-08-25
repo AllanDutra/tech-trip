@@ -31,6 +31,9 @@ namespace TechKids.Infrastructure
             services.AddScoped<IPreferenceRepository, PreferenceRepository>();
 
             services.AddScoped<ICharacterRepository, CharacterRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             return services;
         }
     }
