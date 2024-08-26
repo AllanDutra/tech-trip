@@ -56,7 +56,7 @@ export function RegisterPage() {
             </RegisterHeader>
 
             <CharactersContainer>
-              <p>Selecione o seu personagem</p>
+              <StyledLabel>Selecione o seu personagem</StyledLabel>
               <Characters>
                 {CharactersIds.map((id) => (
                   <Character.FullComponent

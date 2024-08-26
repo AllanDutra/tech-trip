@@ -18,6 +18,7 @@ export const RegisterContainer = styled.div`
   p {
     font-family: "Montserrat Alternates", sans-serif;
     font-weight: 400;
+    font-size: 1.1em;
     font-style: normal;
     text-align: left;
   }
