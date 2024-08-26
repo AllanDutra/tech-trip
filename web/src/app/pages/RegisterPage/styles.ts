@@ -1,15 +1,14 @@
 import styled from "styled-components";
 
 export const StyledMain = styled.div`
-  background-image: url('');
-`
+  background-image: url("../../shared/assets/Images/Background.png");
+`;
 
 export const RegisterContainer = styled.div`
   background-color: #fff;
-  max-width: 32em;
-  margin: 16em auto;
-  border-radius: 0.625em;
-  padding: 1em;
+  margin: 10em auto;
+  border-radius: 2em;
+  padding: 1.125em;
   box-shadow: 0 0.25px 0.625em rgba(0, 0, 0, 0.1);
 
   h1 {
@@ -23,7 +22,8 @@ export const RegisterContainer = styled.div`
     text-align: left;
   }
 
-  @media (min-width: 768px){
+  @media (min-width: 768px) {
+    border-radius: 1em;
     max-width: 50em;
     display: grid;
     /*grid-template-columns: 1fr 1fr;*/
@@ -34,8 +34,7 @@ export const RegisterContainer = styled.div`
 export const RegisterHeader = styled.header`
   text-align: center;
   margin-bottom: 1.25em;
-`
-;
+`;
 
 export const CharactersContainer = styled.div`
   margin-bottom: 1.25em;
@@ -61,10 +60,18 @@ export const RegisterForm = styled.form`
   }
 `;
 
+export const StyledLabel = styled.label`
+  font-weight: 500;
+  font-family: "Montserrat Alternates", sans-serif;
+  width: 100%;
+  display: block;
+  color: #424243;
+`;
+
 export const GenderButtons = styled.div`
   padding: 0.7em 0;
-  display: flex;
-  justify-content: space-between;
+  width: 100%;
+  display: block;
 `;
 
 export const RegisterFooter = styled.footer`

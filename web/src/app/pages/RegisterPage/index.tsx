@@ -23,6 +23,7 @@ import {
   CharactersContainer,
   Characters,
   RegisterForm,
+  StyledLabel,
   GenderButtons,
   RegisterFooter,
 } from "./styles";
@@ -100,6 +101,7 @@ export function RegisterPage() {
               placeholder="Informe sua data de nascimento..."
             />
             <GenderButtons>
+              <StyledLabel>Gênero</StyledLabel>
               <DoubleSelection.FullComponent
                 variant="gender"
                 selected={selectedGender}
