@@ -9,6 +9,7 @@ interface IContainerProps {
   size?: TCharacterSize;
   withShadow?: boolean;
   gray?: boolean;
+  selected?: boolean;
   onClick?: () => void;
 }
 
@@ -21,7 +22,8 @@ interface IFullComponentProps {
   size?: TCharacterSize;
   withShadow?: boolean;
   gray?: boolean;
-  onClick?: () => void
+  selected?: boolean;
+  onClick?: () => void;
 }
 
 function Container({
@@ -29,6 +31,7 @@ function Container({
   size = "small",
   withShadow = false,
   gray = false,
+  selected = false,
   onClick,
 }: IContainerProps) {
   const sizeAsEM = useMemo(
@@ -38,7 +41,7 @@ function Container({
 
   return (
     <StyledContainer
-      className={`${withShadow ? "withShadow" : ""} ${gray ? "gray" : ""}`}
+      className={`${withShadow ? "withShadow" : ""} ${gray ? "gray" : ""} ${selected ? "selected" : ""}`}
       style={{ width: sizeAsEM, height: sizeAsEM }}
       onClick={onClick}
     >
@@ -58,9 +61,11 @@ function FullComponent({
   size,
   withShadow,
   gray,
+  selected,
+  onClick,
 }: IFullComponentProps) {
   return (
-    <Container size={size} withShadow={withShadow} gray={gray}>
+    <Container size={size} withShadow={withShadow} gray={gray} selected={selected} onClick={onClick}>
       <CharacterSvg number={number} />
     </Container>
   );

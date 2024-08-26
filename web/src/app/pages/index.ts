@@ -1,2 +1,2 @@
 export * from "./TestComponentsPage";
-export * from "./register-page";
+export * from "./RegisterPage";
