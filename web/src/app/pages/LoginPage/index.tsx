@@ -36,6 +36,7 @@ export function LoginPage() {
     };
 
     try {
+      //console.log(data);
       const response = await fetch("", {
         method: "POST",
         headers: {
@@ -69,6 +70,7 @@ export function LoginPage() {
             placeholder="Nome de usuário ou e-mail..."
             value={user}
             onChange={(e) => setUser(e.target.value)}
+            required
           />
           <ContainedInput.FullComponent
             label="Senha"
@@ -76,11 +78,13 @@ export function LoginPage() {
             placeholder="Digite sua senha aqui..."
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            required
           />
         </LoginMain>
 
         <LoginFooter>
-          <Button color="green" text="Entrar" type="submit" />
+          <Button color="green" text="Entrar" type="submit" onClick={handleSubmit}/>
           <SecondaryButton
             title="Primeiro acesso"
             onClick={handleFirstAccess}

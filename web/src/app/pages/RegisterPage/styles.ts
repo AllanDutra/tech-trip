@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const StyledMain = styled.div`
+  background-color: #2BCB9A;
+  height: 100vh;
   background-image: url("src/app/shared/assets/Images/Background.png");
 `;
 
