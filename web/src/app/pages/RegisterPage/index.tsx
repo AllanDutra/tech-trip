@@ -28,7 +28,15 @@ import {
   RegisterFooter,
 } from "./styles";
 
+import { useNavigate } from "react-router-dom";
+import { routeConfigs } from "../../shared/configs";
+
 export function RegisterPage() {
+  const navigate = useNavigate();
+
+  const handleAlreadyHaveAccount = () => {
+    navigate(routeConfigs.Login);
+  };
   const [selectedGender, setSelectedGender] = useState<"male" | "female">(
     "female"
   );
@@ -117,7 +125,10 @@ export function RegisterPage() {
             <Button color="green" text="Registrar" />
 
             <RegisterFooter>
-              <SecondaryButton title="Já tenho uma conta" />
+              <SecondaryButton
+                onClick={handleAlreadyHaveAccount}
+                title="Já tenho uma conta"
+              />
             </RegisterFooter>
           </div>
         </RegisterForm>

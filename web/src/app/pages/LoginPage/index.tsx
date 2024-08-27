@@ -14,8 +14,16 @@ import {
 } from "../../shared/components";
 import { useState } from "react";
 import { IdentificationBadge, Lock } from "@phosphor-icons/react";
+import { useNavigate } from "react-router-dom";
+import { routeConfigs } from "../../shared/configs";
 
 export function LoginPage() {
+  const navigate = useNavigate();
+
+  const handleFirstAccess = () => {
+    navigate(routeConfigs.Register);
+  };
+
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
 
@@ -73,7 +81,10 @@ export function LoginPage() {
 
         <LoginFooter>
           <Button color="green" text="Entrar" type="submit" />
-          <SecondaryButton title="Primeiro acesso" />
+          <SecondaryButton
+            title="Primeiro acesso"
+            onClick={handleFirstAccess}
+          />
         </LoginFooter>
       </LoginForm>
     </LoginContainer>
