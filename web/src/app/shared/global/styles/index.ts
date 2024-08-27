@@ -18,8 +18,7 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
     line-height: 160%;
-    background-color: #2BCB9A;
-
+    
     -webkit-font-smoothing: antialiased;
     }
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledMain = styled.div`
-  background-image: url("../../shared/assets/Images/Background.png");
+  background-image: url("src/app/shared/assets/Images/Background.png");
 `;
 
 export const RegisterContainer = styled.div`

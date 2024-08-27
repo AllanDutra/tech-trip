@@ -5,8 +5,7 @@ import {
   Routes as Switch,
 } from "react-router-dom";
 import { routeConfigs } from "../shared/configs";
-import { TestComponentsPage } from "../pages";
-import { RegisterPage } from "../pages";
+import { TestComponentsPage, RegisterPage, LoginPage } from "../pages";
 
 export function Routes() {
   return (
@@ -16,10 +15,8 @@ export function Routes() {
           path={routeConfigs.TestComponents}
           element={<TestComponentsPage />}
         />
-        <Route
-          path={routeConfigs.Register} 
-          element={<RegisterPage />}
-        />
+        <Route path={routeConfigs.Register} element={<RegisterPage />} />
+        <Route path={routeConfigs.Login} element={<LoginPage />} />
         <Route
           path="*"
           element={<Navigate to={routeConfigs.TestComponents} />}
