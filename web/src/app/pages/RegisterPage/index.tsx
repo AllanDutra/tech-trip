@@ -37,10 +37,15 @@ export function RegisterPage() {
   const handleAlreadyHaveAccount = () => {
     navigate(routeConfigs.Login);
   };
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [birth, setBirth] = useState("");
   const [selectedGender, setSelectedGender] = useState<"male" | "female">(
     "female"
   );
-
   const [selectedCharacterId, setSelectedCharacterId] = useState<number>(2);
 
   const handleGenderSelection = (gender: "male" | "female") => {
@@ -53,13 +58,48 @@ export function RegisterPage() {
 
   const CharactersIds: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const data = {
+      name,
+      email,
+      username,
+      password,
+      birth,
+      gender: selectedGender,
+      character_id: selectedCharacterId,
+    };
+
+    //console.log(data);
+
+    try {
+      const response = await fetch("", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Sucessfully registered:", result);
+      } else {
+        console.error("Error when registering:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error connecting to the API:", error);
+    }
+  };
+
   return (
     <StyledMain>
       <RegisterContainer>
-        <RegisterForm>
+        <RegisterForm onSubmit={handleSubmit}>
           <div>
             <RegisterHeader>
-              <Title value="Tech KIDs" />
+              <Title value="TECH KIDs" />
               <p>Descubra uma nova forma de aprender computação.</p>
             </RegisterHeader>
 
@@ -84,11 +124,18 @@ export function RegisterPage() {
               label="Nome"
               Icon={UserCircle}
               placeholder="Digite seu nome aqui..."
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
             <ContainedInput.FullComponent
               label="E-mail"
               Icon={Envelope}
               placeholder="exemplo@email.com..."
+              name="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -97,16 +144,27 @@ export function RegisterPage() {
               label="Usuário"
               Icon={IdentificationBadge}
               placeholder="Nome de usuário, sem espaços..."
+              name="user"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
             <ContainedInput.FullComponent
               label="Senha"
               Icon={Lock}
               placeholder="Mínimo de 8 caracteres..."
+              name="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <ContainedInput.FullComponent
               label="Data de nascimento"
               Icon={CalendarDots}
               placeholder="Informe sua data de nascimento..."
+              name="birth"
+              type="date"
+              value={birth}
+              onChange={(e) => setBirth(e.target.value)}
             />
             <GenderButtons>
               <StyledLabel>Gênero</StyledLabel>
@@ -122,7 +180,7 @@ export function RegisterPage() {
                 }}
               />
             </GenderButtons>
-            <Button color="green" text="Registrar" />
+            <Button color="green" text="Registrar" type="submit" />
 
             <RegisterFooter>
               <SecondaryButton

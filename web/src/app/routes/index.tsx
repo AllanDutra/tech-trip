@@ -19,7 +19,7 @@ export function Routes() {
         <Route path={routeConfigs.Login} element={<LoginPage />} />
         <Route
           path="*"
-          element={<Navigate to={routeConfigs.TestComponents} />}
+          element={<Navigate to={routeConfigs.Login} />}
         />
       </Switch>
     </BrowserRouter>
