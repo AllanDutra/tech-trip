@@ -7,5 +7,7 @@ namespace TechKids.Core.Interfaces.Repositories
         Task<bool> EmailAlreadyUsedAsync(string email);
         Task<bool> UsernameAlreadyUsedAsync(string user);
         Task<int> RegisterStudentAsync(Student student);
+        Task<Student?> GetStudentByIdAsync(int id);
+        Task UpdateStudentAsync(Student student);
     }
 }

@@ -32,5 +32,21 @@ namespace TechKids.API.Controllers
 
             return PersonalizedResponse(Ok(Student_Id));
         }
+
+        /// <summary>
+        /// Update a existent Student
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut("update")]
+        [ProducesResponseType(typeof(void), 204)]
+        [ProducesResponseType(typeof(DefaultResponseViewModel), 400)]
+        [ProducesResponseType(typeof(DefaultResponseViewModel), 404)]
+        public async Task<IActionResult> UpdateStudentAsync([FromBody] UpdateStudentCommand command)
+        {
+            await _mediator.Send(command);
+
+            return PersonalizedResponse(NoContent());
+        }
     }
 }
