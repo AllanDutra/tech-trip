@@ -31,8 +31,11 @@ namespace TechKids.Shared.Utils
             return usernameRegex.IsMatch(user);
         }
 
-        public static bool IsValidGender(string gender)
+        public static bool IsValidGender(string? gender)
         {
+            if (gender == null)
+                return false;
+
             return AcceptedGendersOptions.Contains(gender.ToLower());
         }
 
