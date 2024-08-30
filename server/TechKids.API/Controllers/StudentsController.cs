@@ -34,7 +34,7 @@ namespace TechKids.API.Controllers
         }
 
         /// <summary>
-        /// Update a existent Student
+        /// Update a existent Student and your Preference
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
