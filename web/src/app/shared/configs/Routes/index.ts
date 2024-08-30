@@ -2,7 +2,16 @@ const TestComponents = "/test-components";
 const Map = "/map";
 const Resume = "/resume";
 const Ranking = "/ranking";
-const Register = "/cadastro";
+const Register = "/cadastrar";
 const Login = "/entrar";
+const Settings = "/editar-perfil";
 
-export const routeConfigs = { TestComponents, Map, Resume, Ranking, Register, Login };
+export const routeConfigs = {
+  TestComponents,
+  Map,
+  Resume,
+  Ranking,
+  Register,
+  Login,
+  Settings,
+};
