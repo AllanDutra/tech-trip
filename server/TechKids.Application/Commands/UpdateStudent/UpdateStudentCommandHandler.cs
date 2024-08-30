@@ -1,19 +1,19 @@
 using System.Net;
 using MediatR;
 using TechKids.Core.Entities;
+using TechKids.Core.Interfaces;
 using TechKids.Core.Interfaces.Notifications;
-using TechKids.Core.Interfaces.Repositories;
 
 namespace TechKids.Application.Commands
 {
     public class UpdateStudentCommandHandler : IRequestHandler<UpdateStudentCommand, Unit>
     {
-        private readonly IStudentRepository _studentRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly INotifier _notifier;
 
-        public UpdateStudentCommandHandler(IStudentRepository studentRepository, INotifier notifier)
+        public UpdateStudentCommandHandler(IUnitOfWork unitOfWork, INotifier notifier)
         {
-            _studentRepository = studentRepository;
+            _unitOfWork = unitOfWork;
             _notifier = notifier;
         }
 
@@ -22,12 +22,26 @@ namespace TechKids.Application.Commands
             CancellationToken cancellationToken
         )
         {
-            Student? student = await _studentRepository.GetStudentByIdAsync(request.Id);
+            Student? student = await _unitOfWork.Students.GetStudentByIdAsync(request.Id);
 
             if (student == null)
             {
                 _notifier.Handle(
                     $"Não foi encontrado nenhum estudante com o id {request.Id}",
+                    HttpStatusCode.NotFound
+                );
+
+                return Unit.Value;
+            }
+
+            Preference? preference = await _unitOfWork.Preferences.GetPreferenceByStudentIdAsync(
+                student.Id
+            );
+
+            if (preference == null)
+            {
+                _notifier.Handle(
+                    $"Não foi encontrada nenhuma preferência para o estudante com o id {request.Id}",
                     HttpStatusCode.NotFound
                 );
 
@@ -41,9 +55,25 @@ namespace TechKids.Application.Commands
             student.Gender = request.Gender;
             student.CharacterId = request.Character_Id;
 
-            await _studentRepository.UpdateStudentAsync(student);
+            preference.Sound = request.Preference_Sound;
+            preference.Vibration = request.Preference_Vibration;
 
-            return Unit.Value;
+            try
+            {
+                await _unitOfWork.BeginTransactionAsync();
+
+                await _unitOfWork.Students.UpdateStudentAsync(student);
+
+                await _unitOfWork.Preferences.UpdateStudentPreferenceAsync(preference);
+
+                await _unitOfWork.CommitAsync();
+
+                return Unit.Value;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

@@ -11,6 +11,14 @@ namespace TechKids.Application.Validators
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("O id do estudante é obrigatório para realizar sua edição.");
+
+            RuleFor(p => p.Preference_Sound)
+                .NotNull()
+                .WithMessage("A preferência de som deve ser informada.");
+
+            RuleFor(p => p.Preference_Vibration)
+                .NotNull()
+                .WithMessage("A preferência de vibração deve ser informada.");
         }
     }
 }

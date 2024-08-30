@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using TechKids.Core.Entities;
 using TechKids.Core.Interfaces.Repositories;
 
@@ -12,6 +13,13 @@ namespace TechKids.Infrastructure.Persistence.Repositories
             _dbContext = dbContext;
         }
 
+        public async Task<Preference?> GetPreferenceByStudentIdAsync(int Student_Id)
+        {
+            return await _dbContext.Preferences.FirstOrDefaultAsync(
+                preference => preference.StudentId == Student_Id
+            );
+        }
+
         public async Task<short> RegisterStudentPreferenceAsync(Preference preference)
         {
             await _dbContext.Preferences.AddAsync(preference);
@@ -19,6 +27,13 @@ namespace TechKids.Infrastructure.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
 
             return preference.Id;
+        }
+
+        public async Task UpdateStudentPreferenceAsync(Preference preference)
+        {
+            _dbContext.Preferences.Update(preference);
+
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
