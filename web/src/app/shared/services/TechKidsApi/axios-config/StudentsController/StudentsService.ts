@@ -1,4 +1,3 @@
-import { Environment } from "../../../../environment";
 import { Api } from "..";
 
 interface IStudents {
@@ -12,53 +11,24 @@ interface IStudents {
   character_id: number;
 }
 
-interface IStudentsTotal {
-  data: IStudents;
-  total: number;
-}
-
-const getAll = async (
-  page = 1,
-  filter = ""
-): Promise<IStudentsTotal | Error> => {
+const authenticate = async (user: string, password: string): Promise<IStudents | Error> => {
   try {
-    /**See more: https://www.npmjs.com/package/json-server */
-    const relativeURL = `/students?_page=${page}&_limit=${Environment.LINES_LIMIT}&name_like=${filter}`;
+    const filter = `?user=${user}&password=${password}`;
+    const { data } = await Api.get(filter);
 
-    const { data, headers } = await Api.get(relativeURL);
-
-    if (data) {
-      return {
-        data,
-        total: Number(headers["x-total-count"]) || Environment.LINES_LIMIT,
-      };
-    }
-
-    return new Error("Error on listing.");
-  } catch (error) {
-    console.error(error);
-    return new Error(
-      (error as { message: string }).message || "Error on listing."
-    );
-  }
-};
-
-const getById = async (id: number): Promise<IStudents | Error> => {
-  try {
-    const { data } = await Api.get(`student/${id}`);
     if (data) {
       return data;
     }
-    return new Error("Error on searching student");
+    return new Error("Erro ao autenticar. Login ou senha inválidas");
   } catch (error) {
     console.log(error);
     return new Error(
-      (error as { message: string }).message || "Error on searching student"
+      (error as { message: string }).message || "Erro ao autenticar. Login ou senha inválidas"
     );
   }
 };
 
-const create = async (info: Omit<IStudents, "id">): Promise<number | Error> => {
+const register = async (info: Omit<IStudents, "id">): Promise<number | Error> => {
   try {
     const { data } = await Api.post<IStudents>("student/", info);
 
@@ -75,7 +45,7 @@ const create = async (info: Omit<IStudents, "id">): Promise<number | Error> => {
   }
 };
 
-const updateById = async (
+const updateStudent = async (
   id: number,
   info: IStudents
 ): Promise<void | Error> => {
@@ -89,21 +59,8 @@ const updateById = async (
   }
 };
 
-const deleteById = async (id: number): Promise<void | Error> => {
-  try {
-    await Api.delete(`/pessoas/${id}`);
-  } catch (error) {
-    console.log(error);
-    return new Error(
-      (error as { message: string }).message || "Erro ao apagar registro"
-    );
-  }
-};
-
 export const StudentsService = {
-  getAll,
-  getById,
-  create,
-  updateById,
-  deleteById
+  authenticate,
+  register,
+  updateStudent,
 };

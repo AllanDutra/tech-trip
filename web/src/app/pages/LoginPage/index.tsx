@@ -47,12 +47,12 @@ export function LoginPage() {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Login successful", result);
+        console.log("Login bem sucedido", result);
       } else {
-        console.error("Login error:", response.statusText);
+        console.error("Erro no login:", response.statusText);
       }
     } catch (error) {
-      console.error("Error connecting to the API:", error);
+      console.error("Erro ao conectar com a API:", error);
     }
   };
 
