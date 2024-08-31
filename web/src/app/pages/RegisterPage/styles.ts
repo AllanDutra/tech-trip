@@ -1,27 +1,25 @@
 import styled from "styled-components";
 
 export const StyledMain = styled.div`
-  background-color: #2BCB9A;
-  height: 100vh;
-  min-height: 100vh;
+  background-color: #2bcb9a;
   background-image: url("src/app/shared/assets/Images/Background.png");
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 
   @media (max-width: 768px) {
-    align-items: end;
-    overflow-y: auto;
+    height: fit-content;
   }
 `;
 
 export const RegisterContainer = styled.div`
   background-color: #fff;
-  border-radius: 2em;
+
   padding: 2em;
   box-shadow: 0 0.7em 0.2em rgba(0, 0, 0, 0.1);
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+
+  width: 100%;
 
   h1 {
     text-align: left;
@@ -39,6 +37,12 @@ export const RegisterContainer = styled.div`
     border-radius: 1em;
     max-width: 50em;
     gap: 1.25em;
+  }
+  @media (max-width: 768px) {
+    border-radius: 3em;
+    margin-top: 5em;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 `;
 

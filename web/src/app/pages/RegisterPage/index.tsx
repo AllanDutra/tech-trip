@@ -30,71 +30,96 @@ import {
 
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../shared/configs";
+import { StudentsService, IStudents } from "../../shared/services";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function RegisterPage() {
   const navigate = useNavigate();
 
-  const handleAlreadyHaveAccount = () => {
-    navigate(routeConfigs.Login);
+  const [student, setStudent] = useState<IStudents>({
+    id: 0,
+    name: "",
+    email: "",
+    user: "",
+    password: "",
+    birth: "",
+    gender: "female",
+    character_id: 2,
+  });
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    console.log(student);
+    setStudent((prevStudent) => ({
+      ...prevStudent,
+      [name]: value,
+    }));
   };
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [birth, setBirth] = useState("");
   const [selectedGender, setSelectedGender] = useState<"male" | "female">(
     "female"
   );
-  const [selectedCharacterId, setSelectedCharacterId] = useState<number>(2);
-
   const handleGenderSelection = (gender: "male" | "female") => {
     setSelectedGender(gender);
   };
 
+  const [selectedCharacterId, setSelectedCharacterId] = useState<number>(2);
+  const CharactersIds: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const handleCharacterSelection = (id: number) => {
     setSelectedCharacterId(id);
   };
 
-  const CharactersIds: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    const data = {
-      name,
-      email,
-      username,
-      password,
-      birth,
-      gender: selectedGender,
-      character_id: selectedCharacterId,
-    };
-
-    //console.log(data);
-
     try {
-      const response = await fetch("", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const studentId = await StudentsService.register(student);
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Sucessfully registered:", result);
+      if (typeof studentId === "number") {
+        toast.success('Usuário registrado com sucesso!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+          });
+        navigate(routeConfigs.Login);
       } else {
-        console.error("Error when registering:", response.statusText);
+        toast.error(studentId.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+          });
       }
     } catch (error) {
-      console.error("Error connecting to the API:", error);
+      console.error("Erro ao conectar com a API:", error);
+      toast.error('Erro ao conectar', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+        });
     }
   };
 
   return (
     <StyledMain>
+      <ToastContainer />
       <RegisterContainer>
         <RegisterForm onSubmit={handleSubmit}>
           <div>
@@ -113,7 +138,9 @@ export function RegisterPage() {
                     gray={
                       selectedCharacterId !== null && selectedCharacterId !== id
                     }
-                    onClick={() => handleCharacterSelection(id)}
+                    onClick={() => {
+                      handleCharacterSelection(id);
+                    }}
                     selected={selectedCharacterId === id}
                   />
                 ))}
@@ -125,8 +152,8 @@ export function RegisterPage() {
               Icon={UserCircle}
               placeholder="Digite seu nome aqui..."
               name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={student.name}
+              onChange={handleInputChange}
             />
             <ContainedInput.FullComponent
               label="E-mail"
@@ -134,8 +161,8 @@ export function RegisterPage() {
               placeholder="exemplo@email.com..."
               name="email"
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={student.email}
+              onChange={handleInputChange}
             />
           </div>
 
@@ -145,8 +172,8 @@ export function RegisterPage() {
               Icon={IdentificationBadge}
               placeholder="Nome de usuário, sem espaços..."
               name="user"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={student.user}
+              onChange={handleInputChange}
             />
             <ContainedInput.FullComponent
               label="Senha"
@@ -154,8 +181,8 @@ export function RegisterPage() {
               placeholder="Mínimo de 8 caracteres..."
               name="password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={student.password}
+              onChange={handleInputChange}
             />
             <ContainedInput.FullComponent
               label="Data de nascimento"
@@ -163,8 +190,8 @@ export function RegisterPage() {
               placeholder="Informe sua data de nascimento..."
               name="birth"
               type="date"
-              value={birth}
-              onChange={(e) => setBirth(e.target.value)}
+              value={student.birth}
+              onChange={handleInputChange}
             />
             <GenderButtons>
               <StyledLabel>Gênero</StyledLabel>
@@ -184,7 +211,9 @@ export function RegisterPage() {
 
             <RegisterFooter>
               <SecondaryButton
-                onClick={handleAlreadyHaveAccount}
+                onClick={() => {
+                  navigate(routeConfigs.Login);
+                }}
                 title="Já tenho uma conta"
               />
             </RegisterFooter>

@@ -40,7 +40,6 @@ export function LoginPage() {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    console.log(name, value);
     setStudent((prevStudent) => ({
       ...prevStudent,
       [name]: value,
