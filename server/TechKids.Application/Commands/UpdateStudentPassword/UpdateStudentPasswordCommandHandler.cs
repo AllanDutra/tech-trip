@@ -4,6 +4,7 @@ using TechKids.Core.Entities;
 using TechKids.Core.Interfaces.Notifications;
 using TechKids.Core.Interfaces.Repositories;
 using TechKids.Core.Interfaces.Services;
+using TechKids.Shared.Utils;
 
 namespace TechKids.Application.Commands
 {
@@ -30,12 +31,14 @@ namespace TechKids.Application.Commands
             CancellationToken cancellationToken
         )
         {
-            Student? student = await _studentRepository.GetStudentByIdAsync(request.Id);
+            Student? student = await _studentRepository.GetStudentByIdAsync(
+                StudentAuthenticationSettings.Claims.Id
+            );
 
             if (student == null)
             {
                 _notifier.Handle(
-                    $"Não foi encontrado nenhum estudante com o id {request.Id}.",
+                    $"Não foi encontrado nenhum estudante com o id {StudentAuthenticationSettings.Claims.Id}.",
                     HttpStatusCode.NotFound
                 );
 

@@ -7,11 +7,6 @@ namespace TechKids.Application.Validators
     {
         public UpdateStudentCommandValidator()
         {
-            RuleFor(p => p.Id)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("O id do estudante é obrigatório para realizar sua edição.");
-
             RuleFor(p => p.Preference_Sound)
                 .NotNull()
                 .WithMessage("A preferência de som deve ser informada.");

@@ -9,11 +9,6 @@ namespace TechKids.Application.Validators
     {
         public UpdateStudentPasswordCommandValidator()
         {
-            RuleFor(p => p.Id)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("O id do estudante é obrigatório para atualizar sua senha.");
-
             RuleFor(p => p.CurrentPassword)
                 .NotNull()
                 .NotEmpty()

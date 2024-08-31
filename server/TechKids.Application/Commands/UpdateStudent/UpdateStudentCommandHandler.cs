@@ -3,6 +3,7 @@ using MediatR;
 using TechKids.Core.Entities;
 using TechKids.Core.Interfaces;
 using TechKids.Core.Interfaces.Notifications;
+using TechKids.Shared.Utils;
 
 namespace TechKids.Application.Commands
 {
@@ -22,12 +23,14 @@ namespace TechKids.Application.Commands
             CancellationToken cancellationToken
         )
         {
-            Student? student = await _unitOfWork.Students.GetStudentByIdAsync(request.Id);
+            Student? student = await _unitOfWork.Students.GetStudentByIdAsync(
+                StudentAuthenticationSettings.Claims.Id
+            );
 
             if (student == null)
             {
                 _notifier.Handle(
-                    $"Não foi encontrado nenhum estudante com o id {request.Id}",
+                    $"Não foi encontrado nenhum estudante com o id {StudentAuthenticationSettings.Claims.Id}",
                     HttpStatusCode.NotFound
                 );
 
@@ -41,7 +44,7 @@ namespace TechKids.Application.Commands
             if (preference == null)
             {
                 _notifier.Handle(
-                    $"Não foi encontrada nenhuma preferência para o estudante com o id {request.Id}",
+                    $"Não foi encontrada nenhuma preferência para o estudante com o id {StudentAuthenticationSettings.Claims.Id}",
                     HttpStatusCode.NotFound
                 );
 
