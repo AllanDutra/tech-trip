@@ -48,5 +48,24 @@ namespace TechKids.API.Controllers
 
             return PersonalizedResponse(NoContent());
         }
+
+        /// <summary>
+        /// Update the password of a existent Student
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut("update-password")]
+        [ProducesResponseType(typeof(void), 204)]
+        [ProducesResponseType(typeof(DefaultResponseViewModel), 400)]
+        [ProducesResponseType(typeof(DefaultResponseViewModel), 401)]
+        [ProducesResponseType(typeof(DefaultResponseViewModel), 404)]
+        public async Task<IActionResult> UpdateStudentPasswordAsync(
+            [FromBody] UpdateStudentPasswordCommand command
+        )
+        {
+            await _mediator.Send(command);
+
+            return PersonalizedResponse(NoContent());
+        }
     }
 }

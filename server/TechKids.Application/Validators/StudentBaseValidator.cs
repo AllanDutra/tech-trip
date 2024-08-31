@@ -9,7 +9,7 @@ namespace TechKids.Application.Validators
     {
         public StudentBaseValidator()
         {
-            RuleFor(p => p.Name.Trim())
+            RuleFor(p => p.Name)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Por favor, informe o nome do estudante!");

@@ -7,7 +7,7 @@ namespace TechKids.Shared.Utils
     {
         private static readonly List<string> AcceptedGendersOptions = new() { "male", "female" };
 
-        public static bool IsValidEmail(string email)
+        public static bool IsValidEmail(string? email)
         {
             if (string.IsNullOrEmpty(email))
                 return false;
@@ -24,8 +24,11 @@ namespace TechKids.Shared.Utils
             }
         }
 
-        public static bool IsValidUsername(string user)
+        public static bool IsValidUsername(string? user)
         {
+            if (string.IsNullOrEmpty(user))
+                return false;
+
             Regex usernameRegex = UsernameRegex();
 
             return usernameRegex.IsMatch(user);
@@ -39,8 +42,11 @@ namespace TechKids.Shared.Utils
             return AcceptedGendersOptions.Contains(gender.ToLower());
         }
 
-        public static bool ContainsSpaces(string text)
+        public static bool ContainsSpaces(string? text)
         {
+            if (string.IsNullOrEmpty(text))
+                return false;
+
             return text.Contains(' ');
         }
 

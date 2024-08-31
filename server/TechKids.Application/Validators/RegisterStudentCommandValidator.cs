@@ -8,7 +8,7 @@ namespace TechKids.Application.Validators
     {
         public RegisterStudentCommandValidator()
         {
-            RuleFor(p => p.Password.Trim())
+            RuleFor(p => p.Password)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Por favor, informe uma senha!")
