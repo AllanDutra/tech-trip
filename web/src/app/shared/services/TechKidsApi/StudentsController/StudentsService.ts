@@ -1,6 +1,6 @@
-import { Api } from "..";
+import { Api } from "../axios-config";
 
-interface IStudents {
+export interface IStudents {
   id: number;
   name: string;
   email: string;

@@ -16,6 +16,9 @@ import { useState } from "react";
 import { IdentificationBadge, Lock } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../shared/configs";
+import { StudentsService, IStudents } from "../../shared/services";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -24,40 +27,94 @@ export function LoginPage() {
     navigate(routeConfigs.Register);
   };
 
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
+  const [student, setStudent] = useState<IStudents>({
+    id: 0,
+    name: "",
+    email: "",
+    user: "",
+    password: "",
+    birth: "",
+    gender: "",
+    character_id: 0,
+  });
 
-  const handleSubmit = async (event) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    console.log(name, value);
+    setStudent((prevStudent) => ({
+      ...prevStudent,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const data = {
-      user: user,
-      password: password,
-    };
-
-    try {
-      //console.log(data);
-      const response = await fetch("", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+    console.log(student);
+    if (!student.user || !student.password) {
+      toast.warning("Preencha todos os campos!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
       });
+      return;
+    }
+    try {
+      const authenticatedStudent = await StudentsService.authenticate(
+        student.user,
+        student.password
+      );
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Login bem sucedido", result);
+      if (authenticatedStudent instanceof Error) {
+        toast.error(authenticatedStudent.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
       } else {
-        console.error("Erro no login:", response.statusText);
+        toast.success("Login realizado com sucesso!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
+        navigate(routeConfigs.Map);
       }
     } catch (error) {
-      console.error("Erro ao conectar com a API:", error);
+      console.error("Erro durante autenticação", error);
+      toast.error("Erro durante autenticação", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
     }
   };
 
   return (
     <LoginContainer>
+      <ToastContainer />
       <LoginForm onSubmit={handleSubmit}>
         <LoginHeader>
           <Title value="Tech KIDs"></Title>
@@ -68,25 +125,26 @@ export function LoginPage() {
             label="Usuário"
             Icon={IdentificationBadge}
             placeholder="Nome de usuário ou e-mail..."
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
-            required
+            value={student.user}
+            name="user"
+            onChange={handleInputChange}
           />
           <ContainedInput.FullComponent
             label="Senha"
             Icon={Lock}
             placeholder="Digite sua senha aqui..."
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={student.password}
+            onChange={handleInputChange}
+            name="password"
             type="password"
-            required
           />
         </LoginMain>
 
         <LoginFooter>
-          <Button color="green" text="Entrar" type="submit" onClick={handleSubmit}/>
+          <Button color="green" text="Entrar" type="submit" />
           <SecondaryButton
             title="Primeiro acesso"
+            type="button"
             onClick={handleFirstAccess}
           />
         </LoginFooter>

@@ -174,11 +174,6 @@ export function SettingsPage() {
             selected={setSelectedGender}
             type="button"
             variant="gender"
-                onClick={(e) => {
-                  const value = (e.target as HTMLButtonElement).textContent;
-                  handleGenderSelection(
-                    value === "Masculino" ? "male" : "female"
-                  );}
           />
         </GenderButtons>
         <PreferenceSection>
