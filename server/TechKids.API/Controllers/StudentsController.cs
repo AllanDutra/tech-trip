@@ -2,7 +2,10 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TechKids.Application.Commands;
+using TechKids.Core.Configurations;
+using TechKids.Core.Configurations.Models;
 using TechKids.Core.Interfaces.Notifications;
+using TechKids.Core.Interfaces.Services;
 using TechKids.Core.Models.ViewModels;
 
 namespace TechKids.API.Controllers
@@ -11,8 +14,17 @@ namespace TechKids.API.Controllers
     [Route("api/students")]
     public class StudentsController : MainController
     {
-        public StudentsController(INotifier notifier, IMediator mediator)
-            : base(notifier, mediator) { }
+        private readonly ITokenDomainService _tokenDomainService;
+
+        public StudentsController(
+            INotifier notifier,
+            IMediator mediator,
+            ITokenDomainService tokenDomainService
+        )
+            : base(notifier, mediator)
+        {
+            _tokenDomainService = tokenDomainService;
+        }
 
         /// <summary>
         /// Authenticate an existent student given a generated access token
@@ -51,6 +63,18 @@ namespace TechKids.API.Controllers
             int Student_Id = await _mediator.Send(command);
 
             return PersonalizedResponse(Ok(Student_Id));
+        }
+
+        /// <summary>
+        /// Get student authenticated claims
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("claims")]
+        [ProducesResponseType(typeof(StudentClaimsModel), 200)]
+        [ProducesResponseType(typeof(DefaultResponseViewModel), 401)]
+        public IActionResult ReadStudentClaims()
+        {
+            return PersonalizedResponse(Ok(StudentAuthenticationSettings.Claims));
         }
 
         /// <summary>

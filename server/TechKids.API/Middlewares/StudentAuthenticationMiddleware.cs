@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using TechKids.Core.Configurations;
 using TechKids.Shared.Utils;
 
 namespace TechKids.API.Middlewares

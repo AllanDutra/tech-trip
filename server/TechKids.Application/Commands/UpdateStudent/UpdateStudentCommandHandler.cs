@@ -1,9 +1,9 @@
 using System.Net;
 using MediatR;
+using TechKids.Core.Configurations;
 using TechKids.Core.Entities;
 using TechKids.Core.Interfaces;
 using TechKids.Core.Interfaces.Notifications;
-using TechKids.Shared.Utils;
 
 namespace TechKids.Application.Commands
 {

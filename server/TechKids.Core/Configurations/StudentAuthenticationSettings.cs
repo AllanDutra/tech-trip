@@ -1,6 +1,6 @@
 using TechKids.Core.Configurations.Models;
 
-namespace TechKids.Shared.Utils
+namespace TechKids.Core.Configurations
 {
     public static class StudentAuthenticationSettings
     {
