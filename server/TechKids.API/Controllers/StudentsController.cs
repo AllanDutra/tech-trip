@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TechKids.Application.Commands;
 using TechKids.Core.Interfaces.Notifications;
@@ -12,6 +13,25 @@ namespace TechKids.API.Controllers
     {
         public StudentsController(INotifier notifier, IMediator mediator)
             : base(notifier, mediator) { }
+
+        /// <summary>
+        /// Authenticate an existent student given a generated access token
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        [ProducesResponseType(typeof(StudentAuthenticationViewModel), 200)]
+        [ProducesResponseType(typeof(DefaultResponseViewModel), 400)]
+        [ProducesResponseType(typeof(DefaultResponseViewModel), 401)]
+        public async Task<IActionResult> AuthenticateStudentAsync(
+            [FromBody] AuthenticateStudentCommand command
+        )
+        {
+            StudentAuthenticationViewModel? studentAuthentication = await _mediator.Send(command);
+
+            return PersonalizedResponse(Ok(studentAuthentication));
+        }
 
         /// <summary>
         /// Register a new Student with your default Preference

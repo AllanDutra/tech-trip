@@ -1,10 +1,12 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TechKids.Core.Interfaces.Notifications;
 using TechKids.Core.Models.ViewModels;
 
 namespace TechKids.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class MainController : ControllerBase

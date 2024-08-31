@@ -37,6 +37,11 @@ namespace TechKids.Infrastructure.Persistence.Repositories
             return await _dbContext.Students.FirstOrDefaultAsync(s => s.Id == id);
         }
 
+        public async Task<Student?> GetStudentByUserAsync(string user)
+        {
+            return await _dbContext.Students.FirstOrDefaultAsync(s => s.User == user);
+        }
+
         public async Task UpdateStudentAsync(Student student)
         {
             _dbContext.Students.Update(student);

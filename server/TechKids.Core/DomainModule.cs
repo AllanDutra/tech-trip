@@ -10,6 +10,8 @@ namespace TechKids.Core
         {
             services.AddScoped<ICryptoDomainService, CryptoDomainService>();
 
+            services.AddScoped<ITokenDomainService, TokenDomainService>();
+
             return services;
         }
     }

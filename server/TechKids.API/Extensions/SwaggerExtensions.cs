@@ -13,7 +13,7 @@ namespace TechKids.API.Extensions
             {
                 AddSwaggerDocumentation(c);
 
-                // AddSwaggerAuthentication(c);
+                AddSwaggerAuthentication(c);
             });
 
             return services;

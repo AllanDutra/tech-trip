@@ -16,6 +16,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerExtensions();
+builder.Services.AddJwtAuthentication();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
@@ -42,7 +43,11 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseMiddleware<StudentAuthenticationMiddleware>();
+
 app.UseMiddleware<GlobalExceptionMiddleware>();
+
+app.UseAuthentication();
 
 app.UseHttpsRedirection();
 

@@ -6,6 +6,8 @@ namespace TechKids.API.Extensions
     {
         public static IServiceCollection AddMiddlewares(this IServiceCollection services)
         {
+            services.AddTransient<StudentAuthenticationMiddleware>();
+
             services.AddTransient<GlobalExceptionMiddleware>();
 
             return services;
