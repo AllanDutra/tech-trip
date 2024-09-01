@@ -14,7 +14,8 @@ namespace TechKids.Infrastructure.Persistence
             IPreferenceRepository preferences,
             IStudentRepository students,
             ICharacterRepository characters,
-            IChallengeRepository challenges
+            IChallengeRepository challenges,
+            IScoreRepository scores
         )
         {
             _dbContext = dbContext;
@@ -22,6 +23,7 @@ namespace TechKids.Infrastructure.Persistence
             Students = students;
             Characters = characters;
             Challenges = challenges;
+            Scores = scores;
         }
 
         public IPreferenceRepository Preferences { get; }
@@ -31,6 +33,8 @@ namespace TechKids.Infrastructure.Persistence
         public ICharacterRepository Characters { get; }
 
         public IChallengeRepository Challenges { get; }
+
+        public IScoreRepository Scores { get; }
 
         public async Task BeginTransactionAsync()
         {

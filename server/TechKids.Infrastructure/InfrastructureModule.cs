@@ -34,6 +34,8 @@ namespace TechKids.Infrastructure
 
             services.AddScoped<IChallengeRepository, ChallengeRepository>();
 
+            services.AddScoped<IScoreRepository, ScoreRepository>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
