@@ -19,5 +19,6 @@ namespace TechKids.Core.Models.ViewModels
         public bool Current { get; set; }
         public short? Score_Stars { get; }
         public short? Score_Diamonds { get; }
+        public int? Number { get; set; }
     }
 }

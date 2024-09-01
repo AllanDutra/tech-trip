@@ -30,7 +30,12 @@ namespace TechKids.Infrastructure.Persistence.Repositories
                     studentScore != null ? studentScore.Diamonds : null
                 );
 
-            List<ChallengesMapViewModel> results = await QUERY.ToListAsync();
+            List<ChallengesMapViewModel> results = (await QUERY.ToListAsync())
+                .OrderBy(cm => cm.Challenge_Id)
+                .ToList();
+
+            for (int i = 0; i < results.Count; i++)
+                results[i].Number = i + 1;
 
             ChallengesMapViewModel? currentChallenge = results.FirstOrDefault(
                 challenge => challenge.Score_Stars == null && challenge.Score_Diamonds == null
