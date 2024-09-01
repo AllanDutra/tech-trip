@@ -46,5 +46,19 @@ namespace TechKids.Infrastructure.Persistence.Repositories
 
             return results;
         }
+
+        public async Task<int> GetTotalChallengesAsync()
+        {
+            return await _dbContext.Challenges.CountAsync();
+        }
+
+        public async Task<int> GetTotalSolvedChallengesAsync(int Student_Id)
+        {
+            return await _dbContext.Scores
+                .Where(score => score.StudentId == Student_Id)
+                .Select(score => score.ChallengeId)
+                .Distinct()
+                .CountAsync();
+        }
     }
 }

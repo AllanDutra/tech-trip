@@ -27,5 +27,20 @@ namespace TechKids.API.Controllers
 
             return PersonalizedResponse(Ok(challengesMap));
         }
+
+        /// <summary>
+        /// Get the student percent progress as int
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("progress")]
+        [ProducesResponseType(typeof(int), 200)]
+        public async Task<IActionResult> GetStudentProgressAsync()
+        {
+            GetStudentProgressQuery query = new();
+
+            int studentProgress = await _mediator.Send(query);
+
+            return PersonalizedResponse(Ok(studentProgress));
+        }
     }
 }
