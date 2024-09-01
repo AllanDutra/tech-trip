@@ -13,13 +13,15 @@ namespace TechKids.Infrastructure.Persistence
             TechKidsDbContext dbContext,
             IPreferenceRepository preferences,
             IStudentRepository students,
-            ICharacterRepository characters
+            ICharacterRepository characters,
+            IChallengeRepository challenges
         )
         {
             _dbContext = dbContext;
             Preferences = preferences;
             Students = students;
             Characters = characters;
+            Challenges = challenges;
         }
 
         public IPreferenceRepository Preferences { get; }
@@ -27,6 +29,8 @@ namespace TechKids.Infrastructure.Persistence
         public IStudentRepository Students { get; }
 
         public ICharacterRepository Characters { get; }
+
+        public IChallengeRepository Challenges { get; }
 
         public async Task BeginTransactionAsync()
         {

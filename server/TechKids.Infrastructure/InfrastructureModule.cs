@@ -32,6 +32,8 @@ namespace TechKids.Infrastructure
 
             services.AddScoped<ICharacterRepository, CharacterRepository>();
 
+            services.AddScoped<IChallengeRepository, ChallengeRepository>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;

@@ -5,7 +5,6 @@ using TechKids.Application.Commands;
 using TechKids.Core.Configurations;
 using TechKids.Core.Configurations.Models;
 using TechKids.Core.Interfaces.Notifications;
-using TechKids.Core.Interfaces.Services;
 using TechKids.Core.Models.ViewModels;
 
 namespace TechKids.API.Controllers
@@ -26,7 +25,6 @@ namespace TechKids.API.Controllers
         [HttpPost("authenticate")]
         [ProducesResponseType(typeof(StudentAuthenticationViewModel), 200)]
         [ProducesResponseType(typeof(DefaultResponseViewModel), 400)]
-        [ProducesResponseType(typeof(DefaultResponseViewModel), 401)]
         public async Task<IActionResult> AuthenticateStudentAsync(
             [FromBody] AuthenticateStudentCommand command
         )
@@ -62,7 +60,6 @@ namespace TechKids.API.Controllers
         /// <returns></returns>
         [HttpGet("claims")]
         [ProducesResponseType(typeof(StudentClaimsModel), 200)]
-        [ProducesResponseType(typeof(DefaultResponseViewModel), 401)]
         public IActionResult ReadStudentClaims()
         {
             return PersonalizedResponse(Ok(StudentAuthenticationSettings.Claims));
@@ -92,7 +89,6 @@ namespace TechKids.API.Controllers
         [HttpPut("update-password")]
         [ProducesResponseType(typeof(void), 204)]
         [ProducesResponseType(typeof(DefaultResponseViewModel), 400)]
-        [ProducesResponseType(typeof(DefaultResponseViewModel), 401)]
         [ProducesResponseType(typeof(DefaultResponseViewModel), 404)]
         public async Task<IActionResult> UpdateStudentPasswordAsync(
             [FromBody] UpdateStudentPasswordCommand command
