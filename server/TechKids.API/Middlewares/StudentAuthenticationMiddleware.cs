@@ -41,8 +41,8 @@ namespace TechKids.API.Middlewares
                     ValidateAudience = false
                 };
 
-                var token = context
-                    .Request.Headers.Authorization.ToString()
+                var token = context.Request.Headers.Authorization
+                    .ToString()
                     .Replace("Bearer ", "")
                     .Trim();
 
@@ -54,6 +54,10 @@ namespace TechKids.API.Middlewares
                     {
                         "Id",
                         "Name",
+                        "Email",
+                        "User",
+                        "Birth",
+                        "Gender",
                         "Character_Id",
                         "Preference_Sound",
                         "Preference_Vibration",
@@ -69,15 +73,25 @@ namespace TechKids.API.Middlewares
                             context.Items.Add(claimType, claim.Value);
                     }
 
-                    int id = Convert.ToInt32(context.Items["Id"]);
-                    string name = context.Items["Name"] + "" ?? "";
-                    short characterId = Convert.ToInt16(context.Items["Character_Id"]);
-                    bool preferenceSound = context.Items["Preference_Sound"] + "" == "1";
-                    bool preferenceVibration = context.Items["Preference_Vibration"] + "" == "1";
+                    string GetItemValue(string type) => context.Items[type] + "";
+
+                    int id = Convert.ToInt32(GetItemValue("Id"));
+                    string name = GetItemValue("Name");
+                    string email = GetItemValue("Email");
+                    string user = GetItemValue("User");
+                    DateOnly birth = DateOnly.Parse(GetItemValue("Birth"));
+                    string gender = GetItemValue("Gender");
+                    short characterId = Convert.ToInt16(GetItemValue("Character_Id"));
+                    bool preferenceSound = GetItemValue("Preference_Sound") == "1";
+                    bool preferenceVibration = GetItemValue("Preference_Vibration") == "1";
 
                     StudentAuthenticationSettings.Set(
                         id,
                         name,
+                        email,
+                        user,
+                        birth,
+                        gender,
                         characterId,
                         preferenceSound,
                         preferenceVibration

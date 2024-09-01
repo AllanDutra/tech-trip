@@ -14,17 +14,8 @@ namespace TechKids.API.Controllers
     [Route("api/students")]
     public class StudentsController : MainController
     {
-        private readonly ITokenDomainService _tokenDomainService;
-
-        public StudentsController(
-            INotifier notifier,
-            IMediator mediator,
-            ITokenDomainService tokenDomainService
-        )
-            : base(notifier, mediator)
-        {
-            _tokenDomainService = tokenDomainService;
-        }
+        public StudentsController(INotifier notifier, IMediator mediator)
+            : base(notifier, mediator) { }
 
         /// <summary>
         /// Authenticate an existent student given a generated access token

@@ -60,6 +60,10 @@ namespace TechKids.Application.Commands
                 new(
                     student.Id,
                     student.Name,
+                    student.Email,
+                    student.User,
+                    student.Birth,
+                    student.Gender,
                     student.CharacterId,
                     preference?.Sound,
                     preference?.Vibration

@@ -50,6 +50,10 @@ namespace TechKids.Core.Services
                     {
                         new("Id", studentClaims.Id.ToString()),
                         new("Name", studentClaims.Name),
+                        new("Email", studentClaims.Email),
+                        new("User", studentClaims.User),
+                        new("Birth", studentClaims.Birth.ToString()),
+                        new("Gender", studentClaims.Gender),
                         new("Character_Id", studentClaims.Character_Id.ToString()),
                         new("Preference_Sound", soundPreference ? "1" : "0"),
                         new("Preference_Vibration", vibrationPreference ? "1" : "0")
@@ -64,23 +68,32 @@ namespace TechKids.Core.Services
 
         public StudentClaimsModel Read(string token)
         {
-            var Claims = Validate(token).Claims;
+            IEnumerable<Claim> claims = Validate(token).Claims;
 
-            int id = Convert.ToInt32(Claims.FirstOrDefault(p => p.Type == "Id")?.Value ?? "");
+            string GetClaimValue(string type) =>
+                claims.FirstOrDefault(p => p.Type == type)?.Value ?? "";
 
-            string name = Claims.FirstOrDefault(p => p.Type == "Name")?.Value ?? "";
+            int id = Convert.ToInt32(GetClaimValue("Id"));
+            string name = GetClaimValue("Name");
+            string email = GetClaimValue("Email");
+            string user = GetClaimValue("User");
+            DateOnly birth = DateOnly.Parse(GetClaimValue("Birth"));
+            string gender = GetClaimValue("Gender");
+            short characterId = Convert.ToInt16(GetClaimValue("Character_Id"));
+            bool preferenceSound = GetClaimValue("Preference_Sound") == "1";
+            bool preferenceVibration = GetClaimValue("Preference_Vibration") == "1";
 
-            short characterId = Convert.ToInt16(
-                Claims.FirstOrDefault(p => p.Type == "Character_Id")?.Value ?? ""
+            return new(
+                id,
+                name,
+                email,
+                user,
+                birth,
+                gender,
+                characterId,
+                preferenceSound,
+                preferenceVibration
             );
-
-            bool preferenceSound =
-                Claims.FirstOrDefault(p => p.Type == "Preference_Sound")?.Value == "1";
-
-            bool preferenceVibration =
-                Claims.FirstOrDefault(p => p.Type == "Preference_Vibration")?.Value == "1";
-
-            return new(id, name, characterId, preferenceSound, preferenceVibration);
         }
     }
 }

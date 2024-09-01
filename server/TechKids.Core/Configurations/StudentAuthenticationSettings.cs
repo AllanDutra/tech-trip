@@ -9,17 +9,25 @@ namespace TechKids.Core.Configurations
         public static void Set(
             int id,
             string name,
-            short characterId,
-            bool preferenceSound,
-            bool preferenceVibration
+            string email,
+            string user,
+            DateOnly? birth,
+            string? gender,
+            short? character_Id,
+            bool? preference_Sound,
+            bool? preference_Vibration
         )
         {
             Claims = new StudentClaimsModel(
                 id,
                 name,
-                characterId,
-                preferenceSound,
-                preferenceVibration
+                email,
+                user,
+                birth,
+                gender,
+                character_Id,
+                preference_Sound,
+                preference_Vibration
             );
         }
 
