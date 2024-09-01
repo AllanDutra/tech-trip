@@ -27,5 +27,20 @@ namespace TechKids.API.Controllers
 
             return PersonalizedResponse(Ok(studentTotalScore));
         }
+
+        /// <summary>
+        /// Get the list of students classification based on your scores in the challenges
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ranking")]
+        [ProducesResponseType(typeof(List<StudentRankingViewModel>), 200)]
+        public async Task<IActionResult> GetStudentsRankingAsync()
+        {
+            GetStudentsRankingQuery query = new();
+
+            List<StudentRankingViewModel> studentsRanking = await _mediator.Send(query);
+
+            return PersonalizedResponse(Ok(studentsRanking));
+        }
     }
 }

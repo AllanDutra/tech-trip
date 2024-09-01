@@ -29,5 +29,44 @@ namespace TechKids.Infrastructure.Persistence.Repositories
 
             return studentTotalScore ?? new StudentTotalScoreViewModel(0, 0);
         }
+
+        public async Task<List<StudentRankingViewModel>> GetStudentsRankingAsync()
+        {
+            List<StudentRankingViewModel> studentsRanking = await (
+                from student in _dbContext.Students
+                join score in _dbContext.Scores
+                    on student.Id equals score.StudentId
+                    into studentScores
+                let totalStars = studentScores.Sum(s => s.Stars)
+                let totalDiamonds = studentScores.Sum(s => s.Diamonds)
+                select new StudentRankingViewModel(
+                    student.Id,
+                    student.Name,
+                    student.CharacterId,
+                    totalStars,
+                    totalDiamonds,
+                    totalStars + totalDiamonds
+                )
+            ).ToListAsync();
+
+            return studentsRanking
+                .OrderByDescending(s => s.TotalScore)
+                .ThenByDescending(s => s.TotalDiamonds)
+                .ThenByDescending(s => s.TotalStars)
+                .ThenBy(s => s.Name)
+                .Select(
+                    (s, index) =>
+                        new StudentRankingViewModel(
+                            s.Id,
+                            s.Name,
+                            s.Character_Id,
+                            s.TotalStars,
+                            s.TotalDiamonds,
+                            s.TotalScore,
+                            index + 1
+                        )
+                )
+                .ToList();
+        }
     }
 }
