@@ -8,7 +8,6 @@ export const TrackContainer = styled.div`
   justify-content: center;
   height: 100vh;
   background-color: rgb(192, 240, 225);
-  position: relative;
 `;
 
 export const ProgressContainer = styled.div`
@@ -60,7 +59,6 @@ export const MapContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: start;
-  position: relative;
 `;
 
 export const Map = styled.div`
@@ -77,8 +75,8 @@ export const Challenge = styled.div<{
   completed?: boolean;
 }>`
   position: absolute;
-  bottom: ${(props) => props.bottom}%;
-  left: ${(props) => props.left}%;
+  bottom: ${(props) => props.bottom}px;
+  left: ${(props) => props.left}px;
   background-color: ${(props) => (props.completed ? "#2BCB9A" : "#fff")};
   color: white;
   border-radius: 1em;

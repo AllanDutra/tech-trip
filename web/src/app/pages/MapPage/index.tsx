@@ -35,6 +35,7 @@ export function MapPage() {
   };
 
   const article = student.gender == "male" ? "o" : "a";
+
   return (
     <TrackContainer>
       <TrackHeader>
