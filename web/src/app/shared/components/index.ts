@@ -12,3 +12,5 @@ export * from "./ChallengeMessage";
 export * from "./ChallengeResponse";
 export * from "./LevelCompletionModal";
 export * from "./DragDrop";
+export * from "./ProgressBar";
+export * from "./MapLines";

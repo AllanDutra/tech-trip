@@ -6,6 +6,10 @@ export const GlobalStyle = createGlobalStyle`
     https://www.joshwcomeau.com/css/custom-css-reset/
     */
 
+    :root{
+        --main-color: #2BCB9A;
+    }
+    
     *,
     *::before,
     *::after {

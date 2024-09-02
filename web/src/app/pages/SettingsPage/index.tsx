@@ -37,10 +37,6 @@ import axios from "axios";
 
 export function SettingsPage() {
   const navigate = useNavigate();
-  const handleReturn = () => {
-    navigate(routeConfigs.TestComponents);
-  };
-
   const [isCharacterPickerOpen, setCharacterPickerOpen] = useState(false);
   const handleChangeCharacter = () => {
     setCharacterPickerOpen((prevState) => !prevState);
@@ -98,7 +94,7 @@ export function SettingsPage() {
     <SettingsContainer>
       <SettingsHeader>
         <SettingsHeaderColumn>
-          <ActionHeader onClick={handleReturn}>
+          <ActionHeader onClick={() => {navigate(routeConfigs.Map)}}>
             <CaretLeft size={26} />
           </ActionHeader>
           <StyledLabelBold>Editar perfil</StyledLabelBold>
@@ -171,9 +167,14 @@ export function SettingsPage() {
           <LabelForm>Gênero</LabelForm>
           <DoubleSelection.FullComponent
             variant="gender"
-            selected={setSelectedGender}
+            selected={selectedGender}
             type="button"
-            variant="gender"
+            onClick={(e) => {
+              const value = (e.target as HTMLButtonElement).textContent;
+              handleGenderSelection(
+                value === "Masculino" ? "male" : "female"
+              );
+            }}
           />
         </GenderButtons>
         <PreferenceSection>
