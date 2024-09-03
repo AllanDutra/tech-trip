@@ -9,6 +9,8 @@ export interface IStudents {
   birth: string;
   gender: string;
   character_id: number;
+  sound: boolean;
+  vibration: boolean;
 }
 
 const authenticate = async (user: string, password: string): Promise<IStudents | Error> => {
@@ -59,8 +61,27 @@ const updateStudent = async (
   }
 };
 
+const getSettings = async (student_id: number): Promise<IStudents | Error> => {
+  try {
+    const filter = `?student_id=${student_id}`;
+    const { data } = await Api.get(filter);
+
+    if (data) {
+      return data;
+    }
+
+    return new Error("Erro ao buscar por informações do estudante");
+  } catch (error) {
+    console.log(error);
+    return new Error(
+      (error as { message: string }).message || "Erro ao buscar por informações do estudante"
+    );
+  }
+};
+
 export const StudentsService = {
   authenticate,
   register,
   updateStudent,
+  getSettings
 };
