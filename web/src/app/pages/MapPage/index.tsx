@@ -55,6 +55,32 @@ export function MapPage() {
   const current = 4;
 
   const article = student.gender == "male" ? "o" : "a";
+  const renderChallenges = () => {
+    const bottomValues = [20, -26, -46, -116, -156, -176];
+    const leftValues = [45, 76, -4, 45, 76, -4];
+    const lines = [Line1, Line2, Line3];
+    const lineOffsets = [
+      { bottomOffset: -40, leftOffset: 14 },
+      { bottomOffset: -13, leftOffset: -71 },
+      { bottomOffset: -32, leftOffset: 9 },
+    ];
+
+    return challenges.map((challenge, index) => {
+      const bottom = bottomValues[index % bottomValues.length];
+      const left = leftValues[index % leftValues.length];
+      const LineComponent = lines[index % lines.length];
+      const offsets = lineOffsets[index % lineOffsets.length];
+
+      return renderChallenge(
+        challenge.id,
+        bottom,
+        left,
+        <LineComponent />,
+        offsets
+      );
+    });
+  };
+
   const renderChallenge = (
     id: number,
     bottom: number,
@@ -79,6 +105,7 @@ export function MapPage() {
     );
   };
 
+
   return (
     <TrackContainer>
       <TrackHeader>
@@ -99,52 +126,7 @@ export function MapPage() {
       </TrackHeader>
       <MapContainer>
         <Map>
-          {renderChallenge(1, 20, 45, <Line1 />, {
-            bottomOffset: -40,
-            leftOffset: 14,
-          })}
-          {renderChallenge(2, -26, 76, <Line2 />, {
-            bottomOffset: -13,
-            leftOffset: -71,
-          })}
-          {renderChallenge(3, -46, -4, <Line3 />, {
-            bottomOffset: -32,
-            leftOffset: 9,
-          })}
-
-
-          {renderChallenge(4, -116, 45, <Line1 />, {
-            bottomOffset: -40,
-            leftOffset: 14,
-          })}
-          {renderChallenge(5, -156, 76, <Line2 />, {
-            bottomOffset: -13,
-            leftOffset: -71,
-          })}
-          {renderChallenge(6, -176, -4, <Line3 />, {
-            bottomOffset: -32,
-            leftOffset: 9,
-          })}
-          {/* <Challenge bottom={20} left={45} completed>
-            <span>{challenges[0].id}</span>
-          </Challenge>
-          <LineContainer bottom={-20} left={59}>
-            <Line1 />
-          </LineContainer>
-
-          <Challenge bottom={-26} left={76} completed>
-            <span>{challenges[1].id}</span>
-          </Challenge>
-          <LineContainer bottom={-39} left={5}>
-            <Line2 />
-          </LineContainer>
-
-          <Challenge bottom={-46} left={-4} completed>
-            <span>{challenges[2].id}</span>
-          </Challenge>
-          <LineContainer bottom={-78} left={5}>
-            <Line3 />
-          </LineContainer> */}
+          {renderChallenges()}
         </Map>
       </MapContainer>
       <NavBar.FullComponent />
