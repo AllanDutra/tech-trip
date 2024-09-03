@@ -16,7 +16,7 @@ import {
   Line2,
   Line3,
 } from "../../shared/components";
-import { IStudents } from "../../shared/services";
+import { IChallenges, IStudents } from "../../shared/services";
 import { GearSix } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../shared/configs";
@@ -33,6 +33,25 @@ export function MapPage() {
     gender: "male",
     character_id: 0,
   };
+
+  const challenges: Array<IChallenges> = [
+    {id: 1, message: ""},
+    {id: 2, message: ""},
+    {id: 3, message: ""},
+    {id: 4, message: ""},
+    {id: 5, message: ""},
+    {id: 6, message: ""},
+    {id: 7, message: ""},
+    {id: 8, message: ""},
+    {id: 9, message: ""},
+    {id: 10, message: ""},
+    {id: 11, message: ""},
+    {id: 12, message: ""},
+    {id: 13, message: ""},
+    {id: 14, message: ""},
+    {id: 15, message: ""},
+  ]
+  const current = 4;
 
   const article = student.gender == "male" ? "o" : "a";
 
@@ -56,15 +75,11 @@ export function MapPage() {
       </TrackHeader>
       <MapContainer>
         <Map>
-          <Challenge completed bottom={10} left={50}>
-            1
+          <Challenge bottom={0} left={50}>
+            {challenges[0].id}
           </Challenge>
-          <LineContainer bottom={15} left={55}>
-            <Line1 />
-          </LineContainer>
-
-          <Challenge bottom={20} left={70}>
-            2
+          <Challenge bottom={0} left={50}>
+            {challenges[1].id}
           </Challenge>
         </Map>
       </MapContainer>

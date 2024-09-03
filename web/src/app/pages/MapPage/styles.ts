@@ -53,20 +53,20 @@ export const ActionHeader = styled.div`
 `;
 
 export const MapContainer = styled.div`
-  margin: auto;
   background-color: rgb(192, 240, 225);
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: start;
+  align-items: center;
 `;
 
 export const Map = styled.div`
-  width: 100%;
+  width: 75%;
+  max-width: 340px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  position: relative;
 `;
 
 export const Challenge = styled.div<{
@@ -74,7 +74,6 @@ export const Challenge = styled.div<{
   left: number;
   completed?: boolean;
 }>`
-  position: absolute;
   bottom: ${(props) => props.bottom}px;
   left: ${(props) => props.left}px;
   background-color: ${(props) => (props.completed ? "#2BCB9A" : "#fff")};
@@ -92,7 +91,6 @@ export const LineContainer = styled.div<{
   bottom: number;
   left: number;
 }>`
-  position: absolute;
   bottom: ${(props) => props.bottom}%;
   left: ${(props) => props.left}%;
   z-index: 0;
