@@ -11,7 +11,7 @@ export const Line1 = () => {
         <path
           d="M0.730835 75.6918L42.7308 75.6918C70.3451 75.6918 92.7308 53.306 92.7308 25.6918L92.7308 0.691773"
           stroke="#2BCB9A"
-          stroke-width="8"
+          stroke-width="11.5277"
         />
       </g>
       <defs>
