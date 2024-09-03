@@ -15,8 +15,8 @@ namespace TechKids.Infrastructure
             IConfiguration configuration
         )
         {
-            services.AddDbContext<TechKidsDbContext>(
-                p => p.UseNpgsql(configuration.GetConnectionString("TechKidsDb"))
+            services.AddDbContext<TechKidsDbContext>(p =>
+                p.UseNpgsql(configuration.GetConnectionString("TechKidsDb"))
             );
 
             services.AddRepositories();
@@ -35,6 +35,10 @@ namespace TechKids.Infrastructure
             services.AddScoped<IChallengeRepository, ChallengeRepository>();
 
             services.AddScoped<IScoreRepository, ScoreRepository>();
+
+            services.AddScoped<IAttemptRepository, AttemptRepository>();
+
+            services.AddScoped<IAnswerKeyRepository, AnswerKeyRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
