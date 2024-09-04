@@ -36,6 +36,8 @@ export function LoginPage() {
     birth: "",
     gender: "",
     character_id: 0,
+    sound: true,
+    vibration: true
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

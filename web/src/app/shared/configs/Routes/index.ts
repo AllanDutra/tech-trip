@@ -5,6 +5,7 @@ const Ranking = "/ranking";
 const Register = "/cadastrar";
 const Login = "/entrar";
 const Settings = "/editar-perfil";
+const ChangePassword = "/trocar-senha";
 
 export const routeConfigs = {
   TestComponents,
@@ -14,4 +15,5 @@ export const routeConfigs = {
   Register,
   Login,
   Settings,
+  ChangePassword
 };

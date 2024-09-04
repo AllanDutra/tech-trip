@@ -13,24 +13,31 @@ export interface IStudents {
   vibration: boolean;
 }
 
-const authenticate = async (user: string, password: string): Promise<IStudents | Error> => {
+const authenticate = async (
+  user: string,
+  password: string
+): Promise<IStudents | Error> => {
   try {
     const filter = `?user=${user}&password=${password}`;
     const { data } = await Api.get(filter);
 
-    if (data) {
+    if (data && data.token) {
+      sessionStorage.setItem("authToken", data.token);
       return data;
     }
     return new Error("Erro ao autenticar. Login ou senha inválidas");
   } catch (error) {
     console.log(error);
     return new Error(
-      (error as { message: string }).message || "Erro ao autenticar. Login ou senha inválidas"
+      (error as { message: string }).message ||
+        "Erro ao autenticar. Login ou senha inválidas"
     );
   }
 };
 
-const register = async (info: Omit<IStudents, "id">): Promise<number | Error> => {
+const register = async (
+  info: Omit<IStudents, "id">
+): Promise<number | Error> => {
   try {
     const { data } = await Api.post<IStudents>("student/", info);
 
@@ -48,11 +55,11 @@ const register = async (info: Omit<IStudents, "id">): Promise<number | Error> =>
 };
 
 const updateStudent = async (
-  id: number,
+  token: string,
   info: IStudents
 ): Promise<void | Error> => {
   try {
-    await Api.put(`student/${id}`, info);
+    await Api.put(`student/${token}`, info);
   } catch (error) {
     console.log(error);
     return new Error(
@@ -61,20 +68,21 @@ const updateStudent = async (
   }
 };
 
-const getSettings = async (student_id: number): Promise<IStudents | Error> => {
+const getSettings = async (token: string): Promise<IStudents | Error> => {
   try {
-    const filter = `?student_id=${student_id}`;
+    const filter = `students/claims?token=${token}`;
     const { data } = await Api.get(filter);
 
     if (data) {
-      return data;
+      return data.claims;
     }
 
     return new Error("Erro ao buscar por informações do estudante");
   } catch (error) {
     console.log(error);
     return new Error(
-      (error as { message: string }).message || "Erro ao buscar por informações do estudante"
+      (error as { message: string }).message ||
+        "Erro ao buscar por informações do estudante"
     );
   }
 };
@@ -83,5 +91,5 @@ export const StudentsService = {
   authenticate,
   register,
   updateStudent,
-  getSettings
+  getSettings,
 };

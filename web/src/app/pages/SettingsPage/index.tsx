@@ -15,6 +15,7 @@ import {
   PreferenceSection,
   CharacterPickerContainer,
   Characters,
+  ButtonChangePassword,
 } from "./styles";
 import {
   CaretLeft,
@@ -22,6 +23,7 @@ import {
   Envelope,
   IdentificationBadge,
   CalendarDots,
+  Lock,
 } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../shared/configs";
@@ -31,62 +33,126 @@ import {
   DoubleSelection,
   PreferenceButton,
   Button,
+  ToastError,
+  ToastWarning,
+  ToastSuccess,
 } from "../../shared/components";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect, ReactEventHandler } from "react";
+import { IStudents, StudentsService } from "../../shared/services";
 
 export function SettingsPage() {
   const navigate = useNavigate();
+
+  const fetchStudentSettings = async () => {
+    const token = sessionStorage.getItem("authToken");
+    if (token) {
+      const response = await StudentsService.getSettings(token);
+      if (response instanceof Error) {
+        redirectToLogin(response.message);
+      } else {
+        setStudent(response);
+      }
+    } else {
+      redirectToLogin("");
+    }
+  };
+
+  useEffect(() => {
+    fetchStudentSettings();
+  }, []);
+
+  const redirectToLogin = (message: string) => {
+    // ToastWarning({
+    //   message: "Realize login!",
+    //   positionProp: "top-right",
+    // });
+    // navigate(routeConfigs.Login);
+    // console.error(message);
+  };
+
+  const [student, setStudent] = useState<IStudents>({
+    id: 0,
+    name: "",
+    email: "",
+    user: "",
+    password: "",
+    birth: "",
+    gender: "",
+    character_id: 1,
+    sound: true,
+    vibration: true,
+  });
+
   const [isCharacterPickerOpen, setCharacterPickerOpen] = useState(false);
   const handleChangeCharacter = () => {
     setCharacterPickerOpen((prevState) => !prevState);
   };
 
-  const student = {
-    character_id: 1,
-    name: "Oliver",
-    email: "oliver@email.com",
-    user: "oliver_12",
-    birth: "2004-04-11",
-    gender: "male",
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setStudent((prevStudent) => ({
+      ...prevStudent,
+      [name]: value,
+    }));
   };
 
-  const [name, setName] = useState(student.name);
-  const [email, setEmail] = useState(student.email);
-  const [user, setUser] = useState(student.user);
-  const [birth, setBirth] = useState(student.birth);
+  const [soundPreference, setSoundPreference] = useState<boolean>(
+    student.sound
+  );
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setName(e.target.value);
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setEmail(e.target.value);
-  const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setUser(e.target.value);
-  const handleBirthChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setBirth(e.target.value);
+  const handleSoundPreference = (preference: boolean) => {
+    setSoundPreference(preference);
+    student.sound = preference;
+  };
+
+  const [vibrationPreference, setVibrationPreference] = useState<boolean>(
+    student.vibration
+  );
+
+  const handleVibrationPreference = (preference: boolean) => {
+    setVibrationPreference(preference);
+    student.vibration = preference;
+  };
+
   const [selectedGender, setSelectedGender] = useState<"male" | "female">(
     "female"
   );
 
   const handleGenderSelection = (gender: "male" | "female") => {
     setSelectedGender(gender);
+    student.gender = gender;
   };
 
-  const [selectedCharacterId, setSelectedCharacterId] = useState<number>(
-    student.character_id
-  );
+  const [selectedCharacterId, setSelectedCharacterId] = useState<number>(1);
   const handleCharacterSelect = (id: number) => {
     setSelectedCharacterId(id);
+    student.character_id = id;
   };
 
-  const handleSave = async () => {
-    if (student) {
-      try {
-        await axios.put('', student);
-        console.log("Dados atualizados com sucesso!");
-      } catch (error) {
-        console.error("Erro ao atualizar dados do estudante:", error);
-      }
+  const handleSave = async (event) => {
+    event.preventDefault();
+    const token = sessionStorage.getItem("authToken");
+    /*console.log(student);
+    return;*/
+    if (!token) {
+      redirectToLogin("");
+      return;
+    }
+
+    const response = await StudentsService.updateStudent(token, student);
+
+    if (response instanceof Error) {
+      ToastError({
+        message: response.message,
+        positionProp: "top-right",
+      });
+    } else {
+      ToastSuccess({
+        message: "Dados atualizados com sucesso!",
+        positionProp: "top-right",
+      });
+      navigate(routeConfigs.Map);
     }
   };
 
@@ -94,11 +160,19 @@ export function SettingsPage() {
     <SettingsContainer>
       <SettingsHeader>
         <SettingsHeaderColumn>
-          <ActionHeader onClick={() => {navigate(routeConfigs.Map)}}>
+          <ActionHeader
+            onClick={() => {
+              navigate(routeConfigs.Map);
+            }}
+          >
             <CaretLeft size={26} />
           </ActionHeader>
           <StyledLabelBold>Editar perfil</StyledLabelBold>
-          <ActionHeader onClick={handleSave}>
+          <ActionHeader
+            onClick={(event) => {
+              handleSave(event);
+            }}
+          >
             <StyledLabel>Salvar</StyledLabel>
           </ActionHeader>
         </SettingsHeaderColumn>
@@ -109,11 +183,18 @@ export function SettingsPage() {
           <Character.FullComponent size="medium" number={selectedCharacterId} />
         </CharacterContainer>
         <Name>{student.name}</Name>
+        <ButtonChangePassword
+          onClick={() => {
+            navigate(routeConfigs.ChangePassword);
+          }}
+        >
+          <Lock size={18}></Lock> Alterar senha
+        </ButtonChangePassword>
         <ButtonChangeImage
           onClick={handleChangeCharacter}
-          isOpen={isCharacterPickerOpen}
+          isopen={isCharacterPickerOpen}
         >
-          Alterar Imagem
+          <UserCircle size={18} /> Alterar Imagem
         </ButtonChangeImage>
 
         {isCharacterPickerOpen && (
@@ -138,29 +219,33 @@ export function SettingsPage() {
           label="Nome"
           Icon={UserCircle}
           placeholder="Digite seu nome aqui..."
-          value={name}
-          onChange={handleNameChange}
+          value={student.name}
+          name="name"
+          onChange={handleInputChange}
         />
         <UnderlinedInput.FullComponent
           label="E-mail"
           Icon={Envelope}
           placeholder="Digite seu email aqui..."
-          value={email}
-          onChange={handleEmailChange}
+          value={student.email}
+          name="email"
+          onChange={handleInputChange}
         />
         <UnderlinedInput.FullComponent
           label="Usuário"
           Icon={IdentificationBadge}
           placeholder="Digite seu usuário aqui..."
-          value={user}
-          onChange={handleUserChange}
+          value={student.user}
+          name="user"
+          onChange={handleInputChange}
         />
         <UnderlinedInput.FullComponent
           label="Data de nascimento"
           Icon={CalendarDots}
           placeholder="Digite sua data de nascimento aqui..."
-          value={birth}
-          onChange={handleBirthChange}
+          value={student.birth}
+          name="birth"
+          onChange={handleInputChange}
           type="date"
         />
         <GenderButtons>
@@ -171,17 +256,33 @@ export function SettingsPage() {
             type="button"
             onClick={(e) => {
               const value = (e.target as HTMLButtonElement).textContent;
-              handleGenderSelection(
-                value === "Masculino" ? "male" : "female"
-              );
+              handleGenderSelection(value === "Masculino" ? "male" : "female");
             }}
           />
         </GenderButtons>
         <PreferenceSection>
-          <PreferenceButton variant="sound" active />
-          <PreferenceButton variant="vibration" />
+          <PreferenceButton
+            variant="sound"
+            active={student.sound}
+            onClick={() => {
+              handleSoundPreference(!student.sound);
+            }}
+          />
+          <PreferenceButton
+            variant="vibration"
+            active={student.vibration}
+            onClick={() => {
+              handleVibrationPreference(!student.vibration);
+            }}
+          />
         </PreferenceSection>
-        <Button color="green" text="Salvar alterações" />
+        <Button
+          onClick={(event) => {
+            handleSave(event);
+          }}
+          color="green"
+          text="Salvar alterações"
+        />
       </ContainerInformation>
     </SettingsContainer>
   );

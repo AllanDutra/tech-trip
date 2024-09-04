@@ -62,13 +62,15 @@ export const Name = styled.div`
   margin-bottom: 0.8em;
 `;
 
-export const ButtonChangeImage = styled.div<{ isOpen: boolean }>`
+export const ButtonChangeImage = styled.div<{ isopen: boolean }>`
   background-color: rgba(0, 0, 0, 0.13);
-  border-radius: ${(props) => (props.isOpen ? '0.7em 0.7em 0 0' : '0.7em')};
+  border-radius: ${(props) => (props.isopen ? "0.7em 0.7em 0 0" : "0.7em")};
   padding: 0.7em;
   color: #fff;
   cursor: pointer;
   font-weight: 600;
+  display: flex;
+  align-items: center;
 `;
 
 export const ContainerInformation = styled.div`
@@ -110,10 +112,28 @@ export const CharacterPickerContainer = styled.div`
   width: 100%;
   gap: 0.5em;
   padding: 1em;
-`;
+
+  `;
 
 export const Characters = styled.div`
   flex-basis: 30%;
+  /* background-color: rgba(0, 0, 0, 0.13); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (min-width: 450px){
+    flex-basis: 20%;
+    
+  }
+  `;
+export const ButtonChangePassword = styled.div`
+  background-color: rgba(0, 0, 0, 0.13);
+  border-radius: 0.7em;
+  padding: 0.7em;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
 `;
-
-export const ConfirmButton = styled.div``;

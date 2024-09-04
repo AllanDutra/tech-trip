@@ -46,6 +46,8 @@ export function RegisterPage() {
     birth: "",
     gender: "female",
     character_id: 2,
+    sound: true,
+    vibration: true
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,6 +75,8 @@ export function RegisterPage() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
+      student.gender = selectedGender;
+      student.character_id = selectedCharacterId;
       const studentId = await StudentsService.register(student);
 
       if (typeof studentId === "number") {
