@@ -8,8 +8,14 @@ export const LoginContainer = styled.div`
   background-color: #2bcb9a;
   background-image: url("src/app/shared/assets/Images/Background.png");
 
-  @media (max-width: 768px) {
+  @media (max-width: 512px) {
     align-items: end;
+  }
+
+  @media (max-height: 618px) {
+    align-items: center;
+    min-height: 700px;
+    overflow: scroll;
   }
 `;
 
@@ -22,7 +28,7 @@ export const LoginForm = styled.form`
   box-shadow: 0 0.7em 0.2em rgba(0, 0, 0, 0.1);
   max-width: 32em;
 
-  @media (min-width: 768px) {
+  @media (min-width: 512px) {
     border-radius: 1em;
     padding: 4em 3em;
   }
@@ -33,10 +39,6 @@ export const LoginHeader = styled.div`
   flex-direction: column;
   gap: 1em;
   padding-bottom: 2em;
-
-  @media (max-width: 768px) {
-    padding-bottom: 1em;
-  }
 `;
 
 export const SubTitle = styled.div`

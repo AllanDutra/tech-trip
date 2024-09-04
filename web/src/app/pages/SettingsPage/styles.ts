@@ -112,20 +112,19 @@ export const CharacterPickerContainer = styled.div`
   width: 100%;
   gap: 0.5em;
   padding: 1em;
-
-  `;
+`;
 
 export const Characters = styled.div`
-  flex-basis: 30%;
+  flex-basis: 20%;
   /* background-color: rgba(0, 0, 0, 0.13); */
   display: flex;
   justify-content: center;
   align-items: center;
-  @media (min-width: 450px){
-    flex-basis: 20%;
-    
+
+  @media (min-width: 600px) {
+    flex-basis: 15%;
   }
-  `;
+`;
 export const ButtonChangePassword = styled.div`
   background-color: rgba(0, 0, 0, 0.13);
   border-radius: 0.7em;
