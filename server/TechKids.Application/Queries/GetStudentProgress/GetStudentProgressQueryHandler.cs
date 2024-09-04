@@ -1,10 +1,12 @@
 using MediatR;
 using TechKids.Core.Configurations;
 using TechKids.Core.Interfaces.Repositories;
+using TechKids.Core.Models.ViewModels;
 
 namespace TechKids.Application.Queries
 {
-    public class GetStudentProgressQueryHandler : IRequestHandler<GetStudentProgressQuery, int>
+    public class GetStudentProgressQueryHandler
+        : IRequestHandler<GetStudentProgressQuery, ProgressViewModel>
     {
         private readonly IChallengeRepository _challengeRepository;
 
@@ -13,7 +15,7 @@ namespace TechKids.Application.Queries
             _challengeRepository = challengeRepository;
         }
 
-        public async Task<int> Handle(
+        public async Task<ProgressViewModel> Handle(
             GetStudentProgressQuery request,
             CancellationToken cancellationToken
         )
@@ -24,7 +26,10 @@ namespace TechKids.Application.Queries
                 StudentAuthenticationSettings.Claims.Id
             );
 
-            return (int)Math.Round(totalSolvedChallenges / totalChallenges * 100.00m);
+            int percentProgress = (int)
+                Math.Round(totalSolvedChallenges / totalChallenges * 100.00m);
+
+            return new ProgressViewModel(totalChallenges, totalSolvedChallenges, percentProgress);
         }
     }
 }

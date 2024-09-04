@@ -33,12 +33,12 @@ namespace TechKids.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("progress")]
-        [ProducesResponseType(typeof(int), 200)]
+        [ProducesResponseType(typeof(ProgressViewModel), 200)]
         public async Task<IActionResult> GetStudentProgressAsync()
         {
             GetStudentProgressQuery query = new();
 
-            int studentProgress = await _mediator.Send(query);
+            ProgressViewModel studentProgress = await _mediator.Send(query);
 
             return PersonalizedResponse(Ok(studentProgress));
         }
