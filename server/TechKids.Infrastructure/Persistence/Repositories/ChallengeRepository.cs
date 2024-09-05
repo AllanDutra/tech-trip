@@ -60,5 +60,10 @@ namespace TechKids.Infrastructure.Persistence.Repositories
                 .Distinct()
                 .CountAsync();
         }
+
+        public async Task<bool> ChallengeExistsAsync(int Challenge_Id)
+        {
+            return await _dbContext.Challenges.AnyAsync(challenge => challenge.Id == Challenge_Id);
+        }
     }
 }
