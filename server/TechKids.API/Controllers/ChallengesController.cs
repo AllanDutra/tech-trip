@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TechKids.Application.Commands;
 using TechKids.Application.Queries;
 using TechKids.Core.Interfaces.Notifications;
 using TechKids.Core.Models.ViewModels;
@@ -41,6 +42,27 @@ namespace TechKids.API.Controllers
             ProgressViewModel studentProgress = await _mediator.Send(query);
 
             return PersonalizedResponse(Ok(studentProgress));
+        }
+
+        /// <summary>
+        /// Process the attempt for a challenge and returns total score earned by student or a message
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost("process-attempt")]
+        [ProducesResponseType(typeof(ProcessedAttemptForChallengeProductViewModel), 200)]
+        [ProducesResponseType(typeof(DefaultResponseViewModel), 400)]
+        [ProducesResponseType(typeof(DefaultResponseViewModel), 404)]
+        [ProducesResponseType(typeof(DefaultResponseViewModel), 409)]
+        public async Task<IActionResult> ProcessAttemptForChallengeAsync(
+            [FromBody] ProcessAttemptForChallengeCommand command
+        )
+        {
+            ProcessedAttemptForChallengeProductViewModel? processedResponse = await _mediator.Send(
+                command
+            );
+
+            return PersonalizedResponse(Ok(processedResponse));
         }
     }
 }
