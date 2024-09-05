@@ -10,6 +10,7 @@ namespace TechKids.API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [ProducesResponseType(typeof(DefaultResponseViewModel), 401)]
+    [ProducesResponseType(typeof(DefaultResponseViewModel), 500)]
     public class MainController : ControllerBase
     {
         protected readonly INotifier _notifier;
