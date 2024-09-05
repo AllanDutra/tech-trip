@@ -34,11 +34,11 @@ import {
   PreferenceButton,
   Button,
   ToastError,
-  ToastWarning,
   ToastSuccess,
 } from "../../shared/components";
-import { useState, useEffect, ReactEventHandler } from "react";
+import { useState, useEffect } from "react";
 import { IStudents, StudentsService } from "../../shared/services";
+import { ToastContainer } from "react-toastify";
 
 export function SettingsPage() {
   const navigate = useNavigate();
@@ -158,6 +158,7 @@ export function SettingsPage() {
 
   return (
     <SettingsContainer>
+      <ToastContainer />
       <SettingsHeader>
         <SettingsHeaderColumn>
           <ActionHeader

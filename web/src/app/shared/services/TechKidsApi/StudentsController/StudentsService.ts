@@ -87,9 +87,25 @@ const getSettings = async (token: string): Promise<IStudents | Error> => {
   }
 };
 
+const changePassword = async (
+  token: string,
+  password: string,
+  newPassword: string
+): Promise<void | Error> => {
+  try {
+    await Api.put(`student/password/${token}`, { password, newPassword });
+  } catch (error) {
+    console.log(error);
+    return new Error(
+      (error as { message: string }).message || "Erro ao mudar senhar"
+    );
+  }
+};
+
 export const StudentsService = {
   authenticate,
   register,
   updateStudent,
   getSettings,
+  changePassword,
 };
