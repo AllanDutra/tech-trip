@@ -10,7 +10,31 @@ namespace TechKids.Core.Factories.AnswerKeys
             ProcessAttemptInputModel inputModel
         )
         {
-            throw new NotImplementedException();
+            bool correctAttempt = inputModel.StudentResponse == inputModel.AnswerKey_Response;
+
+            short? totalStarsEarned = null;
+
+            if (correctAttempt)
+            {
+                // ? Yes -> resolved in the first attempt
+                if (inputModel.TotalStudentAttemptsForChallenge == 0)
+                {
+                    totalStarsEarned = 3;
+                }
+                // ? Yes -> resolved in the second attempt
+                else if (inputModel.TotalStudentAttemptsForChallenge == 1)
+                {
+                    totalStarsEarned = 2;
+                }
+                else if (inputModel.TotalStudentAttemptsForChallenge >= 2)
+                {
+                    totalStarsEarned = 1;
+                }
+            }
+
+            return Task.FromResult<ProcessedAttemptProductViewModel>(
+                new(correctAttempt, totalStarsEarned)
+            );
         }
     }
 }
