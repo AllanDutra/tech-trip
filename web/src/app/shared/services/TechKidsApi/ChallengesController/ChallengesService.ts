@@ -3,7 +3,6 @@ import { Api } from "../axios-config";
 export interface IChallenges {
   id: number;
   message: string;
-  // answer:
 }
 
 const getChallenge = async (id: number): Promise<IChallenges | Error> => {

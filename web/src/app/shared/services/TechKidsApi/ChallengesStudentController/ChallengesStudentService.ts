@@ -7,10 +7,13 @@ export interface IChallengesStudent {
     score_Diamonds: number
 }
 
-const getChallengesByStudent = async (student_id: number): Promise<IChallengesStudent | Error> => {
+const getChallengesByStudent = async (token: string | null): Promise<[IChallengesStudent] | Error> => {
     try {
-      const filter = `/challenges/?student_id=${student_id}`;
-      const { data } = await Api.get(filter);
+      const { data } = await Api.get('/challenges/', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
   
       if (data) {
         return data;

@@ -29,7 +29,7 @@ export const TrackHeader = styled.div`
   width: 100%;
   padding: 1em;
   min-height: fit-content;
-  z-index: 2;
+  z-index: 3;
 `;
 
 export const Greetings = styled.div`
@@ -70,13 +70,23 @@ export const Map = styled.div`
   padding: 8em 0;
 `;
 
-export const Challenge = styled.div<{
+export const ChallengeContainer = styled.div<{
   bottom: number;
   left: number;
-  completed?: boolean;
 }>`
   bottom: ${(props) => props.bottom}px;
   left: ${(props) => props.left}%;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2em;
+  position: relative;
+`;
+
+export const Challenge = styled.div<{
+  completed?: boolean;
+}>`
   background-color: ${(props) => (props.completed ? "#2BCB9A" : "#fff")};
   color: ${(props) => (props.completed ? "#fff" : "#545456")};
   border-radius: 1em;
@@ -85,7 +95,6 @@ export const Challenge = styled.div<{
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   z-index: 1;
   box-shadow: 0 0.3em rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -102,11 +111,21 @@ export const LineContainer = styled.div<{
   bottom: ${(props) => props.bottom}px;
   left: ${(props) => props.left}%;
   z-index: 0;
-  /* background-color: red; */
   width: fit-content;
   position: relative;
 `;
 
 export const MapPinContainer = styled.span`
+  visibility: visible;
+  z-index: 2;
+`;
+
+export const StarsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8;
+  visibility: visible;
   width: fit-content;
+  gap: 0.1em;
 `;

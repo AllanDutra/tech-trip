@@ -70,8 +70,11 @@ const updateStudent = async (
 
 const getSettings = async (token: string): Promise<IStudents | Error> => {
   try {
-    const filter = `students/claims?token=${token}`;
-    const { data } = await Api.get(filter);
+    const { data } = await Api.get('/student/claims', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     if (data) {
       return data.claims;
