@@ -22,8 +22,8 @@ namespace TechKids.Infrastructure.Persistence.Repositories
                 .Select(
                     group =>
                         new StudentTotalScoreViewModel(
-                    group.Sum(score => score.Stars),
-                    group.Sum(score => score.Diamonds)
+                            group.Sum(score => score.Stars),
+                            group.Sum(score => score.Diamonds)
                         )
                 )
                 .FirstOrDefaultAsync();
@@ -76,6 +76,14 @@ namespace TechKids.Infrastructure.Persistence.Repositories
                 .OrderBy(score => score.ChallengeId)
                 .LastOrDefaultAsync(score => score.StudentId == Student_Id);
         }
+
+        public async Task<bool> StudentAlreadyScoredInTheChallengeAsync(
+            int Student_Id,
+            int Challenge_Id
+        )
+        {
+            return await _dbContext.Scores.AnyAsync(
+                score => score.StudentId == Student_Id && score.ChallengeId == Challenge_Id
             );
         }
 
