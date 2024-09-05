@@ -27,7 +27,7 @@ import {
   IChallengesStudent,
   ChallengesStudentService,
   IStudents,
-  StudentsService
+  StudentsService,
 } from "../../shared/services";
 import { GearSix, MapPin } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
