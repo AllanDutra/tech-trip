@@ -24,7 +24,7 @@ VALUES
     (
         '17',
         'Número inteiro igual ao total de passos executados',
-        'Cada estudante terá apenas uma tentativa. A pontuação é calculada pelo número de passos executados, ou seja, quanto mais próximo chegar do menor número de passos (17), maior será sua pontuação. Será levada em consideração uma margem de erro de 3 passos, ou seja, se o aluno fez 20 passos = 3 estrelas, 23 passos = 2 estrelas e 26+ passos = 1 estrela.',
+        'Cada estudante terá apenas uma tentativa. A pontuação é calculada pelo número de passos executados, ou seja, quanto mais próximo chegar do menor número de passos (17), maior será sua pontuação. Será levada em consideração uma margem de erro de 3 passos, ou seja, se o aluno fez até 20 passos = 3 estrelas, 23 passos = 2 estrelas e 24+ passos = 1 estrela.',
         2
     );
 
