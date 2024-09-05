@@ -22,7 +22,9 @@ namespace TechKids.Core.Factories
                     return _processAttempt1DomainService;
 
                 default:
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException(
+                        $"Processamento para o desafio {Challenge_Id} não encontrado ou não implementado."
+                    );
             }
         }
     }
