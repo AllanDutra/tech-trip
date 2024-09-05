@@ -97,8 +97,11 @@ namespace TechKids.Application.Commands
             IProcessAttemptDomainService processAttemptDomainService =
                 _processAttemptDomainServiceFactory.GetService(request.Challenge_Id);
 
-            ProcessedAttemptProductViewModel processedAttemptProduct =
-                await processAttemptDomainService.ProcessAsync(inputModel);
+            ProcessedAttemptProductViewModel? processedAttemptProduct =
+                processAttemptDomainService.Process(inputModel);
+
+            if (processedAttemptProduct == null)
+                return null;
 
             Attempt attempt =
                 new(

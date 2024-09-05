@@ -5,6 +5,6 @@ namespace TechKids.Core.Interfaces.Factories
 {
     public interface IProcessAttemptDomainService
     {
-        Task<ProcessedAttemptProductViewModel> ProcessAsync(ProcessAttemptInputModel inputModel);
+        ProcessedAttemptProductViewModel? Process(ProcessAttemptInputModel inputModel);
     }
 }

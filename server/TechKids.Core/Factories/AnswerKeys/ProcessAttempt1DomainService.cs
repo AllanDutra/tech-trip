@@ -6,9 +6,7 @@ namespace TechKids.Core.Factories.AnswerKeys
 {
     public class ProcessAttempt1DomainService : IProcessAttemptDomainService
     {
-        public Task<ProcessedAttemptProductViewModel> ProcessAsync(
-            ProcessAttemptInputModel inputModel
-        )
+        public ProcessedAttemptProductViewModel? Process(ProcessAttemptInputModel inputModel)
         {
             bool correctAttempt = inputModel.StudentResponse == inputModel.AnswerKey_Response;
 
@@ -32,9 +30,7 @@ namespace TechKids.Core.Factories.AnswerKeys
                 }
             }
 
-            return Task.FromResult<ProcessedAttemptProductViewModel>(
-                new(correctAttempt, totalStarsEarned)
-            );
+            return new(correctAttempt, totalStarsEarned);
         }
     }
 }
