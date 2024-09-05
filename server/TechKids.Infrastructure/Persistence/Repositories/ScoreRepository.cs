@@ -72,8 +72,10 @@ namespace TechKids.Infrastructure.Persistence.Repositories
 
         public async Task<Score?> GetLastStudentScoreAsync(int Student_Id)
         {
-            return await _dbContext.Scores.LastOrDefaultAsync(score =>
-                score.StudentId == Student_Id
+            return await _dbContext.Scores
+                .OrderBy(score => score.ChallengeId)
+                .LastOrDefaultAsync(score => score.StudentId == Student_Id);
+        }
             );
         }
 
