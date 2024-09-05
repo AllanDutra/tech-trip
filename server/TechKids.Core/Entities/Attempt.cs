@@ -2,6 +2,23 @@
 
 public partial class Attempt
 {
+    public Attempt(
+        bool correct,
+        short steps,
+        DateTime? date,
+        string? studentResponse,
+        int? studentId,
+        int? challengeId
+    )
+    {
+        Correct = correct;
+        Steps = steps;
+        Date = date;
+        StudentResponse = studentResponse;
+        StudentId = studentId;
+        ChallengeId = challengeId;
+    }
+
     public short Id { get; set; }
 
     public bool Correct { get; set; }

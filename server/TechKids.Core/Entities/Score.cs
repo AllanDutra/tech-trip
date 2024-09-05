@@ -2,6 +2,15 @@
 
 public partial class Score
 {
+    public Score(short stars, short diamonds, DateTime? date, int? studentId, int? challengeId)
+    {
+        Stars = stars;
+        Diamonds = diamonds;
+        Date = date;
+        StudentId = studentId;
+        ChallengeId = challengeId;
+    }
+
     public short Id { get; set; }
 
     public short Stars { get; set; }
