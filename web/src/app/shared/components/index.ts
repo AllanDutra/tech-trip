@@ -13,5 +13,7 @@ export * from "./ChallengeResponse";
 export * from "./LevelCompletionModal";
 export * from "./DragDrop";
 export * from "./ProgressBar";
-export * from "./MapLines";
 export * from "./Toast";
+export * from "./MapLine1";
+export * from "./MapLine2";
+export * from "./MapLine3";

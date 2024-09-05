@@ -1,17 +1,18 @@
 import styled from "styled-components";
 
 export const TrackContainer = styled.div`
+  min-width: 470px;
   font-family: "Lilita One", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   background-color: rgb(192, 240, 225);
 `;
 
 export const ProgressContainer = styled.div`
   width: 20%;
+  max-width: 110px;
 `;
 
 export const TrackHeader = styled.div`
@@ -74,10 +75,10 @@ export const Challenge = styled.div<{
   left: number;
   completed?: boolean;
 }>`
-  bottom: ${(props) => props.bottom}%;
+  bottom: ${(props) => props.bottom}px;
   left: ${(props) => props.left}%;
   background-color: ${(props) => (props.completed ? "#2BCB9A" : "#fff")};
-  color: ${(props) => (props.completed ? "#fff" : "#545456")};;
+  color: ${(props) => (props.completed ? "#fff" : "#545456")};
   border-radius: 1em;
   width: 4em;
   height: 4em;
@@ -87,8 +88,9 @@ export const Challenge = styled.div<{
   position: relative;
   z-index: 1;
   box-shadow: 0 0.3em rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 
-  span{
+  span {
     font-size: 2em;
   }
 `;
@@ -97,10 +99,14 @@ export const LineContainer = styled.div<{
   bottom: number;
   left: number;
 }>`
-  bottom: ${(props) => props.bottom}%;
+  bottom: ${(props) => props.bottom}px;
   left: ${(props) => props.left}%;
   z-index: 0;
   /* background-color: red; */
   width: fit-content;
   position: relative;
+`;
+
+export const MapPinContainer = styled.span`
+  width: fit-content;
 `;

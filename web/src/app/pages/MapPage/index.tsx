@@ -8,17 +8,20 @@ import {
   Challenge,
   LineContainer,
   MapContainer,
-  ChallengeContainer,
+  MapPinContainer,
 } from "./styles";
 import {
   NavBar,
   ProgressBar,
   Line1,
+  Line1Unfilled,
   Line2,
+  Line2Unfilled,
   Line3,
+  Line3Unfilled,
 } from "../../shared/components";
 import { IChallenges, IStudents } from "../../shared/services";
-import { GearSix } from "@phosphor-icons/react";
+import { GearSix, MapPin } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../shared/configs";
 
@@ -55,10 +58,28 @@ export function MapPage() {
   const current = 4;
 
   const article = student.gender == "male" ? "o" : "a";
+
+  const generateBottomValues = (numChallenges: number) => {
+    const baseValues = [20, -26, -46];
+    const increment = -137;
+
+    const bottomValues = [];
+
+    for (let i = 0; i < numChallenges; i++) {
+      const baseIndex = i % 3;
+      const offset = Math.floor(i / 3) * increment;
+      bottomValues.push(baseValues[baseIndex] + offset);
+    }
+
+    return bottomValues;
+  };
+
   const renderChallenges = () => {
-    const bottomValues = [20, -26, -46, -116, -156, -176];
-    const leftValues = [45, 76, -4, 45, 76, -4];
+    const numChallenges = challenges.length;
+    const bottomValues = generateBottomValues(numChallenges);
+    const leftValues = [45, 76, -4];
     const lines = [Line1, Line2, Line3];
+    const linesUnfilled = [Line1Unfilled, Line2Unfilled, Line3Unfilled];
     const lineOffsets = [
       { bottomOffset: -40, leftOffset: 14 },
       { bottomOffset: -13, leftOffset: -71 },
@@ -68,7 +89,11 @@ export function MapPage() {
     return challenges.map((challenge, index) => {
       const bottom = bottomValues[index % bottomValues.length];
       const left = leftValues[index % leftValues.length];
-      const LineComponent = lines[index % lines.length];
+      const LineComponent =
+        challenge.id < current
+          ? lines[index % lines.length]
+          : linesUnfilled[index % linesUnfilled.length];
+
       const offsets = lineOffsets[index % lineOffsets.length];
 
       return renderChallenge(
@@ -76,7 +101,8 @@ export function MapPage() {
         bottom,
         left,
         <LineComponent />,
-        offsets
+        offsets,
+        challenge.id === current
       );
     });
   };
@@ -86,13 +112,19 @@ export function MapPage() {
     bottom: number,
     left: number,
     lineComponent: JSX.Element | null,
-    lineOffsets: { bottomOffset: number; leftOffset: number } | null = null
+    lineOffsets: { bottomOffset: number; leftOffset: number } | null = null,
+    isCurrent: boolean
   ) => {
     const lineBottom = lineOffsets ? bottom + lineOffsets.bottomOffset : 0;
     const lineLeft = lineOffsets ? left + lineOffsets.leftOffset : 0;
-
+  
     return (
       <>
+        {isCurrent && (
+          <MapPinContainer>
+            <MapPin size={30} color="#2BCB9A" weight="duotone" />
+          </MapPinContainer>
+        )}
         <Challenge bottom={bottom} left={left} completed={id < current}>
           <span>{id}</span>
         </Challenge>
@@ -104,7 +136,6 @@ export function MapPage() {
       </>
     );
   };
-
 
   return (
     <TrackContainer>
@@ -125,9 +156,7 @@ export function MapPage() {
         </ActionHeader>
       </TrackHeader>
       <MapContainer>
-        <Map>
-          {renderChallenges()}
-        </Map>
+        <Map>{renderChallenges()}</Map>
       </MapContainer>
       <NavBar.FullComponent />
     </TrackContainer>
