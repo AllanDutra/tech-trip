@@ -27,7 +27,7 @@ namespace TechKids.Application.Queries
             );
 
             int percentProgress = (int)
-                Math.Round(totalSolvedChallenges / totalChallenges * 100.00m);
+                Math.Round(totalSolvedChallenges / (decimal)totalChallenges * 100m);
 
             return new ProgressViewModel(totalChallenges, totalSolvedChallenges, percentProgress);
         }
