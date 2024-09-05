@@ -2,8 +2,22 @@ namespace TechKids.Core.Models.InputModels
 {
     public class ProcessAttemptInputModel
     {
-        public short Steps { get; set; }
-        public string StudentResponse { get; set; }
-        public int Challenge_Id { get; set; }
+        public ProcessAttemptInputModel(
+            short steps,
+            string studentResponse,
+            string answerKey_Response,
+            int totalStudentAttemptsForChallenge
+        )
+        {
+            Steps = steps;
+            StudentResponse = studentResponse;
+            AnswerKey_Response = answerKey_Response;
+            TotalStudentAttemptsForChallenge = totalStudentAttemptsForChallenge;
+        }
+
+        public short Steps { get; }
+        public string StudentResponse { get; }
+        public string AnswerKey_Response { get; }
+        public int TotalStudentAttemptsForChallenge { get; }
     }
 }
