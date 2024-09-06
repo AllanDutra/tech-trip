@@ -5,7 +5,7 @@ import {
   Routes as Switch,
 } from "react-router-dom";
 import { routeConfigs } from "../shared/configs";
-import { TestComponentsPage, RegisterPage, LoginPage, SettingsPage, MapPage, ChangePasswordPage } from "../pages";
+import { TestComponentsPage, RegisterPage, LoginPage, SettingsPage, MapPage, ChangePasswordPage, ResumePage } from "../pages";
 
 export function Routes() {
   return (
@@ -20,6 +20,7 @@ export function Routes() {
         <Route path={routeConfigs.Settings} element={<SettingsPage />} />
         <Route path={routeConfigs.ChangePassword} element={<ChangePasswordPage />} />
         <Route path={routeConfigs.Map} element={<MapPage />} />
+        <Route path={routeConfigs.Resume} element={<ResumePage />}/>
 
         <Route
           path="*"

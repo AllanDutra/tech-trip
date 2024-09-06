@@ -4,3 +4,4 @@ export * from "./LoginPage";
 export * from "./SettingsPage";
 export * from "./ChangePasswordPage";
 export * from "./MapPage";
+export * from "./ResumePage";

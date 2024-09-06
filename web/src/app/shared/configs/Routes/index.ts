@@ -1,6 +1,6 @@
 const TestComponents = "/test-components";
 const Map = "/mapa-desafios";
-const Resume = "/resume";
+const Resume = "/resumo";
 const Ranking = "/ranking";
 const Register = "/cadastrar";
 const Login = "/entrar";
