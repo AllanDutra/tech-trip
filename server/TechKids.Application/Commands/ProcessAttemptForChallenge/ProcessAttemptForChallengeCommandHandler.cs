@@ -98,7 +98,13 @@ namespace TechKids.Application.Commands
             IProcessAttemptDomainService processAttemptDomainService =
                 _processAttemptDomainServiceAbstractFactory.GetService(request.Challenge_Id);
 
-            // TODO: Implement Abstract Factory here.
+            short? processAttemptMarginOfError =
+                _processAttemptDomainServiceAbstractFactory.GetMarginOfError(request.Challenge_Id);
+
+            if (processAttemptMarginOfError.HasValue)
+            {
+                inputModel.MarginOfError = processAttemptMarginOfError;
+            }
 
             ProcessedAttemptProductViewModel? processedAttemptProduct =
                 processAttemptDomainService.Process(inputModel);

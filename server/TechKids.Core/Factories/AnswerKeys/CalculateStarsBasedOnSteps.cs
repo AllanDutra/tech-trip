@@ -32,14 +32,14 @@ namespace TechKids.Core.Factories.AnswerKeys
                 return null!;
             }
 
-            short marginOfError = 3;
+            short marginOfError = inputModel.MarginOfError ?? 1;
 
             short totalStarsEarned;
 
             if (inputModel.Steps < betterStepsNumberAsInt)
             {
                 _notifier.Handle(
-                    $"Número de passos inválido. O menor número de passos possível é {betterStepsNumberAsInt}.",
+                    $"Número de passos inválido. O menor número de passos possível para este desafio é {betterStepsNumberAsInt}.",
                     HttpStatusCode.BadRequest
                 );
 
