@@ -19,5 +19,6 @@ namespace TechKids.Core.Models.InputModels
         public string StudentResponse { get; }
         public string AnswerKey_Response { get; }
         public int TotalStudentAttemptsForChallenge { get; }
+        public short? MarginOfError { get; set; }
     }
 }

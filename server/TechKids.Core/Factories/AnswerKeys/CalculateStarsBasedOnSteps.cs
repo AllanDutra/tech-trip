@@ -6,11 +6,11 @@ using TechKids.Core.Models.ViewModels;
 
 namespace TechKids.Core.Factories.AnswerKeys
 {
-    public class ProcessAttempt2DomainService : IProcessAttemptDomainService
+    public class CalculateStarsBasedOnSteps : IProcessAttemptDomainService
     {
         private readonly INotifier _notifier;
 
-        public ProcessAttempt2DomainService(INotifier notifier)
+        public CalculateStarsBasedOnSteps(INotifier notifier)
         {
             _notifier = notifier;
         }
@@ -25,7 +25,7 @@ namespace TechKids.Core.Factories.AnswerKeys
             if (!successToConvert)
             {
                 _notifier.Handle(
-                    "Tivemos um problema interno no servidor ao tentar converter a resposta do desafio 2.",
+                    "Tivemos um problema interno no servidor ao tentar converter o gabarito do desafio.",
                     HttpStatusCode.InternalServerError
                 );
 

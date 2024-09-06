@@ -16,11 +16,11 @@ namespace TechKids.Core
             services.AddScoped<ITokenDomainService, TokenDomainService>();
 
             services.AddScoped<
-                IProcessAttemptDomainServiceFactory,
-                ProcessAttemptDomainServiceFactory
+                IProcessAttemptDomainServiceAbstractFactory,
+                ProcessAttemptDomainServiceAbstractFactory
             >();
 
-            services.AddTransient<ProcessAttempt1DomainService>();
+            services.AddTransient<CalculateStarsBasedOnAttempts>();
 
             return services;
         }

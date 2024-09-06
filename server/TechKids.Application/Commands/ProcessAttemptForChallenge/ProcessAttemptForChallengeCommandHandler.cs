@@ -16,17 +16,18 @@ namespace TechKids.Application.Commands
             ProcessedAttemptForChallengeProductViewModel?
         >
     {
-        private readonly IProcessAttemptDomainServiceFactory _processAttemptDomainServiceFactory;
+        private readonly IProcessAttemptDomainServiceAbstractFactory _processAttemptDomainServiceAbstractFactory;
         private readonly IUnitOfWork _unitOfWork;
         private readonly INotifier _notifier;
 
         public ProcessAttemptForChallengeCommandHandler(
-            IProcessAttemptDomainServiceFactory processAttemptDomainServiceFactory,
+            IProcessAttemptDomainServiceAbstractFactory processAttemptDomainServiceAbstractFactory,
             IUnitOfWork unitOfWork,
             INotifier notifier
         )
         {
-            _processAttemptDomainServiceFactory = processAttemptDomainServiceFactory;
+            _processAttemptDomainServiceAbstractFactory =
+                processAttemptDomainServiceAbstractFactory;
             _unitOfWork = unitOfWork;
             _notifier = notifier;
         }
@@ -95,7 +96,9 @@ namespace TechKids.Application.Commands
                 );
 
             IProcessAttemptDomainService processAttemptDomainService =
-                _processAttemptDomainServiceFactory.GetService(request.Challenge_Id);
+                _processAttemptDomainServiceAbstractFactory.GetService(request.Challenge_Id);
+
+            // TODO: Implement Abstract Factory here.
 
             ProcessedAttemptProductViewModel? processedAttemptProduct =
                 processAttemptDomainService.Process(inputModel);

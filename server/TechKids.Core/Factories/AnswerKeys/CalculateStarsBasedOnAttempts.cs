@@ -4,7 +4,7 @@ using TechKids.Core.Models.ViewModels;
 
 namespace TechKids.Core.Factories.AnswerKeys
 {
-    public class ProcessAttempt1DomainService : IProcessAttemptDomainService
+    public class CalculateStarsBasedOnAttempts : IProcessAttemptDomainService
     {
         public ProcessedAttemptProductViewModel? Process(ProcessAttemptInputModel inputModel)
         {
@@ -24,7 +24,8 @@ namespace TechKids.Core.Factories.AnswerKeys
                 {
                     totalStarsEarned = 2;
                 }
-                else if (inputModel.TotalStudentAttemptsForChallenge >= 2)
+                // ? resolved in the third attempt or more
+                else
                 {
                     totalStarsEarned = 1;
                 }
