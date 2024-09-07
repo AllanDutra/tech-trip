@@ -2,7 +2,7 @@ import { ReactNode, useMemo } from "react";
 import { CharactersImages } from "../../assets";
 import { StyledContainer } from "./styles";
 
-type TCharacterSize = "small" | "medium";
+type TCharacterSize = "small" | "medium" | "large";
 
 interface IContainerProps {
   children: ReactNode;
@@ -34,10 +34,11 @@ function Container({
   selected = false,
   onClick,
 }: IContainerProps) {
-  const sizeAsEM = useMemo(
-    () => (size === "medium" ? "3.75em" : "3.25em"),
-    [size]
-  );
+  const sizeAsEM = useMemo(() => {
+    if (size === "large") return "6em";
+    if (size === "medium") return "3.75em";
+    return "3.25em"; // small as default
+  }, [size]);
 
   return (
     <StyledContainer
