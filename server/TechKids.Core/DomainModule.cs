@@ -22,6 +22,7 @@ namespace TechKids.Core
 
             services.AddTransient<CalculateStarsBasedOnAttempts>();
             services.AddTransient<CalculateStarsBasedOnSteps>();
+            services.AddTransient<CalculateStarsBasedOnAttemptsToWin>();
 
             return services;
         }

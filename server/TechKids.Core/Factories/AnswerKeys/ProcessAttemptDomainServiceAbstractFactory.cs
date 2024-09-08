@@ -8,14 +8,17 @@ namespace TechKids.Core.Factories
     {
         private readonly CalculateStarsBasedOnAttempts _calculateStarsBasedOnAttempts;
         private readonly CalculateStarsBasedOnSteps _calculateStarsBasedOnSteps;
+        private readonly CalculateStarsBasedOnAttemptsToWin _calculateStarsBasedOnAttemptsToWin;
 
         public ProcessAttemptDomainServiceAbstractFactory(
             CalculateStarsBasedOnAttempts calculateStarsBasedOnAttempts,
-            CalculateStarsBasedOnSteps calculateStarsBasedOnSteps
+            CalculateStarsBasedOnSteps calculateStarsBasedOnSteps,
+            CalculateStarsBasedOnAttemptsToWin calculateStarsBasedOnAttemptsToWin
         )
         {
             _calculateStarsBasedOnAttempts = calculateStarsBasedOnAttempts;
             _calculateStarsBasedOnSteps = calculateStarsBasedOnSteps;
+            _calculateStarsBasedOnAttemptsToWin = calculateStarsBasedOnAttemptsToWin;
         }
 
         public short? GetMarginOfError(int Challenge_Id)

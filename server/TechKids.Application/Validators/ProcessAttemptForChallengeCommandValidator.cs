@@ -8,10 +8,10 @@ namespace TechKids.Application.Validators
     {
         public ProcessAttemptForChallengeCommandValidator()
         {
-            // RuleFor(p => p.StudentResponse)
-            //     .NotNull()
+            RuleFor(p => p.StudentResponse)
+                .NotNull()
             //     .NotEmpty()
-            //     .WithMessage("A resposta do estudante deve ser informada.");
+                .WithMessage("A resposta do estudante deve ser informada.");
 
             RuleFor(p => p.Steps)
                 .NotNull()
