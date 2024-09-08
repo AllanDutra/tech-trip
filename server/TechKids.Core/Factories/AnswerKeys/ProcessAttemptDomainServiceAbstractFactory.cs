@@ -9,16 +9,23 @@ namespace TechKids.Core.Factories
         private readonly CalculateStarsBasedOnAttempts _calculateStarsBasedOnAttempts;
         private readonly CalculateStarsBasedOnSteps _calculateStarsBasedOnSteps;
         private readonly CalculateStarsBasedOnAttemptsToWin _calculateStarsBasedOnAttemptsToWin;
+        private readonly CalculateStarsBasedOnCompoundChallenge _calculateStarsBasedOnCompoundChallenge;
 
         public ProcessAttemptDomainServiceAbstractFactory(
             CalculateStarsBasedOnAttempts calculateStarsBasedOnAttempts,
             CalculateStarsBasedOnSteps calculateStarsBasedOnSteps,
-            CalculateStarsBasedOnAttemptsToWin calculateStarsBasedOnAttemptsToWin
+            CalculateStarsBasedOnAttemptsToWin calculateStarsBasedOnAttemptsToWin,
+            CalculateStarsBasedOnCompoundChallenge calculateStarsBasedOnCompoundChallenge
         )
         {
             _calculateStarsBasedOnAttempts = calculateStarsBasedOnAttempts;
             _calculateStarsBasedOnSteps = calculateStarsBasedOnSteps;
             _calculateStarsBasedOnAttemptsToWin = calculateStarsBasedOnAttemptsToWin;
+            _calculateStarsBasedOnCompoundChallenge = calculateStarsBasedOnCompoundChallenge;
+        }
+
+        public short? GetMaxCompoundChallengeStages(int Challenge_Id)
+        {
         }
 
         public short? GetMarginOfError(int Challenge_Id)

@@ -1,3 +1,5 @@
+using TechKids.Core.Entities;
+
 namespace TechKids.Core.Models.InputModels
 {
     public class ProcessAttemptInputModel
@@ -20,5 +22,7 @@ namespace TechKids.Core.Models.InputModels
         public string AnswerKey_Response { get; }
         public int TotalStudentAttemptsForChallenge { get; }
         public short? MarginOfError { get; set; }
+        public short? MaxCompoundChallengeStages { get; set; }
+        public Attempt? LastCompoundChallengeAttempt { get; set; }
     }
 }

@@ -131,6 +131,24 @@ namespace TechKids.Application.Commands
                 inputModel.MarginOfError = processAttemptMarginOfError;
             }
 
+            short? processAttemptMaxCompoundChallengeStages =
+                _processAttemptDomainServiceAbstractFactory.GetMaxCompoundChallengeStages(
+                    request.Challenge_Id
+                );
+
+            if (processAttemptMaxCompoundChallengeStages.HasValue)
+            {
+                inputModel.MaxCompoundChallengeStages = processAttemptMaxCompoundChallengeStages;
+
+                Attempt? lastCompoundChallengeAttempt =
+                    await _unitOfWork.Attempts.GetStudentLastCorrectAttemptForCompoundChallengeAsync(
+                        StudentAuthenticationSettings.Claims.Id,
+                        request.Challenge_Id
+                    );
+
+                inputModel.LastCompoundChallengeAttempt = lastCompoundChallengeAttempt;
+            }
+
             ProcessedAttemptProductViewModel? processedAttemptProduct =
                 processAttemptDomainService.Process(inputModel);
 
@@ -155,6 +173,13 @@ namespace TechKids.Application.Commands
 
                 if (processedAttemptProduct.CorrectAttempt)
                 {
+                    if (!processedAttemptProduct.GenerateScore)
+                    {
+                        await _unitOfWork.CommitAsync();
+
+                        return new ProcessedAttemptForChallengeProductViewModel(true, 0, 0);
+                    }
+
                     short totalStarsEarned = (short)processedAttemptProduct.TotalStars!;
                     short totalDiamondsEarned = 0;
 
