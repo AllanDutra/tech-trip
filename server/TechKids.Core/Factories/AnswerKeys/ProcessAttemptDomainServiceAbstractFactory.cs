@@ -26,6 +26,13 @@ namespace TechKids.Core.Factories
 
         public short? GetMaxCompoundChallengeStages(int Challenge_Id)
         {
+            switch (Challenge_Id)
+            {
+                case 13:
+                    return 3;
+                default:
+                    return null;
+            }
         }
 
         public short? GetMarginOfError(int Challenge_Id)
@@ -35,6 +42,8 @@ namespace TechKids.Core.Factories
                 case 2:
                     return 3;
                 case 6:
+                    return 2;
+                case 13:
                     return 2;
                 default:
                     return null;
@@ -57,6 +66,7 @@ namespace TechKids.Core.Factories
                 { 10, _calculateStarsBasedOnAttempts },
                 { 11, _calculateStarsBasedOnAttempts },
                 { 12, _calculateStarsBasedOnAttempts },
+                { 13, _calculateStarsBasedOnCompoundChallenge },
             };
 
             if (services.TryGetValue(Challenge_Id, out var service))
