@@ -41,6 +41,7 @@ export const ResumePage = () => {
     sound: true,
     vibration: true,
   };
+  const article = student.gender == "female" ? "a" : "o";
 
   const challenges: Array<IChallengesStudent> = [
     { challenge_id: 1, current: false, score_Stars: 3, score_Diamonds: 0 },
@@ -61,8 +62,8 @@ export const ResumePage = () => {
   ];
 
   const progress = 75;
-  const star_total = 6;
-  const diamonds_total = 3;
+  const star_total = 11;
+  const diamonds_total = 1;
 
   const renderChallenges = () => {
     return challenges.map((challenge) => (
@@ -97,8 +98,8 @@ export const ResumePage = () => {
           <ProgressBar progress={progress} />
         </ProgressContainer>
         <Greetings>
-          Olá, Pequeno
-          <span>{student.name}</span>
+          {`Olá, Pequen${article}`}
+          <span>{student?.name.toLocaleUpperCase()}!</span>
         </Greetings>
         <ActionHeader onClick={() => navigate(routeConfigs.Settings)}>
           <GearSix weight="fill" size={32} />

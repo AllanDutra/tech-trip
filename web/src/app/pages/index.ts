@@ -5,3 +5,4 @@ export * from "./SettingsPage";
 export * from "./ChangePasswordPage";
 export * from "./MapPage";
 export * from "./ResumePage";
+export * from "./RankingPage";

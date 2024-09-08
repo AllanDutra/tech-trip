@@ -4,9 +4,9 @@ export interface IRanking {
   id: number;
   name: string;
   character_id: number;
-  totalStars: 0;
-  totalDiamonds: 0;
-  totalScore: 0;
+  totalStars: number;
+  totalDiamonds: number;
+  totalScore: number;
   rank: number;
 }
 
