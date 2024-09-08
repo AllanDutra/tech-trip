@@ -27,6 +27,8 @@ namespace TechKids.Core.Factories
             {
                 case 2:
                     return 3;
+                case 6:
+                    return 2;
                 default:
                     return null;
             }
@@ -41,6 +43,7 @@ namespace TechKids.Core.Factories
                 { 3, _calculateStarsBasedOnAttempts },
                 { 4, _calculateStarsBasedOnAttempts },
                 { 5, _calculateStarsBasedOnSteps },
+                { 6, _calculateStarsBasedOnAttemptsToWin },
             };
 
             if (services.TryGetValue(Challenge_Id, out var service))
