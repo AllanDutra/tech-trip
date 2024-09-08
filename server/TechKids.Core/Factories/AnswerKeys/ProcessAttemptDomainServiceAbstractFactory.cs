@@ -47,6 +47,7 @@ namespace TechKids.Core.Factories
                 { 7, _calculateStarsBasedOnSteps },
                 { 8, _calculateStarsBasedOnSteps },
                 { 9, _calculateStarsBasedOnAttempts },
+                { 10, _calculateStarsBasedOnAttempts },
             };
 
             if (services.TryGetValue(Challenge_Id, out var service))
