@@ -35,9 +35,12 @@ namespace TechKids.Core.Factories
             {
                 case 1:
                     return _calculateStarsBasedOnAttempts;
-                
+
                 case 2:
                     return _calculateStarsBasedOnSteps;
+
+                case 3:
+                    return _calculateStarsBasedOnAttempts;
 
                 default:
                     throw new InvalidOperationException(
