@@ -51,6 +51,22 @@ namespace TechKids.Application.Commands
                 return null;
             }
 
+            bool studentAlreadyScoredInThisChallenge =
+                await _unitOfWork.Scores.StudentAlreadyScoredInTheChallengeAsync(
+                    StudentAuthenticationSettings.Claims.Id,
+                    request.Challenge_Id
+                );
+
+            if (studentAlreadyScoredInThisChallenge)
+            {
+                _notifier.Handle(
+                    "Você já resolveu este desafio anteriormente.",
+                    HttpStatusCode.Conflict
+                );
+
+                return null;
+            }
+
             Score? lastScore = await _unitOfWork.Scores.GetLastStudentScoreAsync(
                 StudentAuthenticationSettings.Claims.Id
             );
@@ -70,22 +86,6 @@ namespace TechKids.Application.Commands
             {
                 _notifier.Handle(
                     $"Você não pode resolver o desafio {request.Challenge_Id} sem antes resolver o desafio {currentChallengeId}",
-                    HttpStatusCode.Conflict
-                );
-
-                return null;
-            }
-
-            bool studentAlreadyScoredInThisChallenge =
-                await _unitOfWork.Scores.StudentAlreadyScoredInTheChallengeAsync(
-                    StudentAuthenticationSettings.Claims.Id,
-                    request.Challenge_Id
-                );
-
-            if (studentAlreadyScoredInThisChallenge)
-            {
-                _notifier.Handle(
-                    "Você já resolveu este desafio anteriormente.",
                     HttpStatusCode.Conflict
                 );
 
