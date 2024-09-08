@@ -51,6 +51,31 @@ namespace TechKids.Application.Commands
                 return null;
             }
 
+            Score? lastScore = await _unitOfWork.Scores.GetLastStudentScoreAsync(
+                StudentAuthenticationSettings.Claims.Id
+            );
+
+            int currentChallengeId;
+
+            if (lastScore is null)
+            {
+                currentChallengeId = 1;
+            }
+            else
+            {
+                currentChallengeId = ((int)lastScore.ChallengeId!) + 1;
+            }
+
+            if (request.Challenge_Id != currentChallengeId)
+            {
+                _notifier.Handle(
+                    $"Você não pode resolver o desafio {request.Challenge_Id} sem antes resolver o desafio {currentChallengeId}",
+                    HttpStatusCode.Conflict
+                );
+
+                return null;
+            }
+
             bool studentAlreadyScoredInThisChallenge =
                 await _unitOfWork.Scores.StudentAlreadyScoredInTheChallengeAsync(
                     StudentAuthenticationSettings.Claims.Id,
@@ -130,10 +155,6 @@ namespace TechKids.Application.Commands
 
                 if (processedAttemptProduct.CorrectAttempt)
                 {
-                    Score? lastScore = await _unitOfWork.Scores.GetLastStudentScoreAsync(
-                        StudentAuthenticationSettings.Claims.Id
-                    );
-
                     short totalStarsEarned = (short)processedAttemptProduct.TotalStars!;
                     short totalDiamondsEarned = 0;
 
