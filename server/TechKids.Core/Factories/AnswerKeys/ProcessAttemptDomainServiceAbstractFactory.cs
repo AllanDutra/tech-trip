@@ -31,22 +31,23 @@ namespace TechKids.Core.Factories
 
         public IProcessAttemptDomainService GetService(int Challenge_Id)
         {
-            switch (Challenge_Id)
+            var services = new Dictionary<int, IProcessAttemptDomainService>
             {
-                case 1:
-                    return _calculateStarsBasedOnAttempts;
+                { 1, _calculateStarsBasedOnAttempts },
+                { 2, _calculateStarsBasedOnSteps },
+                { 3, _calculateStarsBasedOnAttempts },
+                { 4, _calculateStarsBasedOnAttempts },
+                { 5, _calculateStarsBasedOnSteps },
+            };
 
-                case 2:
-                    return _calculateStarsBasedOnSteps;
-
-                case 3:
-                    return _calculateStarsBasedOnAttempts;
-
-                default:
-                    throw new InvalidOperationException(
-                        $"Processamento para o desafio {Challenge_Id} não encontrado ou não implementado."
-                    );
+            if (services.TryGetValue(Challenge_Id, out var service))
+            {
+                return service;
             }
+
+            throw new InvalidOperationException(
+                $"Processamento para o desafio {Challenge_Id} não encontrado ou não implementado."
+            );
         }
     }
 }
