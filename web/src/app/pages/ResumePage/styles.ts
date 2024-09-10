@@ -112,16 +112,15 @@ export const List = styled.div`
 
 export const Number = styled.div`
   background-color: #2bcb9a;
-  border-radius: 1.2em;
-  width: 3.5em;
-  height: 3.5em;
+  border-radius: 0.625em;
+  width: 1.875em;
+  height: 1.875em;
   display: flex;
   align-items: center;
   justify-content: center;
   span {
     font-family: "Montserrat Alternates", sans-serif;
     color: #fff;
-    font-size: 1.7em;
     font-weight: 900;
   }
 `;

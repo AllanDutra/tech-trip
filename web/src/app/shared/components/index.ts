@@ -17,3 +17,5 @@ export * from "./Toast";
 export * from "./MapLine1";
 export * from "./MapLine2";
 export * from "./MapLine3";
+export * from "./DropArea";
+export * from "./DragArea";

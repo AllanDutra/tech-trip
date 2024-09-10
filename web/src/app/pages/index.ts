@@ -6,3 +6,4 @@ export * from "./ChangePasswordPage";
 export * from "./MapPage";
 export * from "./ResumePage";
 export * from "./RankingPage";
+export * from "./Challenge1Page";

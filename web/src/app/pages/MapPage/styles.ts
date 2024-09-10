@@ -116,16 +116,18 @@ export const LineContainer = styled.div<{
 `;
 
 export const MapPinContainer = styled.span`
-  visibility: visible;
+  /* visibility: visible; */
+  position: absolute;
   z-index: 2;
+  top: -2.5em;
 `;
 
 export const StarsContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 8;
-  visibility: visible;
-  width: fit-content;
   gap: 0.1em;
+  position: absolute;
+  bottom: -2em;
+  z-index: 1;
 `;
