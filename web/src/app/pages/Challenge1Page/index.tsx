@@ -5,6 +5,12 @@ import {
   StyledLabel,
   StyledMain,
 } from "./styles";
+import LandImage from "../../shared/assets/DropAreasBackgrounds/Land.svg";
+import SeaImage from "../../shared/assets/DropAreasBackgrounds/Sea.svg";
+import LionImage from "../../shared/assets/DragAreasImages/Lion.svg";
+import Fish1Image from "../../shared/assets/DragAreasImages/Fish1.svg";
+import ElephantImage from "../../shared/assets/DragAreasImages/Elephant.svg";
+import Fish2Image from "../../shared/assets/DragAreasImages/Fish2.svg";
 
 export function Challenge1Page() {
   return (
@@ -20,7 +26,7 @@ export function Challenge1Page() {
           group={"Terrestres"}
           backgroundColor={"#F2EEEA"}
           onDropAnimal={() => {}}
-          backgroundImage="/src/app/shared/assets/DropAreasBackgrounds/Land.svg"
+          backgroundImage={LandImage}
           boxShadowContainer={"#eae7e3"}
           boxShadowBox={"#DFD8D0"}
         />
@@ -31,7 +37,7 @@ export function Challenge1Page() {
           boxColor={"#CFEEFD"}
           backgroundColor={"#E6F6FE"}
           onDropAnimal={() => {}}
-          backgroundImage="/src/app/shared/assets/DropAreasBackgrounds/Sea.svg"
+          backgroundImage={SeaImage}
           boxShadowContainer={"#DFEEF6"}
           boxShadowBox={"#C9E7F5"}
         />
@@ -40,22 +46,22 @@ export function Challenge1Page() {
           <DraggableItem
             backgroundColor={"#F2EEEA"}
             name={"T"}
-            image={"/src/app/shared/assets/DragAreasImages/Lion.svg"}
+            image={LionImage}
           />
           <DraggableItem
             backgroundColor={"#E6F6FE"}
             name={"A"}
-            image={"/src/app/shared/assets/DragAreasImages/Fish1.svg"}
+            image={Fish1Image}
           />
           <DraggableItem
             backgroundColor={"#F2EEEA"}
             name={"T"}
-            image={"/src/app/shared/assets/DragAreasImages/Elephant.svg"}
+            image={ElephantImage}
           />
           <DraggableItem
             backgroundColor={"#E6F6FE"}
             name={"A"}
-            image={"/src/app/shared/assets/DragAreasImages/Fish2.svg"}
+            image={Fish2Image}
           />{" "}
         </DraggableItems>
       </MainContainer>
