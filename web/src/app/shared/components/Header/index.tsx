@@ -37,13 +37,16 @@ function Container({ children }: IContainerProps) {
 }
 
 function CloseButton({ ...rest }: ICloseButtonProps) {
-  
   const navigate = useNavigate();
 
   return (
-    <StyledCloseButton onClick={() => navigate(routeConfigs.Map)} className="close-button" {...rest}>
+    <StyledCloseButton
+      onClick={() => navigate(routeConfigs.Map)}
+      className="close-button"
+      {...rest}
+    >
       <span>
-        <X weight="bold" size={20} color="#424243" />
+        <X weight="bold" color="#424243" />
       </span>
     </StyledCloseButton>
   );
