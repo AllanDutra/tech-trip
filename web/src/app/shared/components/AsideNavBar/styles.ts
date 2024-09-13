@@ -40,6 +40,10 @@ export const StyledAsideNavBarContainer = styled.nav`
       justify-content: center;
     }
   }
+
+  @media screen and (max-width: 1280px) {
+    display: none;
+  }
 `;
 
 export const StyledLinkComponent = styled(Link)`

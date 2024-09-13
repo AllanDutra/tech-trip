@@ -7,6 +7,12 @@ export const StyledContainer = styled.div`
   gap: 0.625em;
 
   height: 2.5em;
+
+  max-width: 25.625em;
+
+  @media screen and (max-width: 680px) {
+    max-width: none;
+  }
 `;
 
 export const StyledCloseButton = styled.button`

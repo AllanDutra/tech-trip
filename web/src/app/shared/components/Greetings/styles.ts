@@ -28,4 +28,8 @@ export const StyledGreetings = styled.div`
     font-size: 1.625em;
     letter-spacing: 0.0325em;
   }
+
+  @media screen and (max-width: 680px) {
+    display: none;
+  }
 `;
