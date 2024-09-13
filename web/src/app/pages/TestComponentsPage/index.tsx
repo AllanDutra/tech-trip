@@ -18,6 +18,7 @@ import {
 import { StyledMain } from "./styles";
 import { useCallback } from "react";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
+import { appConfigs } from "../../shared/configs/App";
 
 export function TestComponentsPage() {
   const handleOnDragEnd = useCallback((result: DropResult) => {
@@ -80,7 +81,7 @@ export function TestComponentsPage() {
 
       <h2>Title</h2>
 
-      <Title value="TECH KIDs" />
+      <Title value={appConfigs.NAME} />
 
       <h2>Header</h2>
 

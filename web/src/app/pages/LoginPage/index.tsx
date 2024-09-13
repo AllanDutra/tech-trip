@@ -19,6 +19,7 @@ import { routeConfigs } from "../../shared/configs";
 import { StudentsService, IStudents } from "../../shared/services";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { appConfigs } from "../../shared/configs/App";
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ export function LoginPage() {
     gender: "",
     character_id: 0,
     sound: true,
-    vibration: true
+    vibration: true,
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,7 +119,7 @@ export function LoginPage() {
       <ToastContainer />
       <LoginForm onSubmit={handleSubmit}>
         <LoginHeader>
-          <Title value="Tech KIDs"></Title>
+          <Title value={appConfigs.NAME}></Title>
           <SubTitle>Descubra uma nova forma de aprender computação.</SubTitle>
         </LoginHeader>
         <LoginMain>

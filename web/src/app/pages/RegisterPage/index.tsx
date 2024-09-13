@@ -33,6 +33,7 @@ import { routeConfigs } from "../../shared/configs";
 import { StudentsService, IStudents } from "../../shared/services";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { appConfigs } from "../../shared/configs/App";
 
 export function RegisterPage() {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ export function RegisterPage() {
     gender: "female",
     character_id: 2,
     sound: true,
-    vibration: true
+    vibration: true,
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,7 +81,7 @@ export function RegisterPage() {
       const studentId = await StudentsService.register(student);
 
       if (typeof studentId === "number") {
-        toast.success('Usuário registrado com sucesso!', {
+        toast.success("Usuário registrado com sucesso!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -90,7 +91,7 @@ export function RegisterPage() {
           progress: undefined,
           theme: "colored",
           transition: Bounce,
-          });
+        });
         navigate(routeConfigs.Login);
       } else {
         toast.error(studentId.message, {
@@ -103,11 +104,11 @@ export function RegisterPage() {
           progress: undefined,
           theme: "colored",
           transition: Bounce,
-          });
+        });
       }
     } catch (error) {
       console.error("Erro ao conectar com a API:", error);
-      toast.error('Erro ao conectar', {
+      toast.error("Erro ao conectar", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -117,7 +118,7 @@ export function RegisterPage() {
         progress: undefined,
         theme: "colored",
         transition: Bounce,
-        });
+      });
     }
   };
 
@@ -128,7 +129,7 @@ export function RegisterPage() {
         <RegisterForm onSubmit={handleSubmit}>
           <div>
             <RegisterHeader>
-              <Title value="TECH KIDs" />
+              <Title value={appConfigs.NAME} />
               <p>Descubra uma nova forma de aprender computação.</p>
             </RegisterHeader>
 
