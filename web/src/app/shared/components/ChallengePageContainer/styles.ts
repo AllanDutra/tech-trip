@@ -12,6 +12,11 @@ export const StyledSubPageContainer = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  main {
+    flex: 1;
+    display: flex;
+  }
 `;
 
 export const StyledHeader = styled.header`

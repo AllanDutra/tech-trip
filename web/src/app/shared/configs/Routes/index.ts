@@ -6,7 +6,8 @@ const Register = "/cadastrar";
 const Login = "/entrar";
 const Settings = "/editar-perfil";
 const ChangePassword = "/trocar-senha";
-const Challenge1 = "desafio-um";
+const Challenge1 = "/desafio-um";
+const Challenge2 = "/desafio-dois";
 
 export const routeConfigs = {
   TestComponents,
@@ -18,4 +19,5 @@ export const routeConfigs = {
   Settings,
   ChangePassword,
   Challenge1,
+  Challenge2,
 };
