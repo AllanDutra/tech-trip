@@ -6,7 +6,6 @@ export const StyledContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  /* justify-content: space-between; */
   gap: 15%;
 
   .challenge-message {

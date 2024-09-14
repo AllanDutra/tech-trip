@@ -1,10 +1,10 @@
 import { ChallengePageContainer } from "../../shared/components/ChallengePageContainer";
-import { FirstStep } from "./components/FirstStep";
+import { SecondStep } from "./components/SecondStep";
 
 export function Challenge5Page() {
   return (
     <ChallengePageContainer currentLevel={5}>
-      <FirstStep />
+      <SecondStep />
     </ChallengePageContainer>
   );
 }
