@@ -8,6 +8,7 @@ const Settings = "/editar-perfil";
 const ChangePassword = "/trocar-senha";
 const Challenge1 = "desafio-um";
 const Challenge7 = "desafio-sete";
+const Challenge7_2 = "/ch7-passo-dois";
 
 export const routeConfigs = {
   TestComponents,
@@ -19,5 +20,6 @@ export const routeConfigs = {
   Settings,
   ChangePassword,
   Challenge1,
-  Challenge7
+  Challenge7,
+  Challenge7_2,
 };
