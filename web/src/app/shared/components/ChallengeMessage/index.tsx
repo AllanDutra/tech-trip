@@ -13,5 +13,9 @@ export function ChallengeMessage({
   children,
   ...rest
 }: IChallengeMessageProps) {
-  return <StyledChallengeMessage {...rest}>{children}</StyledChallengeMessage>;
+  return (
+    <StyledChallengeMessage className="challenge-message" {...rest}>
+      {children}
+    </StyledChallengeMessage>
+  );
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ChallengeMessage } from "../../shared/components";
 import { ChallengePageContainer } from "../../shared/components/ChallengePageContainer";
 import { ControlButtons } from "./components/ControlButtons";
@@ -7,7 +7,7 @@ import {
   IMatrizSquareConfiguration,
   Maze,
 } from "./components/Maze";
-import { StyledChallengeContainer, StyledContainer } from "./styles";
+import { StyledChallengeContainer } from "./styles";
 
 const SHOE_COORDINATES: ICharacterCoordinates = {
   lineIndex: 2,
@@ -84,26 +84,24 @@ export function Challenge2Page() {
 
   return (
     <ChallengePageContainer currentLevel={2}>
-      <StyledContainer>
-        <StyledChallengeContainer>
-          <ChallengeMessage>
-            Gabriel perdeu seu sapato no labirinto. Ajude-o a encontrá-lo!
-          </ChallengeMessage>
+      <StyledChallengeContainer>
+        <ChallengeMessage>
+          Gabriel perdeu seu sapato no labirinto. Ajude-o a encontrá-lo!
+        </ChallengeMessage>
 
-          <Maze
-            matrizConfiguration={MAZE_MATRIZ_CONFIGURATION}
-            characterCoordinates={characterCoordinates}
-            shoeCoordinates={SHOE_COORDINATES}
-          />
+        <Maze
+          matrizConfiguration={MAZE_MATRIZ_CONFIGURATION}
+          characterCoordinates={characterCoordinates}
+          shoeCoordinates={SHOE_COORDINATES}
+        />
 
-          <ControlButtons
-            matrizConfiguration={MAZE_MATRIZ_CONFIGURATION}
-            characterCoordinates={characterCoordinates}
-            shoeCoordinates={SHOE_COORDINATES}
-            setCharacterCoordinates={setCharacterCoordinates}
-          />
-        </StyledChallengeContainer>
-      </StyledContainer>
+        <ControlButtons
+          matrizConfiguration={MAZE_MATRIZ_CONFIGURATION}
+          characterCoordinates={characterCoordinates}
+          shoeCoordinates={SHOE_COORDINATES}
+          setCharacterCoordinates={setCharacterCoordinates}
+        />
+      </StyledChallengeContainer>
     </ChallengePageContainer>
   );
 }
