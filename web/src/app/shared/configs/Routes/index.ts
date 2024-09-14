@@ -10,6 +10,7 @@ const ChangePassword = "/trocar-senha";
 const Challenge1 = "/desafio-um";
 const Challenge2 = "/desafio-dois";
 const Challenge4 = "/desafio-quatro";
+const Challenge5 = "/desafio-cinco";
 
 export const routeConfigs = {
   TestComponents,
@@ -23,4 +24,5 @@ export const routeConfigs = {
   Challenge1,
   Challenge2,
   Challenge4,
+  Challenge5,
 };
