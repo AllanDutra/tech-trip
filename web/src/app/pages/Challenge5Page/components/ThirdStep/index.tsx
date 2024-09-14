@@ -4,11 +4,10 @@ import { StyledContainer } from "./styles";
 import Tree1 from "../../../../shared/assets/ChallengesImages/5/tree1.svg";
 import Tree2 from "../../../../shared/assets/ChallengesImages/5/tree2.svg";
 import Tree3 from "../../../../shared/assets/ChallengesImages/5/tree3.svg";
-
-type TSeedId = 1 | 2 | 3;
+import { TSeedId } from "../..";
 
 interface IThirdStepProps {
-  selectedSeed: TSeedId;
+  selectedSeed?: TSeedId;
 }
 
 export function ThirdStep({ selectedSeed }: IThirdStepProps) {
@@ -29,7 +28,7 @@ export function ThirdStep({ selectedSeed }: IThirdStepProps) {
         e bonita árvore!
       </ChallengeMessage>
 
-      <img src={treeImage} alt="Tree" />
+      {treeImage ? <img src={treeImage} alt="Tree" /> : <div />}
 
       {/* // TODO: CALL API HERE */}
       <Button color="green" text="AVANÇAR" />

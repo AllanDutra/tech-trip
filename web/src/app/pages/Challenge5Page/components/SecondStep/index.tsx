@@ -5,7 +5,11 @@ import { StyledContainer, StyledImageGroup, StyledWaterDrop } from "./styles";
 import { useCallback, useEffect, useState } from "react";
 import { Functions } from "../../../../shared/functions";
 
-export function SecondStep() {
+interface ISecondStepProps {
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export function SecondStep({ setStep }: ISecondStepProps) {
   const [touchInWateringCan, setTouchInWateringCan] = useState(false);
 
   const [isWatering, setIsWatering] = useState(false);
@@ -21,9 +25,8 @@ export function SecondStep() {
 
     await Functions.delay(5);
 
-    // TODO: CALL API HERE
-    setIsWatering(false);
-  }, []);
+    setStep((oldValue) => oldValue + 1);
+  }, [setStep]);
 
   useEffect(() => {
     if (touchInWateringCan) {
