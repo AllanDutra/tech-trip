@@ -17,6 +17,7 @@ import {
   Challenge1Page,
 } from "../pages";
 import { Challenge2Page } from "../pages/Challenge2Page";
+import { Challenge4Page } from "../pages/Challenge4Page";
 
 export function Routes() {
   return (
@@ -36,8 +37,11 @@ export function Routes() {
         <Route path={routeConfigs.Map} element={<MapPage />} />
         <Route path={routeConfigs.Resume} element={<ResumePage />} />
         <Route path={routeConfigs.Ranking} element={<RankingPage />} />
+
         <Route path={routeConfigs.Challenge1} element={<Challenge1Page />} />
         <Route path={routeConfigs.Challenge2} element={<Challenge2Page />} />
+
+        <Route path={routeConfigs.Challenge4} element={<Challenge4Page />} />
 
         <Route path="*" element={<Navigate to={routeConfigs.Login} />} />
       </Switch>
