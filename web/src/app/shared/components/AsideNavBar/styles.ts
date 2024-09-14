@@ -57,7 +57,7 @@ export const StyledLinkComponent = styled(Link)`
   gap: 1.25em;
   padding: 1.3125em 1.25em;
 
-  font-size: 1.125em;
+  font-size: 1.0625em;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-style: normal;
