@@ -18,4 +18,8 @@ export const StyledChallengeMessage = styled.span`
 
     margin-top: 0em;
   }
+  
+  @media screen and (max-height: 670px) {
+    font-size: 1em;
+  }
 `;
