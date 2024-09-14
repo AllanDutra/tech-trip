@@ -5,7 +5,18 @@ import {
   Routes as Switch,
 } from "react-router-dom";
 import { routeConfigs } from "../shared/configs";
-import { TestComponentsPage, RegisterPage, LoginPage, SettingsPage, MapPage, ChangePasswordPage, ResumePage, RankingPage, Challenge1Page } from "../pages";
+import {
+  TestComponentsPage,
+  RegisterPage,
+  LoginPage,
+  SettingsPage,
+  MapPage,
+  ChangePasswordPage,
+  ResumePage,
+  RankingPage,
+  Challenge1Page,
+} from "../pages";
+import { Challenge2Page } from "../pages/Challenge2Page";
 
 export function Routes() {
   return (
@@ -18,16 +29,17 @@ export function Routes() {
         <Route path={routeConfigs.Register} element={<RegisterPage />} />
         <Route path={routeConfigs.Login} element={<LoginPage />} />
         <Route path={routeConfigs.Settings} element={<SettingsPage />} />
-        <Route path={routeConfigs.ChangePassword} element={<ChangePasswordPage />} />
+        <Route
+          path={routeConfigs.ChangePassword}
+          element={<ChangePasswordPage />}
+        />
         <Route path={routeConfigs.Map} element={<MapPage />} />
-        <Route path={routeConfigs.Resume} element={<ResumePage />}/>
+        <Route path={routeConfigs.Resume} element={<ResumePage />} />
         <Route path={routeConfigs.Ranking} element={<RankingPage />} />
         <Route path={routeConfigs.Challenge1} element={<Challenge1Page />} />
+        <Route path={routeConfigs.Challenge2} element={<Challenge2Page />} />
 
-        <Route
-          path="*"
-          element={<Navigate to={routeConfigs.Login} />}
-        />
+        <Route path="*" element={<Navigate to={routeConfigs.Login} />} />
       </Switch>
     </BrowserRouter>
   );
