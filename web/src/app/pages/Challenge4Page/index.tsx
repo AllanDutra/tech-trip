@@ -5,7 +5,7 @@ import {
   StyledContainer,
   StyledImageContainer,
 } from "./styles";
-import ElephantImage from "../../shared/assets/ChallengesImages/elephant.svg";
+import ElephantImage from "../../shared/assets/ChallengesImages/4/elephant.svg";
 
 export function Challenge4Page() {
   return (

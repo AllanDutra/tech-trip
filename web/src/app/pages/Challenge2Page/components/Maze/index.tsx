@@ -2,7 +2,7 @@ import { Fragment } from "react/jsx-runtime";
 import { StyledMatrizSquare, StyledMaze, StyledMazeContainer } from "./styles";
 import { useMemo } from "react";
 import { Character } from "../../../../shared/components";
-import ShoeImage from "../../../../shared/assets/ChallengesImages/shoe.svg";
+import ShoeImage from "../../../../shared/assets/ChallengesImages/2/shoe.svg";
 
 export interface ICharacterCoordinates {
   lineIndex: number;
