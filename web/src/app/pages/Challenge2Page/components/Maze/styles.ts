@@ -6,6 +6,10 @@ export const StyledMazeContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  * {
+    user-select: none;
+  }
 `;
 
 export const StyledMaze = styled.div`
@@ -20,6 +24,10 @@ export const StyledMaze = styled.div`
 `;
 
 export const StyledMatrizSquare = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   &.top {
     border-top: 0.4375em solid #d9dade;
   }
@@ -34,5 +42,16 @@ export const StyledMatrizSquare = styled.div`
 
   &.left {
     border-left: 0.4375em solid #d9dade;
+  }
+
+  &.shoeSquare {
+    position: relative;
+    overflow: visible;
+
+    img.shoe {
+      position: absolute;
+      left: 2.1875em;
+      top: 2.1875em;
+    }
   }
 `;

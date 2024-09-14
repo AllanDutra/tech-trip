@@ -12,6 +12,10 @@ export const StyledControlButtonsContainer = styled.div`
     width: 4em;
     height: 4em;
   }
+
+  * {
+    user-select: none;
+  }
 `;
 
 export const StyledGroupedControlButtons = styled.div`

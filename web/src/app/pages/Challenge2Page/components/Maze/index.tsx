@@ -1,8 +1,15 @@
 import { Fragment } from "react/jsx-runtime";
 import { StyledMatrizSquare, StyledMaze, StyledMazeContainer } from "./styles";
 import { useMemo } from "react";
+import { Character } from "../../../../shared/components";
+import ShoeImage from "../../../../shared/assets/ChallengesImages/shoe.svg";
 
-interface IMatrizSquareConfiguration {
+export interface ICharacterCoordinates {
+  lineIndex: number;
+  columnIndex: number;
+}
+
+export interface IMatrizSquareConfiguration {
   borderTop?: boolean;
   borderRight?: boolean;
   borderBottom?: boolean;
@@ -12,6 +19,14 @@ interface IMatrizSquareConfiguration {
 interface IMatrizSquareProps extends IMatrizSquareConfiguration {
   lineIndex: number;
   columnIndex: number;
+  characterCoordinates: ICharacterCoordinates;
+  shoeCoordinates: ICharacterCoordinates;
+}
+
+interface IMazeProps {
+  matrizConfiguration: IMatrizSquareConfiguration[][];
+  characterCoordinates: ICharacterCoordinates;
+  shoeCoordinates: ICharacterCoordinates;
 }
 
 function MatrizSquare({
@@ -19,6 +34,10 @@ function MatrizSquare({
   borderRight,
   borderBottom,
   borderLeft,
+  lineIndex,
+  columnIndex,
+  characterCoordinates,
+  shoeCoordinates,
 }: IMatrizSquareProps) {
   const className = useMemo(() => {
     let value = "";
@@ -34,71 +53,39 @@ function MatrizSquare({
     return value;
   }, [borderTop, borderRight, borderBottom, borderLeft]);
 
-  return <StyledMatrizSquare className={className}></StyledMatrizSquare>;
+  const characterVisible = useMemo(
+    (): boolean =>
+      lineIndex === characterCoordinates.lineIndex &&
+      columnIndex === characterCoordinates.columnIndex,
+    [lineIndex, columnIndex, characterCoordinates]
+  );
+
+  const shoeVisible = useMemo(
+    () =>
+      lineIndex === shoeCoordinates.lineIndex &&
+      columnIndex === shoeCoordinates.columnIndex,
+    [lineIndex, columnIndex, shoeCoordinates]
+  );
+
+  return (
+    <StyledMatrizSquare
+      className={`${className} ${shoeVisible ? "shoeSquare" : ""}`}
+    >
+      {characterVisible && <Character.FullComponent number={8} />}
+      {shoeVisible && <img className="shoe" src={ShoeImage} alt="shoe" />}
+    </StyledMatrizSquare>
+  );
 }
 
-const MAZE_MATRIZ_CONFIGURATION: IMatrizSquareConfiguration[][] = [
-  // ? First line
-  [
-    { borderTop: true, borderLeft: true },
-    { borderTop: true, borderBottom: true },
-    { borderTop: true, borderRight: true, borderBottom: true },
-    { borderTop: true, borderBottom: true },
-    { borderTop: true, borderBottom: true },
-    { borderTop: true, borderRight: true },
-  ],
-  // ? Second line
-  [
-    { borderLeft: true },
-    { borderBottom: true },
-    { borderBottom: true },
-    { borderBottom: true },
-    { borderRight: true },
-    { borderRight: true },
-  ],
-  // ? Third line
-  [
-    { borderLeft: true },
-    { borderRight: true },
-    {},
-    { borderRight: true },
-    {},
-    { borderRight: true },
-  ],
-  // ? Fourth line
-  [
-    { borderLeft: true, borderRight: true },
-    { borderBottom: true, borderRight: true },
-    {},
-    { borderBottom: true, borderRight: true },
-    { borderRight: true },
-    { borderTop: true, borderRight: true },
-  ],
-  // ? Fifth line
-  [
-    { borderLeft: true },
-    { borderRight: true },
-    { borderBottom: true },
-    { borderBottom: true },
-    { borderBottom: true, borderRight: true },
-    { borderRight: true },
-  ],
-  // ? Sixth line
-  [
-    { borderLeft: true, borderBottom: true, borderRight: true },
-    { borderBottom: true },
-    { borderBottom: true },
-    { borderBottom: true },
-    { borderBottom: true },
-    { borderBottom: true, borderRight: true },
-  ],
-];
-
-export function Maze() {
+export function Maze({
+  matrizConfiguration,
+  characterCoordinates,
+  shoeCoordinates,
+}: IMazeProps) {
   return (
     <StyledMazeContainer>
       <StyledMaze>
-        {MAZE_MATRIZ_CONFIGURATION.map((line, i) => (
+        {matrizConfiguration.map((line, i) => (
           <Fragment key={i}>
             {line.map((column, j) => (
               <MatrizSquare
@@ -109,6 +96,8 @@ export function Maze() {
                 borderRight={column.borderRight}
                 borderBottom={column.borderBottom}
                 borderLeft={column.borderLeft}
+                characterCoordinates={characterCoordinates}
+                shoeCoordinates={shoeCoordinates}
               />
             ))}
           </Fragment>
