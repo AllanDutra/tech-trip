@@ -15,11 +15,16 @@ import {
   ResumePage,
   RankingPage,
   Challenge1Page,
+  Challenge7Page,
+  Challenge7Stage2,
+  Challenge8Page,
+  Challenge8Stage2,
+  Challenge8Stage3,
+  Challenge2Page,
+  Challenge4Page,
+  Challenge5Page,
+  Challenge6Page,
 } from "../pages";
-import { Challenge2Page } from "../pages/Challenge2Page";
-import { Challenge4Page } from "../pages/Challenge4Page";
-import { Challenge5Page } from "../pages/Challenge5Page";
-import { Challenge6Page } from "../pages/Challenge6Page";
 
 export function Routes() {
   return (
@@ -46,6 +51,26 @@ export function Routes() {
         <Route path={routeConfigs.Challenge4} element={<Challenge4Page />} />
         <Route path={routeConfigs.Challenge5} element={<Challenge5Page />} />
         <Route path={routeConfigs.Challenge6} element={<Challenge6Page />} />
+
+        <Route path={routeConfigs.Challenge7} element={<Challenge7Page />} />
+        <Route
+          path={routeConfigs.Challenge7_2}
+          element={<Challenge7Stage2 />}
+        />
+        <Route path={routeConfigs.Challenge8} element={<Challenge8Page />} />
+        <Route
+          path={routeConfigs.Challenge8_2}
+          element={<Challenge8Stage2 />}
+        />
+        <Route
+          path={routeConfigs.Challenge8_3}
+          element={<Challenge8Stage3 />}
+        />
+        <Route
+          path={routeConfigs.Challenge8_3}
+          element={<Challenge8Stage3 />}
+        />
+        <Route path={routeConfigs.Challenge9} element={<Challenge8Stage3 />} />
 
         <Route path="*" element={<Navigate to={routeConfigs.Login} />} />
       </Switch>
