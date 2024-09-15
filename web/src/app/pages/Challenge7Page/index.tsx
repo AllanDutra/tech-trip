@@ -4,8 +4,6 @@ import { BoxColor, BoxesContainer, StyledMain } from "./styles";
 import { useState } from "react";
 import { routeConfigs } from "../../shared/configs";
 
-export { Challenge7Stage2 } from "./components/Challenge7Stage2";
-
 export function Challenge7Page() {
   const navigate = useNavigate();
   const [selectedColor, setSelectedColor] = useState(null);

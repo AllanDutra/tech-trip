@@ -1,6 +1,7 @@
-import { CaretCircleDoubleDown } from "@phosphor-icons/react";
+import { Cake, UserCircle } from "@phosphor-icons/react";
 import {
   Button,
+  DoubleSelection,
   ChallengeMessage,
   ContainedInput,
   Header,
@@ -27,17 +28,14 @@ export const Challenge8Page = () => {
           }
         />
         <ContainedInput.FullComponent
+          readOnly
           label="Seu nome"
-          Icon={CaretCircleDoubleDown}
+          Icon={UserCircle}
         />
-        <ContainedInput.FullComponent
-          label="Sua idade"
-          Icon={CaretCircleDoubleDown}
-        />
+        <ContainedInput.FullComponent readOnly label="Sua idade" Icon={Cake} />
         <StyledLabel>Você gosta de brincar?</StyledLabel>
         <ButtonsArea>
-          <Button color="green" text="Sim" />
-          <Button color="red" text="Não" />
+          <DoubleSelection.FullComponent variant="yes-or-no" selected="yes" />
         </ButtonsArea>
       </MainContainer>
       <Button

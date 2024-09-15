@@ -13,15 +13,20 @@ export const StyledMain = styled.div`
 
 export const MainContainer = styled.main`
   width: 100%;
-  margin: 1.875em 1.25em 6.75em 1.25em;
+  padding: 1.875em 1.25em 6.75em 1.25em;
   display: flex;
   gap: 1.25em;
   flex-direction: column;
+
+  @media (min-width: 1024px) {
+    padding: 3.75em 8.75em 16.8125em 8.75em;
+  }
 `;
 
 export const ExplanationAreas = styled.div`
   @media (min-width: 1024px) {
     display: flex;
+    /*grid-template-columns: repeat(3, 1fr);*/
   }
 `;
 
@@ -33,11 +38,25 @@ export const Explanation = styled.div`
   justify-content: end;
 `;
 
+export const ImageArea = styled.div`
+  width: 5em;
+  height: 5em;
+  align-self: center;
+  margin-bottom: 5em;
+
+  @media (min-width: 1024px) {
+    width: 7.5em;
+    height: 7.5em;
+  }
+`;
+
 export const Message = styled.div`
   text-align: justify;
 `;
 
-export const Title = styled.span`
+export const Title = styled.div`
+  display: flex;
+  justify-content: space-between;
   font-family: "Poppins", sans-serif;
   font-weight: bold;
   font-size: 1em;
@@ -47,11 +66,19 @@ export const Title = styled.span`
   }
 `;
 
+export const PersonalData = styled.span<{ color: string }>`
+  color: ${(props) => props.color};
+`;
+
 export const ButtonsArea = styled.div`
   width: 100%;
   gap: 1.25em;
   display: flex;
   flex-direction: row;
+
+  @media (min-width: 1024px) {
+    gap: 2.5em;
+  }
 `;
 
 export const StyledLabel = styled.div`

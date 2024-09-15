@@ -8,5 +8,6 @@ export * from "./ResumePage";
 export * from "./RankingPage";
 export * from "./Challenge1Page";
 export * from "./Challenge7Page";
+export * from "./Challenge7Page/components";
 export * from "./Challenge8Page";
-export * from "./Challenge8Page/components/Stage2";
+export * from "./Challenge8Page/components";

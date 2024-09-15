@@ -15,12 +15,11 @@ import {
   ImageArea,
 } from "../../styles";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
-import { TextAa } from "../../../../shared/assets/ChallengesImages/8/TextAa";
-import { DribbleLogo, ListNumbers } from "../../../../shared/assets";
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../../../shared/configs";
+import { Eyes, OpenEyes } from "../../../../shared/assets";
 
-export const Challenge8Stage2 = () => {
+export const Challenge8Stage3 = () => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
   const isMobile = useMediaQuery({ maxWidth: 1023 });
 
@@ -32,107 +31,80 @@ export const Challenge8Stage2 = () => {
       <ChallengeMessage
         children={
           <>
-            Agora, veja como cada <strong>tipo de dado</strong> é representado:
+            Antes de avançar, entenda 2 conceitos importantes:{" "}
+            <strong>dado</strong> e <strong>informação</strong>
           </>
         }
       />
       <ExplanationAreas>
         <Explanation>
           <ImageArea>
-            <TextAa />
+            <Eyes />
           </ImageArea>
           <Title>
-            Seu nome: <PersonalData color="#5AA1DF">Oliver</PersonalData>
-          </Title>
-          <Message>
-            <ChallengeMessage
-              children={
-                <>
-                  Seu nome é guardado como uma sequência de{" "}
-                  <strong>letras</strong> ou <strong>caracteres</strong>. Cada
-                  letra tem um código que o computador entende.
-                </>
-              }
-            />
-          </Message>
-          {isMobile && (
-            <ButtonsArea>
-              <Button
-                children={
-                  <>
-                    <CaretLeft />
-                  </>
-                }
-                color="green"
-              />
-              <Button
-                children={
-                  <>
-                    <CaretRight />
-                  </>
-                }
-                color="green"
-              />
-            </ButtonsArea>
-          )}
-        </Explanation>
-
-        <Explanation>
-          <ImageArea>
-            <ListNumbers />
-          </ImageArea>
-          <Title>
-            Sua idade: <PersonalData color="#E23A68"> 8 anos</PersonalData>
-          </Title>
-          <Message>
-            <ChallengeMessage
-              children={
-                <>
-                  Sua idade é armazenada como um <strong>número inteiro</strong>
-                  , ou seja, sem vírgula.
-                </>
-              }
-            />
-          </Message>
-          {isMobile && (
-            <ButtonsArea>
-              <Button
-                children={
-                  <>
-                    <CaretLeft />
-                  </>
-                }
-                color="green"
-              />
-              <Button
-                children={
-                  <>
-                    <CaretRight />
-                  </>
-                }
-                color="green"
-              />
-            </ButtonsArea>
-          )}
-        </Explanation>
-
-        <Explanation>
-          <ImageArea>
-            <DribbleLogo />
-          </ImageArea>
-          <Title>
-            Você gosta de brincar:{" "}
+            <PersonalData color="#5AA1DF">Oliver</PersonalData>
+            <PersonalData color="#E23A68">8</PersonalData>
             <PersonalData color="#DC5C05">Sim</PersonalData>
           </Title>
           <Message>
             <ChallengeMessage
               children={
                 <>
-                  A informação de que você gosta de brincar é guardada como um
-                  número especial, chamado de <strong>bit</strong>. O{" "}
-                  <strong>bit</strong> pode ser 0 ou 1. Se for 0, significa
-                  'não' e se for 1, significa 'sim'. Como você gosta de brincar,
-                  guardamos a informação com o número 1!
+                  <strong>Dado:</strong> é uma peça básica de informação, como
+                  um <strong>número</strong> ou uma ou mais{" "}
+                  <strong>letras</strong>, que sozinhas não têm muito
+                  significado.
+                </>
+              }
+            />
+          </Message>
+          {isMobile && (
+            <ButtonsArea>
+              <Button
+                onClick={ () => routeConfigs.Challenge8_2}
+                children={
+                  <>
+                    <CaretLeft />
+                  </>
+                }
+                color="green"
+              />
+              <Button
+                children={
+                  <>
+                    <CaretRight />
+                  </>
+                }
+                color="green"
+              />
+            </ButtonsArea>
+          )}
+        </Explanation>
+
+        <Explanation>
+          <ImageArea>
+            <OpenEyes />
+          </ImageArea>
+          <Title>
+            Seu nome:
+            <PersonalData color="#5AA1DF">Oliver</PersonalData>
+          </Title>
+          <Title>
+            Sua idade:
+            <PersonalData color="#E23A68">8 anos</PersonalData>
+          </Title>
+          <Title>
+            Você gosta de brincar?
+            <PersonalData color="#DC5C05">Sim</PersonalData>
+          </Title>
+          <Message>
+            <ChallengeMessage
+              children={
+                <>
+                  <strong>Informação:</strong> é o que acontece quando juntamos
+                  vários <strong>dados</strong> para entender algo, como saber
+                  que seu nome é Oliver, tem 8 anos de idade e que você gosta de
+                  brincar.
                 </>
               }
             />
@@ -148,11 +120,8 @@ export const Challenge8Stage2 = () => {
                 color="green"
               />
               <Button
-                children={
-                  <>
-                    <CaretRight />
-                  </>
-                }
+                onClick={() => navigate(routeConfigs.Map)}
+                children={<>Avançar</>}
                 color="green"
               />
             </ButtonsArea>
@@ -169,19 +138,13 @@ export const Challenge8Stage2 = () => {
             }
             color="green"
             onClick={() => {
-              navigate(routeConfigs.Challenge8);
+              navigate(routeConfigs.Challenge8_2);
             }}
           />
           <Button
-            children={
-              <>
-                <CaretRight />
-              </>
-            }
+            children={<>Avançar</>}
             color="green"
-            onClick={() => {
-              navigate(routeConfigs.Challenge8_3);
-            }}
+            onClick={() => navigate(routeConfigs.Map)}
           />
         </ButtonsArea>
       )}

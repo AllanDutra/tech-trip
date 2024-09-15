@@ -19,6 +19,7 @@ import {
   Challenge7Stage2,
   Challenge8Page,
   Challenge8Stage2,
+  Challenge8Stage3,
 } from "../pages";
 
 export function Routes() {
@@ -49,6 +50,14 @@ export function Routes() {
         <Route
           path={routeConfigs.Challenge8_2}
           element={<Challenge8Stage2 />}
+        />
+        <Route
+          path={routeConfigs.Challenge8_3}
+          element={<Challenge8Stage3 />}
+        />
+        <Route
+          path={routeConfigs.Challenge8_3}
+          element={<Challenge8Stage3 />}
         />
 
         <Route path="*" element={<Navigate to={routeConfigs.Login} />} />

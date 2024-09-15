@@ -1,5 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button, ChallengeMessage, Header } from "../../../shared/components";
+import {
+  Button,
+  ChallengeMessage,
+  Header,
+} from "../../../../shared/components";
 import {
   BoxColor,
   ColorName,
@@ -9,10 +13,10 @@ import {
   Title,
   ButtonsArea,
   ExplanationAreas,
-} from "../styles";
+} from "../../styles";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { useMediaQuery } from "react-responsive";
-import { routeConfigs } from "../../../shared/configs";
+import { routeConfigs } from "../../../../shared/configs";
 
 type ColorInfo = {
   name: string;
@@ -130,12 +134,22 @@ export const Challenge7Stage2 = () => {
           </Message>
           {isMobile && (
             <ButtonsArea>
-              <Button color="green">
-                <CaretLeft />
-              </Button>
-              <Button color="green">
-                <CaretRight />
-              </Button>
+              <Button
+                children={
+                  <>
+                    <CaretLeft />
+                  </>
+                }
+                color="green"
+              />
+              <Button
+                children={
+                  <>
+                    <CaretRight />
+                  </>
+                }
+                color="green"
+              />
             </ButtonsArea>
           )}
         </Explanation>
@@ -158,12 +172,22 @@ export const Challenge7Stage2 = () => {
           </Message>
           {isMobile && (
             <ButtonsArea>
-              <Button color="green">
-                <CaretLeft />
-              </Button>
-              <Button color="green">
-                <CaretRight />
-              </Button>
+              <Button
+                children={
+                  <>
+                    <CaretLeft />
+                  </>
+                }
+                color="green"
+              />
+              <Button
+                children={
+                  <>
+                    <CaretRight />
+                  </>
+                }
+                color="green"
+              />
             </ButtonsArea>
           )}
         </Explanation>
@@ -188,17 +212,22 @@ export const Challenge7Stage2 = () => {
           </Message>
           {isMobile && (
             <ButtonsArea>
-              <Button color="green">
-                <CaretLeft />
-              </Button>
               <Button
-                onClick={() => {
-                  navigate(routeConfigs.Map);
-                }}
+                children={
+                  <>
+                    <CaretLeft />
+                  </>
+                }
                 color="green"
-              >
-                Avançar
-              </Button>
+              />
+              <Button
+                children={
+                  <>
+                    <CaretRight />
+                  </>
+                }
+                color="green"
+              />
             </ButtonsArea>
           )}
         </Explanation>
@@ -206,13 +235,12 @@ export const Challenge7Stage2 = () => {
       {isDesktop && (
         <ButtonsArea>
           <Button
+            children="Avançar"
             color="green"
             onClick={() => {
               navigate(routeConfigs.Map);
             }}
-          >
-            Avançar
-          </Button>
+          />
         </ButtonsArea>
       )}
     </StyledMain>
