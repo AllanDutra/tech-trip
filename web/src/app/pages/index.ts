@@ -11,3 +11,7 @@ export * from "./Challenge7Page";
 export * from "./Challenge7Page/components";
 export * from "./Challenge8Page";
 export * from "./Challenge8Page/components";
+export * from "./Challenge2Page";
+export * from "./Challenge4Page";
+export * from "./Challenge5Page";
+export * from "./Challenge6Page";
