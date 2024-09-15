@@ -19,3 +19,4 @@ export * from "./MapLine2";
 export * from "./MapLine3";
 export * from "./DropArea";
 export * from "./DragArea";
+export * from "./Reference";
