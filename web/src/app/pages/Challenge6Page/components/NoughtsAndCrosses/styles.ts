@@ -59,10 +59,25 @@ export const StyledSquare = styled.div`
     cursor: pointer;
     filter: brightness(85%);
   }
-
+  
   &.busy:hover {
     cursor: not-allowed;
-    background-color: transparent;
+    filter: brightness(100%);
+  }
+
+  span {
+    font-size: 4em;
+    font-family: "Montserrat Alternates", sans-serif;
+    font-weight: 500;
+    line-height: 160%;
+
+    &.O {
+      color: #039ef5;
+    }
+
+    &.X {
+      color: #e23a68;
+    }
   }
 
   @media screen and (max-width: 680px) {
@@ -71,5 +86,13 @@ export const StyledSquare = styled.div`
 
   @media screen and (max-height: 540px) {
     font-size: 1em;
+  }
+  
+  @media screen and (max-height: 760px) {
+    font-size: 1.5vh;
+  }
+  
+  @media screen and (max-width: 570px) {
+    font-size: 1.5vh;
   }
 `;
