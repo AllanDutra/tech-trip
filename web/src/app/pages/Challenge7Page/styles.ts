@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StyledMain = styled.div`
+  flex: 1;
   background-color: #f4fcfa;
   min-width: 320px;
   font-family: "Montserrat Alternates", sans-serif;
@@ -57,15 +58,28 @@ export const ExplanationAreas = styled.div`
 `;
 
 export const Explanation = styled.div`
+  height: 100%;
   display: flex;
   flex-direction: column;
   margin: 1.875em 1.25em 2.75em 1.25em;
   gap: 0.625em;
   justify-content: end;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+
+  &.mobileVisible {
+    @media (max-width: 1024px) {
+      display: flex;
+    }
+  }
 `;
 
 export const Message = styled.div`
-  text-align: justify;
+  span {
+    margin: 0;
+  }
 `;
 
 export const Title = styled.span`

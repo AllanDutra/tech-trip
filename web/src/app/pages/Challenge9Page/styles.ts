@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const StyledMain = styled.div`
-  flex: 1;
   background-color: #f4fcfa;
   min-width: 320px;
   font-family: "Montserrat Alternates", sans-serif;
@@ -24,29 +23,19 @@ export const MainContainer = styled.main`
   }
 `;
 
-export const ExplanationAreas = styled.div<{ columns: number }>`
+export const ExplanationAreas = styled.div`
   @media (min-width: 1024px) {
-    display: grid;
-    grid-template-columns: repeat(${(props) => props.columns}, 1fr);
-    align-items: flex-start;
+    display: flex;
+    /* grid-template-columns: repeat(3, 1fr); */
   }
 `;
 
 export const Explanation = styled.div`
+  display: flex;
   flex-direction: column;
   margin: 1.875em 1.25em 2.75em 1.25em;
   gap: 0.625em;
   justify-content: end;
-  height: 100%;
-  @media (max-width: 1024px) {
-    display: none;
-  }
-
-  &.mobileVisible {
-    @media (max-width: 1024px) {
-      display: flex;
-    }
-  }
 `;
 
 export const ImageArea = styled.div`
@@ -58,30 +47,14 @@ export const ImageArea = styled.div`
   @media (min-width: 1024px) {
     width: 7.5em;
     height: 7.5em;
-    margin: 0 auto 5em auto;
-    background-color: red;
   }
 `;
 
 export const Message = styled.div`
-  span {
-    text-align: justify !important;
-    margin: 0;
-  }
+  text-align: justify;
 `;
 
 export const Title = styled.div`
-  display: flex;
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;
-  font-size: 1em;
-  color: #424243;
-  @media (max-width: 1024px) {
-    font-size: 1.3em;
-  }
-`;
-
-export const TitleStage3 = styled.div`
   display: flex;
   justify-content: space-between;
   font-family: "Poppins", sans-serif;
@@ -94,7 +67,6 @@ export const TitleStage3 = styled.div`
 `;
 
 export const PersonalData = styled.span<{ color: string }>`
-  margin-left: 0.2em;
   color: ${(props) => props.color};
 `;
 
@@ -114,10 +86,4 @@ export const StyledLabel = styled.div`
   font-weight: 500;
   color: #424243;
   width: 100%;
-`;
-
-export const ChallengeInputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.3125em;
 `;

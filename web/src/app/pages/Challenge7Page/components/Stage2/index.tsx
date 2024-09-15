@@ -17,6 +17,7 @@ import {
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { useMediaQuery } from "react-responsive";
 import { routeConfigs } from "../../../../shared/configs";
+import { useState } from "react";
 
 type ColorInfo = {
   name: string;
@@ -102,6 +103,7 @@ export const Challenge7Stage2 = () => {
   const { color } = location.state || { color: "#FE0000" };
   const color_details = get_color_info(color);
 
+  const [step, setStep] = useState(1);
   return (
     <StyledMain>
       <Header.FullComponent currentLevel={7} totalLevels={15} />
@@ -115,7 +117,7 @@ export const Challenge7Stage2 = () => {
       />
       <BoxColor color={color_details.hex}></BoxColor>
       <ExplanationAreas>
-        <Explanation>
+        <Explanation className={step === 1 ? "mobileVisible" : ""}>
           <Title>
             Padrão HEX:{" "}
             <ColorName color={color_details.hex}>{color_details.hex}</ColorName>
@@ -135,6 +137,7 @@ export const Challenge7Stage2 = () => {
           {isMobile && (
             <ButtonsArea>
               <Button
+                onClick={() => navigate(routeConfigs.Challenge7)}
                 children={
                   <>
                     <CaretLeft />
@@ -143,6 +146,7 @@ export const Challenge7Stage2 = () => {
                 color="green"
               />
               <Button
+                onClick={() => setStep(2)}
                 children={
                   <>
                     <CaretRight />
@@ -154,7 +158,7 @@ export const Challenge7Stage2 = () => {
           )}
         </Explanation>
 
-        <Explanation>
+        <Explanation className={step === 2 ? "mobileVisible" : ""}>
           <Title>
             Padrão RGB:{" "}
             <ColorName color={color_details.hex}>{color_details.rgb}</ColorName>
@@ -173,6 +177,7 @@ export const Challenge7Stage2 = () => {
           {isMobile && (
             <ButtonsArea>
               <Button
+                onClick={() => setStep(2)}
                 children={
                   <>
                     <CaretLeft />
@@ -181,6 +186,7 @@ export const Challenge7Stage2 = () => {
                 color="green"
               />
               <Button
+              onClick={() => setStep(3)}
                 children={
                   <>
                     <CaretRight />
@@ -192,7 +198,7 @@ export const Challenge7Stage2 = () => {
           )}
         </Explanation>
 
-        <Explanation>
+        <Explanation className={step === 3 ? "mobileVisible" : ""}>
           <Title>
             Padrão HSL:{" "}
             <ColorName color={color_details.hex}>{color_details.hsl}</ColorName>
@@ -212,7 +218,7 @@ export const Challenge7Stage2 = () => {
           </Message>
           {isMobile && (
             <ButtonsArea>
-              <Button
+              <Button onClick={() => setStep(2)}
                 children={
                   <>
                     <CaretLeft />
@@ -221,6 +227,7 @@ export const Challenge7Stage2 = () => {
                 color="green"
               />
               <Button
+              onClick={() => navigate(routeConfigs.Map)}
                 children={
                   <>
                     <CaretRight />

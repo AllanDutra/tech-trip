@@ -1,4 +1,3 @@
-import { Cake, UserCircle } from "@phosphor-icons/react";
 import {
   Button,
   DoubleSelection,
@@ -6,9 +5,36 @@ import {
   ContainedInput,
   Header,
 } from "../../shared/components";
-import { ButtonsArea, MainContainer, StyledLabel, StyledMain } from "./styles";
+import {
+  ButtonsArea,
+  MainContainer,
+  StyledMain,
+  ChallengeInputContainer,
+} from "./styles";
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../shared/configs";
+import { useState } from "react";
+
+interface IChallengeInputProps {
+  label: string;
+}
+
+const ChallengeInput = ({ label }: IChallengeInputProps) => {
+  return (
+    <ChallengeInputContainer>
+      <ContainedInput.Label value={label} />
+      <ContainedInput.InputContainer>
+        <ContainedInput.Input disabled></ContainedInput.Input>
+      </ContainedInput.InputContainer>
+    </ChallengeInputContainer>
+  );
+};
+
+const [play, setPlay] = useState<"yes" | "no">("no");
+
+const handleLikeToPlay = (response: "yes" | "no") => {
+  setPlay(response);
+};
 
 export const Challenge8Page = () => {
   const navigate = useNavigate();
@@ -27,15 +53,22 @@ export const Challenge8Page = () => {
             </>
           }
         />
-        <ContainedInput.FullComponent
-          readOnly
-          label="Seu nome"
-          Icon={UserCircle}
-        />
-        <ContainedInput.FullComponent readOnly label="Sua idade" Icon={Cake} />
-        <StyledLabel>Você gosta de brincar?</StyledLabel>
+        {ChallengeInput({ label: "Seu nome" })}
+        {ChallengeInput({ label: "Sua idade" })}
+        <ContainedInput.Label value={"Você gosta de brincar?"} />
         <ButtonsArea>
-          <DoubleSelection.FullComponent variant="yes-or-no" selected="yes" />
+          <DoubleSelection.FullComponent
+            onClick={(e) => {
+              const value = (e.target as HTMLButtonElement).textContent;
+              if (value === "Sim") {
+                handleLikeToPlay("yes");
+              } else if (value === "Não") {
+                handleLikeToPlay("no");
+              }
+            }}
+            variant="yes-or-no"
+            selected={play}
+          />
         </ButtonsArea>
       </MainContainer>
       <Button

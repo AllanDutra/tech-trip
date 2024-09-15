@@ -19,10 +19,13 @@ import { TextAa } from "../../../../shared/assets/ChallengesImages/8/TextAa";
 import { DribbleLogo, ListNumbers } from "../../../../shared/assets";
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../../../shared/configs";
+import { useState } from "react";
 
 export const Challenge8Stage2 = () => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
   const isMobile = useMediaQuery({ maxWidth: 1023 });
+
+  const [step, setStep] = useState(1); 
 
   const navigate = useNavigate();
 
@@ -36,13 +39,13 @@ export const Challenge8Stage2 = () => {
           </>
         }
       />
-      <ExplanationAreas>
-        <Explanation>
+      <ExplanationAreas columns={3}>
+        <Explanation className={step == 1 ? "mobileVisible" : ""}>
           <ImageArea>
             <TextAa />
           </ImageArea>
-          <Title>
-            Seu nome: <PersonalData color="#5AA1DF">Oliver</PersonalData>
+          <Title> 
+            Seu nome: <PersonalData color="#5AA1DF"> Oliver </PersonalData>
           </Title>
           <Message>
             <ChallengeMessage
@@ -57,7 +60,7 @@ export const Challenge8Stage2 = () => {
           </Message>
           {isMobile && (
             <ButtonsArea>
-              <Button
+              <Button onClick={() => {navigate(routeConfigs.Challenge8)}}
                 children={
                   <>
                     <CaretLeft />
@@ -65,7 +68,7 @@ export const Challenge8Stage2 = () => {
                 }
                 color="green"
               />
-              <Button
+              <Button onClick={() => {setStep(2)}}
                 children={
                   <>
                     <CaretRight />
@@ -77,7 +80,7 @@ export const Challenge8Stage2 = () => {
           )}
         </Explanation>
 
-        <Explanation>
+        <Explanation className={step == 2 ? "mobileVisible" : ""}>
           <ImageArea>
             <ListNumbers />
           </ImageArea>
@@ -96,7 +99,7 @@ export const Challenge8Stage2 = () => {
           </Message>
           {isMobile && (
             <ButtonsArea>
-              <Button
+              <Button onClick={() => {setStep(1)}}
                 children={
                   <>
                     <CaretLeft />
@@ -104,7 +107,7 @@ export const Challenge8Stage2 = () => {
                 }
                 color="green"
               />
-              <Button
+              <Button onClick={() => {setStep(3)}}
                 children={
                   <>
                     <CaretRight />
@@ -116,7 +119,7 @@ export const Challenge8Stage2 = () => {
           )}
         </Explanation>
 
-        <Explanation>
+        <Explanation className={step == 3 ? "mobileVisible" : ""}>
           <ImageArea>
             <DribbleLogo />
           </ImageArea>
@@ -139,7 +142,7 @@ export const Challenge8Stage2 = () => {
           </Message>
           {isMobile && (
             <ButtonsArea>
-              <Button
+              <Button onClick={() => {setStep(2)}}
                 children={
                   <>
                     <CaretLeft />
@@ -147,7 +150,7 @@ export const Challenge8Stage2 = () => {
                 }
                 color="green"
               />
-              <Button
+              <Button onClick={() => {navigate(routeConfigs.Challenge8_3)}}
                 children={
                   <>
                     <CaretRight />

@@ -13,15 +13,19 @@ import {
   Message,
   PersonalData,
   ImageArea,
+  TitleStage3,
 } from "../../styles";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../../../shared/configs";
 import { Eyes, OpenEyes } from "../../../../shared/assets";
+import { useState } from "react";
 
 export const Challenge8Stage3 = () => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
   const isMobile = useMediaQuery({ maxWidth: 1023 });
+
+  const [step, setStep] = useState(1);
 
   const navigate = useNavigate();
 
@@ -36,16 +40,16 @@ export const Challenge8Stage3 = () => {
           </>
         }
       />
-      <ExplanationAreas>
-        <Explanation>
+      <ExplanationAreas columns={2}>
+        <Explanation className={step === 1 ? "mobileVisible" : ""}>
           <ImageArea>
             <Eyes />
           </ImageArea>
-          <Title>
+          <TitleStage3>
             <PersonalData color="#5AA1DF">Oliver</PersonalData>
             <PersonalData color="#E23A68">8</PersonalData>
             <PersonalData color="#DC5C05">Sim</PersonalData>
-          </Title>
+          </TitleStage3>
           <Message>
             <ChallengeMessage
               children={
@@ -61,7 +65,7 @@ export const Challenge8Stage3 = () => {
           {isMobile && (
             <ButtonsArea>
               <Button
-                onClick={ () => routeConfigs.Challenge8_2}
+                onClick={() => navigate(routeConfigs.Challenge8_2)}
                 children={
                   <>
                     <CaretLeft />
@@ -70,6 +74,7 @@ export const Challenge8Stage3 = () => {
                 color="green"
               />
               <Button
+                onClick={() => setStep(2)}
                 children={
                   <>
                     <CaretRight />
@@ -81,7 +86,7 @@ export const Challenge8Stage3 = () => {
           )}
         </Explanation>
 
-        <Explanation>
+        <Explanation className={step === 2 ? "mobileVisible" : ""}>
           <ImageArea>
             <OpenEyes />
           </ImageArea>
@@ -112,6 +117,7 @@ export const Challenge8Stage3 = () => {
           {isMobile && (
             <ButtonsArea>
               <Button
+              onClick={() => setStep(1)}
                 children={
                   <>
                     <CaretLeft />
