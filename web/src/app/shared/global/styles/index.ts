@@ -6,6 +6,10 @@ export const GlobalStyle = createGlobalStyle`
     https://www.joshwcomeau.com/css/custom-css-reset/
     */
 
+    :root{
+        --main-color: #2BCB9A;
+    }
+    
     *,
     *::before,
     *::after {
@@ -18,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
     line-height: 160%;
-
+    
     -webkit-font-smoothing: antialiased;
     }
 

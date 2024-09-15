@@ -5,6 +5,8 @@ import {
   StyledLevelIndicator,
 } from "./styles";
 import { X } from "@phosphor-icons/react";
+import { useNavigate } from "react-router-dom";
+import { routeConfigs } from "../../configs";
 
 interface IContainerProps {
   children: ReactNode;
@@ -35,8 +37,11 @@ function Container({ children }: IContainerProps) {
 }
 
 function CloseButton({ ...rest }: ICloseButtonProps) {
+  
+  const navigate = useNavigate();
+
   return (
-    <StyledCloseButton className="close-button" {...rest}>
+    <StyledCloseButton onClick={() => navigate(routeConfigs.Map)} className="close-button" {...rest}>
       <span>
         <X weight="bold" size={20} color="#424243" />
       </span>

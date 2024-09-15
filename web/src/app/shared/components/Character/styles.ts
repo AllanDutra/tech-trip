@@ -7,6 +7,7 @@ export const StyledContainer = styled.div`
   border-radius: 0.9375em;
   background-color: white;
   overflow: hidden;
+  cursor: pointer;
 
   &.withShadow {
     box-shadow: 0px 4px 0px 0px #0000001a;
