@@ -30,13 +30,13 @@ const ChallengeInput = ({ label }: IChallengeInputProps) => {
   );
 };
 
-const [play, setPlay] = useState<"yes" | "no">("no");
-
-const handleLikeToPlay = (response: "yes" | "no") => {
-  setPlay(response);
-};
-
 export const Challenge8Page = () => {
+  const [play, setPlay] = useState<"yes" | "no">("no");
+
+  const handleLikeToPlay = (response: "yes" | "no") => {
+    setPlay(response);
+  };
+
   const navigate = useNavigate();
   return (
     <StyledMain>
