@@ -5,6 +5,7 @@ export const StyledPageContainer = styled.div`
   width: 100%;
 
   display: flex;
+  overflow: hidden;
 `;
 
 export const StyledSubPageContainer = styled.div`
@@ -18,6 +19,7 @@ export const StyledSubPageContainer = styled.div`
 
     display: flex;
     flex-direction: column;
+    overflow: auto;
   }
 `;
 

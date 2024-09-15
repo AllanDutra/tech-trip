@@ -11,6 +11,7 @@ const Challenge1 = "/desafio-um";
 const Challenge2 = "/desafio-dois";
 const Challenge4 = "/desafio-quatro";
 const Challenge5 = "/desafio-cinco";
+const Challenge6 = "/desafio-seis";
 
 export const routeConfigs = {
   TestComponents,
@@ -25,4 +26,5 @@ export const routeConfigs = {
   Challenge2,
   Challenge4,
   Challenge5,
+  Challenge6,
 };
