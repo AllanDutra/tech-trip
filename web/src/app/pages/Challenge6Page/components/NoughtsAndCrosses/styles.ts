@@ -68,4 +68,8 @@ export const StyledSquare = styled.div`
   @media screen and (max-width: 680px) {
     font-size: 1.25em;
   }
+
+  @media screen and (max-height: 540px) {
+    font-size: 1em;
+  }
 `;
