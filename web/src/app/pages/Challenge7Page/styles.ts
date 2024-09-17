@@ -55,6 +55,7 @@ export const ExplanationAreas = styled.div`
   @media (min-width: 1024px) {
     display: flex;
   }
+  margin-bottom: 4em;
 `;
 
 export const Explanation = styled.div`
@@ -99,7 +100,18 @@ export const ColorName = styled.span<{ color: string }>`
 export const ButtonsArea = styled.div`
   width: 100%;
   gap: 0.625em;
-  margin-top: 1.375em;
-  display: flex;
   flex-direction: row;
+  display: none;
+
+  &.mobileVisible {
+    @media (max-width: 1024px) {
+      display: flex;
+    }
+  }
+
+  &.visible {
+    @media (min-width: 1024px) {
+      display: flex;
+    }
+  }
 `;

@@ -16,7 +16,6 @@ import {
   RankingPage,
   Challenge1Page,
   Challenge7Page,
-  Challenge7Stage2,
   Challenge8Page,
   Challenge8Stage2,
   Challenge8Stage3,
@@ -53,10 +52,6 @@ export function Routes() {
         <Route path={routeConfigs.Challenge6} element={<Challenge6Page />} />
 
         <Route path={routeConfigs.Challenge7} element={<Challenge7Page />} />
-        <Route
-          path={routeConfigs.Challenge7_2}
-          element={<Challenge7Stage2 />}
-        />
         <Route path={routeConfigs.Challenge8} element={<Challenge8Page />} />
         <Route
           path={routeConfigs.Challenge8_2}
