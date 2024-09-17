@@ -1,8 +1,12 @@
-import { ReactNode, useMemo, useState } from "react";
-import { ChallengeMessage } from "../../shared/components";
+import { ReactNode, useCallback, useMemo, useState } from "react";
+import { Button, ChallengeMessage } from "../../shared/components";
 import { ChallengePageContainer } from "../../shared/components/ChallengePageContainer";
 import { NoughtAndCrosses } from "./components/NoughtsAndCrosses";
-import { StyledContainer, StyledMessageGroup } from "./styles";
+import {
+  StyledButtonGroup,
+  StyledContainer,
+  StyledMessageGroup,
+} from "./styles";
 
 export type TNoughtAndCrossesGameOption = "O" | "X" | "";
 
@@ -15,6 +19,8 @@ const INITIAL_GAME_MATRIZ: TNoughtAndCrossesGameOption[][] = [
 ];
 
 export function Challenge6Page() {
+  const [steps, setSteps] = useState(1);
+
   const [isFirstTime, setIsFirstTime] = useState(true);
 
   const [isMachineTime, setIsMachineTime] = useState(false);
@@ -141,6 +147,16 @@ export function Challenge6Page() {
     }
   }, [isFirstTime, isMachineTime]);
 
+  const handleTryAgain = useCallback(() => {
+    setSteps((oldValue) => oldValue + 1);
+
+    setIsFirstTime(true);
+
+    setIsMachineTime(false);
+
+    setGameMatriz(INITIAL_GAME_MATRIZ);
+  }, [setSteps]);
+
   return (
     <ChallengePageContainer currentLevel={6}>
       <StyledContainer>
@@ -160,6 +176,24 @@ export function Challenge6Page() {
           setIsMachineTime={setIsMachineTime}
           setIsFirstTime={setIsFirstTime}
         />
+
+        <StyledButtonGroup>
+          {gameStatus !== "playing" &&
+            (gameStatus !== "victory-O" ? (
+              <Button
+                color="red"
+                text="Tentar novamente"
+                onClick={handleTryAgain}
+              />
+            ) : (
+              // TODO: CALL API HERE
+              <Button
+                color="green"
+                text="Avançar"
+                onClick={() => console.log(steps)}
+              />
+            ))}
+        </StyledButtonGroup>
       </StyledContainer>
     </ChallengePageContainer>
   );
