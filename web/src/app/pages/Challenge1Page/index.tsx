@@ -37,6 +37,7 @@ interface IDropAreaContainerProps {
   firstDropArea: IDraggableCharacterProps[];
   secondDropArea: IDraggableCharacterProps[];
   onDrop(
+    isDropAreaContainer: boolean,
     dropAreaElements: IDraggableCharacterProps[],
     setDropAreaElements: React.Dispatch<
       React.SetStateAction<IDraggableCharacterProps[]>
@@ -148,7 +149,7 @@ function DropAreaContainer({
         <StyledDroppableRegion>
           <DraggableComponents.DropContainer
             color={styles.colors.dropArea}
-            onDrop={() => onDrop(firstDropArea, setFirstDropArea)}
+            onDrop={() => onDrop(true, firstDropArea, setFirstDropArea)}
           >
             {draggableCharacterMapper(
               firstDropArea,
@@ -158,7 +159,7 @@ function DropAreaContainer({
 
           <DraggableComponents.DropContainer
             color={styles.colors.dropArea}
-            onDrop={() => onDrop(secondDropArea, setSecondDropArea)}
+            onDrop={() => onDrop(true, secondDropArea, setSecondDropArea)}
           >
             {draggableCharacterMapper(
               secondDropArea,
@@ -176,9 +177,7 @@ export function Challenge1Page() {
     number | null
   >(null);
 
-  const [firstCharacterGroup, setFirstCharacterGroup] = useState<
-    IDraggableCharacterProps[]
-  >([
+  const firstCharacterGroupState = useState<IDraggableCharacterProps[]>([
     {
       group: "TERRESTRE",
       index: 0,
@@ -192,10 +191,7 @@ export function Challenge1Page() {
       description: "blue fish",
     },
   ]);
-
-  const [secondCharacterGroup, setSecondCharacterGroup] = useState<
-    IDraggableCharacterProps[]
-  >([
+  const secondCharacterGroupState = useState<IDraggableCharacterProps[]>([
     {
       group: "TERRESTRE",
       index: 2,
@@ -210,32 +206,14 @@ export function Challenge1Page() {
     },
   ]);
 
-  const [firstDropArea, setFirstDropArea] = useState<
-    IDraggableCharacterProps[]
-  >([]);
-  const [secondDropArea, setSecondDropArea] = useState<
-    IDraggableCharacterProps[]
-  >([]);
-
-  const [thirdDropArea, setThirdDropArea] = useState<
-    IDraggableCharacterProps[]
-  >([]);
-  const [fourthDropArea, setFourthDropArea] = useState<
-    IDraggableCharacterProps[]
-  >([]);
-
-  const handleDropToInitialPosition = useCallback(
-    (
-      dropAreaElements: IDraggableCharacterProps[],
-      setDropAreaElements: React.Dispatch<
-        React.SetStateAction<IDraggableCharacterProps[]>
-      >
-    ) => {},
-    []
-  );
+  const firstDropAreaState = useState<IDraggableCharacterProps[]>([]);
+  const secondDropAreaState = useState<IDraggableCharacterProps[]>([]);
+  const thirdDropAreaState = useState<IDraggableCharacterProps[]>([]);
+  const fourthDropAreaState = useState<IDraggableCharacterProps[]>([]);
 
   const handleDrop = useCallback(
     (
+      isDropAreaContainer: boolean,
       dropAreaElements: IDraggableCharacterProps[],
       setDropAreaElements: React.Dispatch<
         React.SetStateAction<IDraggableCharacterProps[]>
@@ -249,12 +227,28 @@ export function Challenge1Page() {
 
       const characterGroup = {} as ICharacterGroupStateToUpdate;
 
-      if (activeDragContainerIndex < 2) {
-        characterGroup.state = firstCharacterGroup;
-        characterGroup.setState = setFirstCharacterGroup;
-      } else {
-        characterGroup.state = secondCharacterGroup;
-        characterGroup.setState = setSecondCharacterGroup;
+      const listsOfCharacterGroupsStates = [
+        firstCharacterGroupState,
+        secondCharacterGroupState,
+        firstDropAreaState,
+        secondDropAreaState,
+        thirdDropAreaState,
+        fourthDropAreaState,
+      ];
+
+      for (let i = 0; i < listsOfCharacterGroupsStates.length; i++) {
+        const characterGroupState = listsOfCharacterGroupsStates[i];
+
+        const index = characterGroupState[0].findIndex(
+          (c) => c.index === activeDragContainerIndex
+        );
+
+        if (index === -1) continue;
+
+        characterGroup.state = characterGroupState[0];
+        characterGroup.setState = characterGroupState[1];
+
+        break;
       }
 
       const { state, setState } = characterGroup;
@@ -267,22 +261,29 @@ export function Challenge1Page() {
         (c) => c.index === activeDragContainerIndex
       );
 
-      if (dropAreaElements.length > 0) {
-        const characterReplacedInDropArea = dropAreaElements[0];
-
-        setDropAreaElements((oldValue) =>
-          oldValue.splice(0, 1, characterToMove)
-        );
-
-        setState((oldValue) =>
-          oldValue.splice(
-            arrayIndexOfMovedCharacter,
-            1,
-            characterReplacedInDropArea
-          )
-        );
+      if (isDropAreaContainer) {
+        if (dropAreaElements.length > 0) {
+          const characterReplacedInDropArea = dropAreaElements[0];
+          setDropAreaElements((oldValue) =>
+            oldValue.splice(0, 1, characterToMove)
+          );
+          setState((oldValue) =>
+            oldValue.splice(
+              arrayIndexOfMovedCharacter,
+              1,
+              characterReplacedInDropArea
+            )
+          );
+        } else {
+          setDropAreaElements([characterToMove]);
+          setState((oldValue) =>
+            oldValue.filter((c) => c.index !== activeDragContainerIndex)
+          );
+        }
       } else {
-        setDropAreaElements([characterToMove]);
+        if (dropAreaElements.length === 2) return;
+
+        setDropAreaElements((oldValue) => [characterToMove, ...oldValue]);
 
         setState((oldValue) =>
           oldValue.filter((c) => c.index !== activeDragContainerIndex)
@@ -291,10 +292,12 @@ export function Challenge1Page() {
     },
     [
       activeDragContainerIndex,
-      firstCharacterGroup,
-      secondCharacterGroup,
-      setFirstCharacterGroup,
-      setSecondCharacterGroup,
+      firstCharacterGroupState,
+      secondCharacterGroupState,
+      firstDropAreaState,
+      secondDropAreaState,
+      thirdDropAreaState,
+      fourthDropAreaState,
     ]
   );
 
@@ -307,57 +310,71 @@ export function Challenge1Page() {
 
         <StyledMainChallengeContainer>
           <StyledActivityGroup>
-            <StyledActivityDragGroup>
+            <StyledActivityDragGroup
+              className={
+                firstCharacterGroupState[0].length < 2
+                  ? "drop-container-visible"
+                  : ""
+              }
+            >
               <DraggableComponents.DropContainer
                 onDrop={() =>
-                  handleDropToInitialPosition(
-                    firstCharacterGroup,
-                    setFirstCharacterGroup
+                  handleDrop(
+                    false,
+                    firstCharacterGroupState[0],
+                    firstCharacterGroupState[1]
                   )
                 }
               />
               {draggableCharacterMapper(
-                firstCharacterGroup,
+                firstCharacterGroupState[0],
                 setActiveDragContainerIndex
               )}
             </StyledActivityDragGroup>
 
             <DropAreaContainer
               group="TERRESTRE"
-              firstDropArea={firstDropArea}
-              secondDropArea={secondDropArea}
+              firstDropArea={firstDropAreaState[0]}
+              secondDropArea={secondDropAreaState[0]}
               onDrop={handleDrop}
               setActiveDragContainerIndex={setActiveDragContainerIndex}
-              setFirstDropArea={setFirstDropArea}
-              setSecondDropArea={setSecondDropArea}
+              setFirstDropArea={firstDropAreaState[1]}
+              setSecondDropArea={secondDropAreaState[1]}
             />
           </StyledActivityGroup>
 
           <StyledActivityGroup>
-            <StyledActivityDragGroup>
+            <StyledActivityDragGroup
+              className={
+                secondCharacterGroupState[0].length < 2
+                  ? "drop-container-visible"
+                  : ""
+              }
+            >
               <DraggableComponents.DropContainer
                 onDrop={() =>
-                  handleDropToInitialPosition(
-                    secondCharacterGroup,
-                    setSecondCharacterGroup
+                  handleDrop(
+                    false,
+                    secondCharacterGroupState[0],
+                    secondCharacterGroupState[1]
                   )
                 }
               />
 
               {draggableCharacterMapper(
-                secondCharacterGroup,
+                secondCharacterGroupState[0],
                 setActiveDragContainerIndex
               )}
             </StyledActivityDragGroup>
 
             <DropAreaContainer
               group="AQUATICO"
-              firstDropArea={thirdDropArea}
-              secondDropArea={fourthDropArea}
+              firstDropArea={thirdDropAreaState[0]}
+              secondDropArea={fourthDropAreaState[0]}
               onDrop={handleDrop}
               setActiveDragContainerIndex={setActiveDragContainerIndex}
-              setFirstDropArea={setThirdDropArea}
-              setSecondDropArea={setFourthDropArea}
+              setFirstDropArea={thirdDropAreaState[1]}
+              setSecondDropArea={fourthDropAreaState[1]}
             />
           </StyledActivityGroup>
         </StyledMainChallengeContainer>
