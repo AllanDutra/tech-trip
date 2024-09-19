@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { ReactNode, useMemo } from "react";
 import { StyledGeneralContainer, StyledOption } from "./styles";
 
@@ -30,6 +31,7 @@ interface IReceivedOption {
 interface IFullComponentProps {
   options: IReceivedOption[];
   size?: TOptionSize;
+  onClickOption: CallableFunction;
 }
 
 function GeneralContainer({ children }: IGeneralContainerProps) {
@@ -57,11 +59,11 @@ function Option({
   );
 }
 
-function FullComponent({ options, size }: IFullComponentProps) {
+function FullComponent({ options, size, onClickOption }: IFullComponentProps) {
   return (
     <GeneralContainer>
       {options.map((option, index) => (
-        <Option selected={option.selected} size={size} key={index} id={index}>
+        <Option onClick={() => onClickOption(index)} selected={option.selected} size={size} key={index} id={index}>
           {option.text ? <b>{option.text}</b> : option.content}
         </Option>
       ))}

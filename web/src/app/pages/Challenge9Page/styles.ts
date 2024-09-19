@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StyledMain = styled.div`
+  flex: 1;
   background-color: #f4fcfa;
   min-width: 320px;
   font-family: "Montserrat Alternates", sans-serif;
@@ -8,82 +9,59 @@ export const StyledMain = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1.125em 0.625em 0.625em 0.625em;
-`;
-
-export const MainContainer = styled.main`
-  width: 100%;
-  padding: 1.875em 1.25em 6.75em 1.25em;
-  display: flex;
-  gap: 1.25em;
-  flex-direction: column;
+  padding: 0.625em;
 
   @media (min-width: 1024px) {
-    padding: 3.75em 8.75em 16.8125em 8.75em;
+    padding: 0 1.875em 0 1.875em;
   }
-`;
-
-export const ExplanationAreas = styled.div`
-  @media (min-width: 1024px) {
-    display: flex;
-    /* grid-template-columns: repeat(3, 1fr); */
-  }
-`;
-
-export const Explanation = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 1.875em 1.25em 2.75em 1.25em;
-  gap: 0.625em;
-  justify-content: end;
 `;
 
 export const ImageArea = styled.div`
-  width: 5em;
-  height: 5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 17.5em;
+  height: 8.125em;
   align-self: center;
-  margin-bottom: 5em;
+  margin-top: 3.75em;
+  margin-bottom: 1.75em;
+  @media (min-width: 1024px) {
+    width: 18.5em;
+    height: 10.5625em;
+    margin-bottom: 7.5em;
+  }
+`;
+
+export const ImageRobbot = styled.div`
+  width: 16.563125em;
+  height: 17.6925em;
+  margin: 2.8825em 1.6875em 3.175625em 1.6875em;
 
   @media (min-width: 1024px) {
-    width: 7.5em;
-    height: 7.5em;
+    width: 24.165em;
+    height: 25.8125em;
+    margin: 8.9375em 21.6875em 9em 21.6875em;
+  }
+`;
+
+export const ResponseArea = styled.div`
+  width: 100%;
+  margin-bottom: 1.75em;
+  @media (min-width: 1024px) {
+    margin-bottom: 7.5em;
   }
 `;
 
 export const Message = styled.div`
-  text-align: justify;
-`;
-
-export const Title = styled.div`
-  display: flex;
-  justify-content: space-between;
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;
-  font-size: 1em;
-  color: #424243;
-  @media (max-width: 1024px) {
-    font-size: 1.3em;
-  }
-`;
-
-export const PersonalData = styled.span<{ color: string }>`
-  color: ${(props) => props.color};
-`;
-
-export const ButtonsArea = styled.div`
+  text-align: center;
   width: 100%;
-  gap: 1.25em;
-  display: flex;
-  flex-direction: row;
-
   @media (min-width: 1024px) {
-    gap: 2.5em;
+    padding: 3.75em 8.75em 3.75em 8.75em;
   }
 `;
 
-export const StyledLabel = styled.div`
-  font-family: "Montserrat Alternates", sans-serif;
-  font-weight: 500;
-  color: #424243;
+export const ButtonArea = styled.div`
+  /* align-self: end; */
+  justify-self: end;
   width: 100%;
 `;

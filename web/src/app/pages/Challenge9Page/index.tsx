@@ -1,27 +1,40 @@
-import { BinaryIndex } from "../../shared/assets";
-import { ChallengeMessage, ChallengeResponse, Header } from "../../shared/components";
-import { ImageArea, StyledMain } from "./styles";
+import { useState } from "react";
+import { ChallengePageContainer } from "../../shared/components/ChallengePageContainer";
+import { FirstStep, SecondStep } from "./components";
+import { ToastContainer } from "react-toastify";
+export interface IOption {
+  id: number;
+  content: string;
+}
 
 export const Challenge9Page = () => {
+  const [response, setResponse] = useState(0);
+  const [step, setStep] = useState(1);
+
+  const options: IOption[] = [
+    { id: 1, content: "0100 1111 0100 0001" },
+    { id: 2, content: "0110 1001 0100 0001" },
+    { id: 3, content: "0100 1111 0110 1001" },
+  ];
+
   return (
-    <StyledMain>
-      <Header.FullComponent currentLevel={9} totalLevels={15} />
+    <ChallengePageContainer
+      currentLevel={9}
+      children={
+        <>
+        <ToastContainer />
+          {step == 1 && (
+            <FirstStep
+              options={options}
+              setResponse={setResponse}
+              response={response}
+              setStep={setStep}
+            />
+          )}
 
-      <ChallengeMessage
-        children={
-          <>
-            <strong>Maria</strong> quer dizer <strong>"Oi"</strong> ao robô{" "}
-            <strong>Rob</strong>, mas deve falar em código binário, a linguagem
-            que Rob entende. Ajude <strong>Maria</strong> a codificar a mensagem
-            com a tabela abaixo:
-          </>
-        }
-      />
-      <ImageArea>
-        <BinaryIndex />
-      </ImageArea>
-
-      {/* <ChallengeResponse.FullCo */}
-    </StyledMain>
+          {step == 2 && <SecondStep response={response} setStep={setStep} />}
+        </>
+      }
+    />
   );
 };

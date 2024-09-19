@@ -3,6 +3,7 @@ import {
   Header,
   ChallengeMessage,
   Button,
+  TSelectionVariant,
 } from "../../../../shared/components";
 import {
   StyledMain,
@@ -17,21 +18,25 @@ import {
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { TextAa } from "../../../../shared/assets/ChallengesImages/8/TextAa";
 import { DribbleLogo, ListNumbers } from "../../../../shared/assets";
-import { useNavigate } from "react-router-dom";
-import { routeConfigs } from "../../../../shared/configs";
 import { useState } from "react";
 
-export const Challenge8Stage2 = () => {
+interface ISecondStepProps {
+  play: TSelectionVariant;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+}
+export const SecondStep = ({ play, setStep }: ISecondStepProps) => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
   const isMobile = useMediaQuery({ maxWidth: 1023 });
 
-  const [step, setStep] = useState(1); 
-
-  const navigate = useNavigate();
+  const [subStep, setSubStep] = useState(1);
+  const choiceDescription =
+    play == "yes"
+      ? "Como você gosta de brincar, guardamos a informação com o número 1!"
+      : "Como você não gosta de brincar, guardamos a informação com o número 0!";
+  const choice = play == "yes" ? "Sim" : "Não";
 
   return (
     <StyledMain>
-      <Header.FullComponent currentLevel={8} totalLevels={15} />
       <ChallengeMessage
         children={
           <>
@@ -40,11 +45,11 @@ export const Challenge8Stage2 = () => {
         }
       />
       <ExplanationAreas columns={3}>
-        <Explanation className={step == 1 ? "mobileVisible" : ""}>
+        <Explanation className={subStep == 1 ? "mobileVisible" : ""}>
           <ImageArea>
             <TextAa />
           </ImageArea>
-          <Title> 
+          <Title>
             Seu nome: <PersonalData color="#5AA1DF"> Oliver </PersonalData>
           </Title>
           <Message>
@@ -60,7 +65,10 @@ export const Challenge8Stage2 = () => {
           </Message>
           {isMobile && (
             <ButtonsArea>
-              <Button onClick={() => {navigate(routeConfigs.Challenge8)}}
+              <Button
+                onClick={() => {
+                  setStep(1);
+                }}
                 children={
                   <>
                     <CaretLeft />
@@ -68,7 +76,10 @@ export const Challenge8Stage2 = () => {
                 }
                 color="green"
               />
-              <Button onClick={() => {setStep(2)}}
+              <Button
+                onClick={() => {
+                  setSubStep(2);
+                }}
                 children={
                   <>
                     <CaretRight />
@@ -80,7 +91,7 @@ export const Challenge8Stage2 = () => {
           )}
         </Explanation>
 
-        <Explanation className={step == 2 ? "mobileVisible" : ""}>
+        <Explanation className={subStep == 2 ? "mobileVisible" : ""}>
           <ImageArea>
             <ListNumbers />
           </ImageArea>
@@ -99,7 +110,10 @@ export const Challenge8Stage2 = () => {
           </Message>
           {isMobile && (
             <ButtonsArea>
-              <Button onClick={() => {setStep(1)}}
+              <Button
+                onClick={() => {
+                  setSubStep(1);
+                }}
                 children={
                   <>
                     <CaretLeft />
@@ -107,7 +121,10 @@ export const Challenge8Stage2 = () => {
                 }
                 color="green"
               />
-              <Button onClick={() => {setStep(3)}}
+              <Button
+                onClick={() => {
+                  setSubStep(3);
+                }}
                 children={
                   <>
                     <CaretRight />
@@ -119,13 +136,13 @@ export const Challenge8Stage2 = () => {
           )}
         </Explanation>
 
-        <Explanation className={step == 3 ? "mobileVisible" : ""}>
+        <Explanation className={subStep == 3 ? "mobileVisible" : ""}>
           <ImageArea>
             <DribbleLogo />
           </ImageArea>
           <Title>
             Você gosta de brincar:{" "}
-            <PersonalData color="#DC5C05">Sim</PersonalData>
+            <PersonalData color="#DC5C05">{choice}</PersonalData>
           </Title>
           <Message>
             <ChallengeMessage
@@ -134,15 +151,17 @@ export const Challenge8Stage2 = () => {
                   A informação de que você gosta de brincar é guardada como um
                   número especial, chamado de <strong>bit</strong>. O{" "}
                   <strong>bit</strong> pode ser 0 ou 1. Se for 0, significa
-                  'não' e se for 1, significa 'sim'. Como você gosta de brincar,
-                  guardamos a informação com o número 1!
+                  'não' e se for 1, significa 'sim'. {choiceDescription}
                 </>
               }
             />
           </Message>
           {isMobile && (
             <ButtonsArea>
-              <Button onClick={() => {setStep(2)}}
+              <Button
+                onClick={() => {
+                  setSubStep(2);
+                }}
                 children={
                   <>
                     <CaretLeft />
@@ -150,7 +169,10 @@ export const Challenge8Stage2 = () => {
                 }
                 color="green"
               />
-              <Button onClick={() => {navigate(routeConfigs.Challenge8_3)}}
+              <Button
+                onClick={() => {
+                  setStep(3);
+                }}
                 children={
                   <>
                     <CaretRight />
@@ -172,7 +194,7 @@ export const Challenge8Stage2 = () => {
             }
             color="green"
             onClick={() => {
-              navigate(routeConfigs.Challenge8);
+              setStep(1);
             }}
           />
           <Button
@@ -183,7 +205,7 @@ export const Challenge8Stage2 = () => {
             }
             color="green"
             onClick={() => {
-              navigate(routeConfigs.Challenge8_3);
+              setStep(3);
             }}
           />
         </ButtonsArea>

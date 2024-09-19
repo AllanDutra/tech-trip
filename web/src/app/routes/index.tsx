@@ -17,13 +17,12 @@ import {
   Challenge1Page,
   Challenge7Page,
   Challenge8Page,
-  Challenge8Stage2,
-  Challenge8Stage3,
   Challenge2Page,
   Challenge4Page,
   Challenge5Page,
   Challenge6Page,
 } from "../pages";
+import { Challenge9Page } from "../pages/Challenge9Page";
 
 export function Routes() {
   return (
@@ -53,19 +52,7 @@ export function Routes() {
 
         <Route path={routeConfigs.Challenge7} element={<Challenge7Page />} />
         <Route path={routeConfigs.Challenge8} element={<Challenge8Page />} />
-        <Route
-          path={routeConfigs.Challenge8_2}
-          element={<Challenge8Stage2 />}
-        />
-        <Route
-          path={routeConfigs.Challenge8_3}
-          element={<Challenge8Stage3 />}
-        />
-        <Route
-          path={routeConfigs.Challenge8_3}
-          element={<Challenge8Stage3 />}
-        />
-        <Route path={routeConfigs.Challenge9} element={<Challenge8Stage3 />} />
+        <Route path={routeConfigs.Challenge9} element={<Challenge9Page />} />
 
         <Route path="*" element={<Navigate to={routeConfigs.Login} />} />
       </Switch>

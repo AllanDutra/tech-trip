@@ -12,7 +12,7 @@ export const StyledMain = styled.div`
   padding: 1.125em 0.625em 0.625em 0.625em;
 `;
 
-export const MainContainer = styled.main`
+export const MainContainer = styled.div`
   width: 100%;
   padding: 1.875em 1.25em 6.75em 1.25em;
   display: flex;
@@ -20,7 +20,7 @@ export const MainContainer = styled.main`
   flex-direction: column;
 
   @media (min-width: 1024px) {
-    padding: 3.75em 8.75em 16.8125em 8.75em;
+    padding: 1em 8.75em 0 8.75em;
   }
 `;
 
@@ -33,11 +33,12 @@ export const ExplanationAreas = styled.div<{ columns: number }>`
 `;
 
 export const Explanation = styled.div`
+  height: 100%;
   flex-direction: column;
   margin: 1.875em 1.25em 2.75em 1.25em;
   gap: 0.625em;
   justify-content: end;
-  height: 100%;
+
   @media (max-width: 1024px) {
     display: none;
   }
@@ -59,7 +60,6 @@ export const ImageArea = styled.div`
     width: 7.5em;
     height: 7.5em;
     margin: 0 auto 5em auto;
-    background-color: red;
   }
 `;
 

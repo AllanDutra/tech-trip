@@ -36,7 +36,5 @@ export const routeConfigs = {
   Challenge7,
   Challenge7_2,
   Challenge8,
-  Challenge8_2,
-  Challenge8_3,
   Challenge9,
 };

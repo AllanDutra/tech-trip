@@ -1,6 +1,5 @@
 import { useMediaQuery } from "react-responsive";
 import {
-  Header,
   ChallengeMessage,
   Button,
 } from "../../../../shared/components";
@@ -21,17 +20,20 @@ import { routeConfigs } from "../../../../shared/configs";
 import { Eyes, OpenEyes } from "../../../../shared/assets";
 import { useState } from "react";
 
-export const Challenge8Stage3 = () => {
+interface IThirdStepProps {
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export const ThirdStep = ({ setStep }: IThirdStepProps) => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
   const isMobile = useMediaQuery({ maxWidth: 1023 });
 
-  const [step, setStep] = useState(1);
+  const [subStep, setSubStep] = useState(1);
 
   const navigate = useNavigate();
 
   return (
     <StyledMain>
-      <Header.FullComponent currentLevel={8} totalLevels={15} />
       <ChallengeMessage
         children={
           <>
@@ -41,7 +43,7 @@ export const Challenge8Stage3 = () => {
         }
       />
       <ExplanationAreas columns={2}>
-        <Explanation className={step === 1 ? "mobileVisible" : ""}>
+        <Explanation className={subStep === 1 ? "mobileVisible" : ""}>
           <ImageArea>
             <Eyes />
           </ImageArea>
@@ -65,7 +67,7 @@ export const Challenge8Stage3 = () => {
           {isMobile && (
             <ButtonsArea>
               <Button
-                onClick={() => navigate(routeConfigs.Challenge8_2)}
+                onClick={() => setStep(2)}
                 children={
                   <>
                     <CaretLeft />
@@ -74,7 +76,7 @@ export const Challenge8Stage3 = () => {
                 color="green"
               />
               <Button
-                onClick={() => setStep(2)}
+                onClick={() => setSubStep(2)}
                 children={
                   <>
                     <CaretRight />
@@ -86,7 +88,7 @@ export const Challenge8Stage3 = () => {
           )}
         </Explanation>
 
-        <Explanation className={step === 2 ? "mobileVisible" : ""}>
+        <Explanation className={subStep === 2 ? "mobileVisible" : ""}>
           <ImageArea>
             <OpenEyes />
           </ImageArea>
@@ -117,7 +119,7 @@ export const Challenge8Stage3 = () => {
           {isMobile && (
             <ButtonsArea>
               <Button
-              onClick={() => setStep(1)}
+                onClick={() => setSubStep(1)}
                 children={
                   <>
                     <CaretLeft />
@@ -144,7 +146,7 @@ export const Challenge8Stage3 = () => {
             }
             color="green"
             onClick={() => {
-              navigate(routeConfigs.Challenge8_2);
+              setStep(2);
             }}
           />
           <Button

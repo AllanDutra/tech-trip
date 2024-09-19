@@ -5,7 +5,7 @@ interface IContainerProps {
   children: ReactNode;
 }
 
-type TSelectionVariant = "male" | "female" | "yes" | "no";
+export type TSelectionVariant = "male" | "female" | "yes" | "no";
 
 interface ISelectionProps
   extends React.DetailedHTMLProps<
