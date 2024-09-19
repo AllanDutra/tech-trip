@@ -1,5 +1,9 @@
 import { ReactNode, useState } from "react";
-import { StyledDragContainer, StyledDropContainer } from "./styles";
+import {
+  DEFAULT_SIZE,
+  StyledDragContainer,
+  StyledDropContainer,
+} from "./styles";
 
 interface IDragContainerProps {
   children: ReactNode;
@@ -32,9 +36,9 @@ function DragContainer({
 }
 
 interface IDropContainerProps {
-  children: ReactNode;
+  children?: ReactNode;
 
-  color: string;
+  color?: string;
   onDrop(): void;
 }
 
@@ -43,7 +47,9 @@ function DropContainer({ children, color, onDrop }: IDropContainerProps) {
 
   return (
     <StyledDropContainer
-      className={`drop-container ${isDropActive ? "dropping" : ""}`}
+      className={`drop-container ${
+        isDropActive ? "show-drop" : !children ? "hide-drop" : ""
+      }`}
       color={color}
       onDragEnter={() => setIsDropActive(true)}
       onDragLeave={() => setIsDropActive(false)}
@@ -58,4 +64,8 @@ function DropContainer({ children, color, onDrop }: IDropContainerProps) {
   );
 }
 
-export const DraggableComponents = { DragContainer, DropContainer };
+export const DraggableComponents = {
+  DragContainer,
+  DropContainer,
+  DEFAULT_SIZE,
+};

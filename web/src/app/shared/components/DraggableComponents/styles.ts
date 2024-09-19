@@ -5,10 +5,10 @@ interface IStyledDragContainerProps {
 }
 
 interface IStyledDropContainerProps {
-  color: string;
+  color?: string;
 }
 
-const DEFAULT_SIZE = "7.625em";
+export const DEFAULT_SIZE = "7.625em";
 
 export const StyledDragContainer = styled.div<IStyledDragContainerProps>`
   display: flex;
@@ -37,7 +37,7 @@ export const StyledDragContainer = styled.div<IStyledDragContainerProps>`
 
   &:active {
     opacity: 0.7;
-    border: 0.25px solid #424243;
+    border: 0.25px solid #dcdcdc;
   }
 `;
 
@@ -51,7 +51,7 @@ export const StyledDropContainer = styled.div<IStyledDropContainerProps>`
 
   border-radius: 1.875em;
 
-  background-color: ${({ color }) => color};
+  background-color: ${({ color }) => color || "transparent"};
 
   box-shadow: inset 0em 0.5em 0em 0em rgba(0, 0, 0, 0.03);
 
@@ -59,7 +59,14 @@ export const StyledDropContainer = styled.div<IStyledDropContainerProps>`
     box-shadow: none;
   }
 
-  &.dropping {
-    // TODO: STYLES OF DROP AREA WHEN DRAG AND DROP IS ACTIVE
+  &.show-drop {
+    columns: #dcdcdc;
+    border: 1px dashed #dcdcdc;
+    opacity: 1;
+    transition: all 0.2s ease-in-out;
+  }
+
+  &.hide-drop {
+    opacity: 0;
   }
 `;

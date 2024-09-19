@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { DraggableComponents } from "../../shared/components/DraggableComponents";
 
 interface IStyledDropAreaContainerProps {
   background: string;
@@ -31,6 +32,7 @@ export const StyledMainChallengeContainer = styled.div`
 
 export const StyledActivityGroup = styled.div`
   width: 100%;
+  height: calc((2 * ${DraggableComponents.DEFAULT_SIZE}) + 1em);
 
   display: flex;
   align-items: center;
@@ -38,18 +40,30 @@ export const StyledActivityGroup = styled.div`
 `;
 
 export const StyledActivityDragGroup = styled.div`
+  position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1em;
+
+  * {
+    z-index: 1;
+  }
+
+  .hide-drop {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+  }
 `;
 
 export const StyledDropAreaContainer = styled.div<IStyledDropAreaContainerProps>`
   position: relative;
   overflow: hidden;
-  margin-left: 7%;
 
-  width: 100%;
+  width: 80%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -60,7 +74,7 @@ export const StyledDropAreaContainer = styled.div<IStyledDropAreaContainerProps>
 
   box-shadow: inset 0em 0.5em 0em 0em rgba(0, 0, 0, 0.03);
 
-  img {
+  .drop-area-image {
     width: 100%;
     position: absolute;
     left: 0;
@@ -71,6 +85,10 @@ export const StyledDropAreaContainer = styled.div<IStyledDropAreaContainerProps>
     background-color: ${background};
     color: ${color};
   `}
+
+  * {
+    user-select: none;
+  }
 `;
 
 export const StyledDropAreaContent = styled.div`
