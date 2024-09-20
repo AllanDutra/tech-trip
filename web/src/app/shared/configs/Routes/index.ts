@@ -9,6 +9,7 @@ const ChangePassword = "/trocar-senha";
 
 const Challenge1 = "/desafio-um";
 const Challenge2 = "/desafio-dois";
+const Challenge3 = "/desafio-tres";
 const Challenge4 = "/desafio-quatro";
 const Challenge5 = "/desafio-cinco";
 const Challenge6 = "/desafio-seis";
@@ -30,6 +31,7 @@ export const routeConfigs = {
   ChangePassword,
   Challenge1,
   Challenge2,
+  Challenge3,
   Challenge4,
   Challenge5,
   Challenge6,
