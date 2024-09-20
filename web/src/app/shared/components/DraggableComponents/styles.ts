@@ -34,6 +34,8 @@ export const StyledDragContainer = styled.div<IStyledDragContainerProps>`
   box-shadow: inset 0em -0.5em 0em 0em rgba(0, 0, 0, 0.1);
 
   cursor: grab;
+  user-select: none;
+  touch-action: none;
 
   &:active {
     opacity: 0.7;
