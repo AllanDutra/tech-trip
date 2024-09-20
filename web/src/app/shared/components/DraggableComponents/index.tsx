@@ -1,6 +1,7 @@
 import { ReactNode, useState } from "react";
 import {
   DEFAULT_SIZE,
+  RESPONSIVE_SIZE,
   StyledDragContainer,
   StyledDropContainer,
 } from "./styles";
@@ -68,4 +69,5 @@ export const DraggableComponents = {
   DragContainer,
   DropContainer,
   DEFAULT_SIZE,
+  RESPONSIVE_SIZE,
 };

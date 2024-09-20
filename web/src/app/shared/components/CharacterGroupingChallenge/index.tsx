@@ -337,11 +337,11 @@ export function CharacterGroupingChallenge({
         <StyledMainChallengeContainer>
           <StyledActivityGroup>
             <StyledActivityDragGroup
-              className={
+              className={`activity-drag-group ${
                 firstCharacterGroupState[0].length < 2
                   ? "drop-container-visible"
                   : ""
-              }
+              }`}
             >
               <DraggableComponents.DropContainer
                 onDrop={() =>
@@ -371,11 +371,11 @@ export function CharacterGroupingChallenge({
 
           <StyledActivityGroup>
             <StyledActivityDragGroup
-              className={
+              className={`activity-drag-group ${
                 secondCharacterGroupState[0].length < 2
                   ? "drop-container-visible"
                   : ""
-              }
+              }`}
             >
               <DraggableComponents.DropContainer
                 onDrop={() =>

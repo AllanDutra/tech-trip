@@ -9,6 +9,7 @@ interface IStyledDropContainerProps {
 }
 
 export const DEFAULT_SIZE = "7.625em";
+export const RESPONSIVE_SIZE = "5em";
 
 export const StyledDragContainer = styled.div<IStyledDragContainerProps>`
   display: flex;
@@ -17,7 +18,6 @@ export const StyledDragContainer = styled.div<IStyledDragContainerProps>`
 
   width: ${DEFAULT_SIZE};
   height: ${DEFAULT_SIZE};
-
   border-radius: 1.875em;
 
   background-color: ${({ color }) => color};
@@ -39,6 +39,20 @@ export const StyledDragContainer = styled.div<IStyledDragContainerProps>`
     opacity: 0.7;
     border: 0.25px solid #dcdcdc;
   }
+
+  @media screen and ((max-width: 790px) or (max-height: 825px)) {
+    width: ${RESPONSIVE_SIZE};
+    height: ${RESPONSIVE_SIZE};
+    border-radius: 1.25em;
+
+    box-shadow: inset 0em -0.25em 0em 0em rgba(0, 0, 0, 0.1);
+  }
+
+  @media screen and ((max-width: 400px) or (max-height: 670px)) {
+    width: 3.75em;
+    height: 3.75em;
+    border-radius: 0.9375em;
+  }
 `;
 
 export const StyledDropContainer = styled.div<IStyledDropContainerProps>`
@@ -48,7 +62,6 @@ export const StyledDropContainer = styled.div<IStyledDropContainerProps>`
 
   width: ${DEFAULT_SIZE};
   height: ${DEFAULT_SIZE};
-
   border-radius: 1.875em;
 
   background-color: ${({ color }) => color || "transparent"};
@@ -68,5 +81,19 @@ export const StyledDropContainer = styled.div<IStyledDropContainerProps>`
 
   &.hide-drop {
     opacity: 0;
+  }
+
+  @media screen and ((max-width: 790px) or (max-height: 825px)) {
+    width: ${RESPONSIVE_SIZE};
+    height: ${RESPONSIVE_SIZE};
+    border-radius: 1.25em;
+
+    box-shadow: inset 0em 0.25em 0em 0em rgba(0, 0, 0, 0.1);
+  }
+
+  @media screen and ((max-width: 400px) or (max-height: 670px)) {
+    width: 3.75em;
+    height: 3.75em;
+    border-radius: 0.9375em;
   }
 `;

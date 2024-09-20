@@ -18,6 +18,26 @@ export const StyledChallengeContainer = styled.div`
   button {
     max-width: 70%;
   }
+
+  @media screen and (max-width: 1020px) {
+    button {
+      max-width: 90%;
+    }
+  }
+
+  @media screen and (max-width: 660px) {
+    padding-bottom: 4.5%;
+  }
+
+  @media screen and (max-height: 760px) {
+    .challenge-message {
+      font-size: 1em;
+    }
+  }
+
+  * {
+    user-select: none;
+  }
 `;
 
 export const StyledMainChallengeContainer = styled.div`
@@ -28,6 +48,25 @@ export const StyledMainChallengeContainer = styled.div`
   gap: 6vh;
 
   width: 70%;
+
+  @media screen and (max-width: 1020px) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: 660px) {
+    position: relative;
+
+    flex: 1;
+    margin-bottom: 4.5%;
+    padding-bottom: calc(${DraggableComponents.RESPONSIVE_SIZE} + 1em);
+    gap: 1.25em;
+
+    width: 100%;
+  }
+
+  @media screen and (max-height: 620px) {
+    gap: 1vh;
+  }
 `;
 
 export const StyledActivityGroup = styled.div`
@@ -37,6 +76,49 @@ export const StyledActivityGroup = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media screen and (max-width: 790px) {
+    height: calc((2.5 * ${DraggableComponents.RESPONSIVE_SIZE}) + 1em);
+  }
+
+  @media screen and (max-height: 825px) {
+    height: 12em;
+  }
+
+  @media screen and (max-width: 660px) {
+    position: absolute;
+
+    width: 90%;
+    height: 100%;
+
+    align-items: flex-start;
+
+    &:nth-of-type(1) {
+      .activity-drag-group {
+        left: 0;
+      }
+    }
+
+    &:nth-of-type(2) {
+      padding-top: calc(13.5em + 1em);
+
+      .activity-drag-group {
+        right: 0;
+      }
+    }
+  }
+
+  @media screen and (max-height: 825px) and (max-width: 660px) {
+    &:nth-of-type(2) {
+      padding-top: calc(23vh + 1em);
+    }
+  }
+
+  @media screen and (max-height: 620px) {
+    /* &:nth-of-type(2) {
+      padding-top: calc(18vh + 1em);
+    } */
+  }
 `;
 
 export const StyledActivityDragGroup = styled.div`
@@ -60,8 +142,18 @@ export const StyledActivityDragGroup = styled.div`
 
   &.drop-container-visible {
     .hide-drop {
-      position: initial;
+      position: unset;
+      z-index: 1;
     }
+  }
+
+  @media screen and (max-width: 660px) {
+    position: absolute;
+    bottom: 0;
+    flex-direction: row;
+
+    display: flex;
+    justify-content: space-evenly;
   }
 `;
 
@@ -94,6 +186,24 @@ export const StyledDropAreaContainer = styled.div<IStyledDropAreaContainerProps>
 
   * {
     user-select: none;
+    white-space: break-spaces;
+  }
+
+  @media screen and (max-width: 660px) {
+    max-height: 13.5em;
+    width: 100%;
+  }
+
+  @media screen and (max-height: 825px) {
+    max-height: 12em;
+  }
+
+  @media screen and (max-height: 825px) and (max-width: 660px) {
+    max-height: 23vh;
+  }
+
+  @media screen and (max-height: 675px) {
+    max-height: 22vh;
   }
 `;
 
@@ -112,6 +222,28 @@ export const StyledDropAreaContent = styled.div`
     text-align: center;
     z-index: 2;
   }
+
+  @media screen and (max-width: 1200px) {
+    p {
+      font-size: 1.5em;
+    }
+  }
+
+  @media screen and ((max-width: 1100px) or (max-height: 825px)) {
+    p {
+      font-size: 1.25em;
+    }
+  }
+
+  @media screen and (max-width: 595px) {
+    p {
+      font-size: 1.1em;
+    }
+  }
+
+  @media screen and (max-width: 520px) {
+    gap: 1em;
+  }
 `;
 
 export const StyledDroppableRegion = styled.div`
@@ -120,4 +252,8 @@ export const StyledDroppableRegion = styled.div`
   z-index: 2;
 
   gap: 2.5em;
+
+  @media screen and (max-width: 520px) {
+    gap: 1em;
+  }
 `;
