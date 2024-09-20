@@ -311,6 +311,13 @@ export function CharacterGroupingChallenge({
       } else {
         if (dropAreaElements.length === 2) return;
 
+        const isMovingForSameActivityDragGroup =
+          dropAreaElements.findIndex(
+            (c) => c.index === activeDragContainerIndex
+          ) !== -1;
+
+        if (isMovingForSameActivityDragGroup) return;
+
         setDropAreaElements((oldValue) => [characterToMove, ...oldValue]);
 
         setState((oldValue) =>
