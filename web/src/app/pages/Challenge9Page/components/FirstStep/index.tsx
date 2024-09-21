@@ -6,13 +6,7 @@ import {
   ChallengeResponse,
   ToastWarning,
 } from "../../../../shared/components";
-import {
-  ButtonArea,
-  ImageArea,
-  Message,
-  ResponseArea,
-  StyledMain,
-} from "../../styles";
+import { ImageArea, Message, ResponseArea, StyledMain } from "../../styles";
 
 interface IFirstStepProps {
   options: IOption[];
@@ -31,6 +25,10 @@ export const FirstStep = ({
     id: option.id,
     content: option.content,
     selected: option.id === response,
+    onClick: (id: number) => {
+      setResponse(id);
+      console.log(response);
+    },
   }));
 
   return (
@@ -54,9 +52,6 @@ export const FirstStep = ({
         <ChallengeResponse.FullComponent
           size="large"
           options={challengeOptions}
-          onClickOption={(id: number) => {
-            setResponse(id + 1);
-          }}
         />
       </ResponseArea>
       <Button
@@ -64,10 +59,10 @@ export const FirstStep = ({
         color="green"
         onClick={() => {
           if (response === 0) {
-            <ToastWarning
-              message="Selecione uma alternativa"
-              positionProp="top-right"
-            />;
+            ToastWarning({
+              message: "Selecione uma alternativa",
+              positionProp: "top-right",
+            });
             return;
           }
           setStep(2);

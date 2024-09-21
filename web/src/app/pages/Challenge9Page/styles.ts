@@ -48,7 +48,7 @@ export const ResponseArea = styled.div`
   width: 100%;
   margin-bottom: 1.75em;
   @media (min-width: 1024px) {
-    margin-bottom: 7.5em;
+    margin-bottom: 3.5em;
   }
 `;
 
@@ -58,10 +58,4 @@ export const Message = styled.div`
   @media (min-width: 1024px) {
     padding: 3.75em 8.75em 3.75em 8.75em;
   }
-`;
-
-export const ButtonArea = styled.div`
-  /* align-self: end; */
-  justify-self: end;
-  width: 100%;
 `;

@@ -26,12 +26,12 @@ interface IReceivedOption {
   text?: string;
   content?: ReactNode;
   selected?: boolean;
+  onClick: CallableFunction;
 }
 
 interface IFullComponentProps {
   options: IReceivedOption[];
   size?: TOptionSize;
-  onClickOption: CallableFunction;
 }
 
 function GeneralContainer({ children }: IGeneralContainerProps) {
@@ -59,11 +59,11 @@ function Option({
   );
 }
 
-function FullComponent({ options, size, onClickOption }: IFullComponentProps) {
+function FullComponent({ options, size }: IFullComponentProps) {
   return (
     <GeneralContainer>
       {options.map((option, index) => (
-        <Option onClick={() => onClickOption(index)} selected={option.selected} size={size} key={index} id={index}>
+        <Option onClick={() => option.onClick} selected={option.selected} size={size} key={index} id={index}>
           {option.text ? <b>{option.text}</b> : option.content}
         </Option>
       ))}
