@@ -12,6 +12,22 @@ export const StyledContainer = styled.div`
   justify-content: space-between;
 
   padding: 6vh 2.1vh;
+
+  @media screen and (max-width: 1280px) {
+    padding: 1vh 2.1vh;
+  }
+
+  @media screen and (max-width: 770px) {
+    padding: 1vh 0.625em;
+  }
+
+  @media screen and (max-width: 695px) {
+    gap: 2vh;
+  }
+
+  @media screen and (max-width: 515px) {
+    gap: 4vh;
+  }
 `;
 
 export const StyledParagraphsContainer = styled.div`
@@ -24,6 +40,16 @@ export const StyledParagraphsContainer = styled.div`
     text-align: center;
     margin: 0;
     font-size: 1.15em;
+  }
+
+  @media screen and (max-width: 695px) {
+    gap: 0.625em;
+  }
+
+  @media screen and (max-width: 515px) {
+    .challenge-message {
+      font-size: 1em;
+    }
   }
 `;
 
@@ -88,6 +114,14 @@ export const StyledGraphContainer = styled.div`
       color: #545456;
     }
   }
+
+  @media screen and (max-width: 695px) {
+    gap: 2.5vh;
+  }
+
+  @media screen and (max-width: 410px) {
+    gap: 1vh;
+  }
 `;
 
 export const StyledGraph = styled.div`
@@ -100,6 +134,14 @@ export const StyledGraph = styled.div`
     display: flex;
     align-items: center;
     gap: 13.625em;
+  }
+
+  @media screen and (max-width: 410px) {
+    gap: 1.5vh;
+
+    > div:nth-of-type(2) {
+      gap: 9.625em;
+    }
   }
 `;
 
@@ -133,6 +175,10 @@ export const StyledGraphLine = styled.div`
     top: -30%;
     right: -130%;
     transform: rotate(-35deg);
+
+    @media screen and (max-width: 410px) {
+      right: -110%;
+    }
   }
 
   &.top-left {
