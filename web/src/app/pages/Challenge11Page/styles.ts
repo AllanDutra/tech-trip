@@ -49,9 +49,14 @@ export const StyledGraphContainer = styled.div`
     flex-direction: column;
     align-items: center;
     width: auto;
+    z-index: 2;
 
     * {
       user-select: none;
+    }
+
+    img {
+      background-color: white;
     }
 
     span {
@@ -102,4 +107,49 @@ export const StyledSelectableCharactersGroupContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 4.375em;
+
+  * {
+    z-index: 2;
+  }
+`;
+
+export const StyledSelectableCharacterMapperContainer = styled.div`
+  position: relative;
+`;
+
+export const StyledSelectableCharacterContainer = styled.div`
+  position: relative;
+`;
+
+export const StyledGraphLine = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: -10;
+
+  position: absolute;
+
+  &.top-right {
+    top: -30%;
+    right: -130%;
+    transform: rotate(-35deg);
+  }
+
+  &.top-left {
+    top: -30%;
+    left: -130%;
+    transform: rotate(35deg);
+  }
+
+  &.bottom-right {
+    bottom: -40%;
+    right: -130%;
+    transform: rotate(35deg);
+  }
+
+  &.bottom-left {
+    bottom: -40%;
+    left: -130%;
+    transform: rotate(-35deg);
+  }
 `;

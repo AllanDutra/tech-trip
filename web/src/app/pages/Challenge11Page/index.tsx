@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useState } from "react";
+import React, { ReactNode, useCallback, useMemo, useState } from "react";
 import { Button, ChallengeMessage } from "../../shared/components";
 import { ChallengePageContainer } from "../../shared/components/ChallengePageContainer";
 import { SelectableComponents } from "../../shared/components/SelectableComponents";
@@ -6,13 +6,19 @@ import {
   StyledContainer,
   StyledGraph,
   StyledGraphContainer,
+  StyledGraphLine,
   StyledParagraphsContainer,
+  StyledSelectableCharacterContainer,
+  StyledSelectableCharacterMapperContainer,
   StyledSelectableCharactersGroupContainer,
 } from "./styles";
 import AnaImage from "../../shared/assets/Characters/character-7.svg";
 import PedroImage from "../../shared/assets/Characters/character-3.svg";
 import EsterImage from "../../shared/assets/Characters/character-10.svg";
 import JoaoImage from "../../shared/assets/Characters/character-8.svg";
+
+import GraphLineActiveImage from "../../shared/assets/ChallengesImages/11/GraphLineActive.svg";
+import GraphLineInactiveImage from "../../shared/assets/ChallengesImages/11/GraphLineInactive.svg";
 
 interface ISelectableCharacter {
   index: number;
@@ -26,6 +32,7 @@ interface ICharacterGroupStateToUpdate {
 }
 
 interface ISelectableCharacterProps extends ISelectableCharacter {
+  graphLineComponent?: ReactNode;
   chooseDisable?: boolean;
   activeChooseContainerIndex: number | null;
   setActiveChooseContainerIndex: React.Dispatch<
@@ -33,7 +40,24 @@ interface ISelectableCharacterProps extends ISelectableCharacter {
   >;
 }
 
+type TGraphLineAngle =
+  | "top-right"
+  | "top-left"
+  | "bottom-right"
+  | "bottom-left";
+
+interface IGraphLineProps {
+  active: boolean;
+  angle: TGraphLineAngle;
+}
+
+interface IGraphLineStyles {
+  imageSource: string;
+  description: string;
+}
+
 function SelectableCharacter({
+  graphLineComponent,
   chooseDisable = false,
   name,
   image,
@@ -42,16 +66,42 @@ function SelectableCharacter({
   setActiveChooseContainerIndex,
 }: ISelectableCharacterProps) {
   return (
-    <SelectableComponents.ChooseContainer
-      chooseDisable={chooseDisable}
-      index={index}
-      activeChooseContainerIndex={activeChooseContainerIndex}
-      setActiveChooseContainerIndex={setActiveChooseContainerIndex}
-    >
-      <img src={image} alt={name} />
+    <StyledSelectableCharacterContainer>
+      {graphLineComponent}
 
-      <span>{name}</span>
-    </SelectableComponents.ChooseContainer>
+      <SelectableComponents.ChooseContainer
+        chooseDisable={chooseDisable}
+        index={index}
+        activeChooseContainerIndex={activeChooseContainerIndex}
+        setActiveChooseContainerIndex={setActiveChooseContainerIndex}
+      >
+        <img src={image} alt={name} />
+
+        <span>{name}</span>
+      </SelectableComponents.ChooseContainer>
+    </StyledSelectableCharacterContainer>
+  );
+}
+
+function GraphLine({ active = false, angle }: IGraphLineProps) {
+  const styles = useMemo(
+    (): IGraphLineStyles =>
+      active
+        ? {
+            imageSource: GraphLineActiveImage,
+            description: "active",
+          }
+        : {
+            imageSource: GraphLineInactiveImage,
+            description: "inactive",
+          },
+    [active]
+  );
+
+  return (
+    <StyledGraphLine className={`graph-line ${angle}`}>
+      <img src={styles.imageSource} alt={styles.description} />
+    </StyledGraphLine>
   );
 }
 
@@ -161,27 +211,32 @@ export function Challenge11Page() {
       selectableCharacterGroupState: [
         ISelectableCharacter[],
         React.Dispatch<React.SetStateAction<ISelectableCharacter[]>>
-      ]
+      ],
+      graphLineComponent?: ReactNode
     ): ReactNode => (
-      <SelectableComponents.TargetContainer
-        activeChooseContainerIndex={activeChooseContainerIndex}
-        onClick={() => handleClickOnTarget(selectableCharacterGroupState)}
-      >
-        {selectableCharacterGroupState[0].length === 0 ? (
-          <span className="question">?</span>
-        ) : (
-          selectableCharacterGroupState[0].map((selectableCharacter) => (
-            <SelectableCharacter
-              key={selectableCharacter.index}
-              index={selectableCharacter.index}
-              name={selectableCharacter.name}
-              image={selectableCharacter.image}
-              activeChooseContainerIndex={activeChooseContainerIndex}
-              setActiveChooseContainerIndex={setActiveChooseContainerIndex}
-            />
-          ))
-        )}
-      </SelectableComponents.TargetContainer>
+      <StyledSelectableCharacterMapperContainer>
+        {graphLineComponent}
+
+        <SelectableComponents.TargetContainer
+          activeChooseContainerIndex={activeChooseContainerIndex}
+          onClick={() => handleClickOnTarget(selectableCharacterGroupState)}
+        >
+          {selectableCharacterGroupState[0].length === 0 ? (
+            <span className="question">?</span>
+          ) : (
+            selectableCharacterGroupState[0].map((selectableCharacter) => (
+              <SelectableCharacter
+                key={selectableCharacter.index}
+                index={selectableCharacter.index}
+                name={selectableCharacter.name}
+                image={selectableCharacter.image}
+                activeChooseContainerIndex={activeChooseContainerIndex}
+                setActiveChooseContainerIndex={setActiveChooseContainerIndex}
+              />
+            ))
+          )}
+        </SelectableComponents.TargetContainer>
+      </StyledSelectableCharacterMapperContainer>
     ),
     [activeChooseContainerIndex, setActiveChooseContainerIndex]
   );
@@ -218,6 +273,12 @@ export function Challenge11Page() {
                 image={AnaImage}
                 activeChooseContainerIndex={activeChooseContainerIndex}
                 setActiveChooseContainerIndex={setActiveChooseContainerIndex}
+                graphLineComponent={
+                  <GraphLine
+                    angle="bottom-right"
+                    active={rightTargetCharactersState[0].length > 0}
+                  />
+                }
               />
             </div>
 
@@ -229,12 +290,30 @@ export function Challenge11Page() {
                 image={PedroImage}
                 activeChooseContainerIndex={activeChooseContainerIndex}
                 setActiveChooseContainerIndex={setActiveChooseContainerIndex}
+                graphLineComponent={<GraphLine angle="top-right" active />}
               />
 
-              {selectableCharacterMapper(rightTargetCharactersState)}
+              {selectableCharacterMapper(
+                rightTargetCharactersState,
+                <GraphLine
+                  angle="bottom-left"
+                  active={
+                    rightTargetCharactersState[0].length > 0 &&
+                    bottomTargetCharactersState[0].length > 0
+                  }
+                />
+              )}
             </div>
 
-            <div>{selectableCharacterMapper(bottomTargetCharactersState)}</div>
+            <div>
+              {selectableCharacterMapper(
+                bottomTargetCharactersState,
+                <GraphLine
+                  angle="top-left"
+                  active={bottomTargetCharactersState[0].length > 0}
+                />
+              )}
+            </div>
           </StyledGraph>
 
           <StyledSelectableCharactersGroupContainer>
