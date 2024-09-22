@@ -1,4 +1,4 @@
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import {
   Button,
   ChallengeMessage,
@@ -36,16 +36,26 @@ export const Challenge10Page = () => {
     },
   }));
 
-  const handleConfirm = () => {
+  const handleConfirm = (result: boolean) => {
     if (response === 0) {
-      ToastWarning({ message: "Selecione uma alternativa", positionProp: "top-right" });
+      ToastWarning({
+        message: "Selecione uma alternativa",
+        positionProp: "top-right",
+      });
       return;
     }
 
-    if (response === 2) {
-      ToastSuccess({ message: "Parabéns! Procurar pela notícia em fontes confiáveis é o recomendado.", positionProp: "top-right" });
+    if (result == true) {
+      ToastSuccess({
+        message:
+          "Parabéns! Buscar informações em fontes confiáveis é sempre a melhor escolha ao se deparar com uma notícia.",
+        positionProp: "top-right",
+      });
     } else {
-      ToastError({ message: "Ops! Tente novamente.", positionProp: "top-right" });
+      ToastError({
+        message: "Ops! Tente novamente.",
+        positionProp: "top-right",
+      });
     }
   };
 
@@ -105,7 +115,8 @@ export const Challenge10Page = () => {
               color={"green"}
               text="Confirmar"
               onClick={() => {
-                handleConfirm();
+                const result = true;
+                handleConfirm(result);
               }}
             />
           </StyledMain>

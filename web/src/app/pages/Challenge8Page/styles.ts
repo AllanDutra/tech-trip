@@ -54,9 +54,10 @@ export const ImageArea = styled.div`
   width: 5em;
   height: 5em;
   align-self: center;
+  justify-content: center;
   margin-bottom: 5em;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 425px) {
     width: 7.5em;
     height: 7.5em;
     margin: 0 auto 5em auto;

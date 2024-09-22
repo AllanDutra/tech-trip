@@ -13,3 +13,6 @@ export * from "./Challenge5Page";
 export * from "./Challenge6Page";
 export * from "./Challenge7Page";
 export * from "./Challenge8Page";
+export * from "./Challenge9Page";
+export * from "./Challenge10Page";
+export * from "./Challenge13Page";

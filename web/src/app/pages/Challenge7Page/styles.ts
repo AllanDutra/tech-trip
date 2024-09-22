@@ -20,14 +20,20 @@ export const MainContainer = styled.main`
 `;
 
 export const BoxesContainer = styled.div`
-  /* margin-top: 4.375em; */
-  margin-top: 3.5em;
+  margin-top: 4.375em;
+  /* margin-top: 3.5em; */
+  margin-bottom: 9.6875em;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   max-width: 300px;
   gap: 1.5em;
   justify-content: center;
+
+  @media (max-width: 1024px) {
+    margin-bottom: 4.4375em;
+    margin-top: 4.4375em;
+  }
 
   @media (min-width: 1024px) {
     gap: 1.9em;

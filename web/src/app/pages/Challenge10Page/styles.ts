@@ -32,8 +32,9 @@ export const ImageArea = styled.div`
   &.desktopVisible {
     @media (min-width: 1024px) {
       display: block;
-      /*width: 13.711875em;
-      height: 18.75em;*/
+      scale: 1.5;
+      width: 13.711875em;
+      height: 18.75em;
     }
   }
 `;
@@ -47,6 +48,7 @@ export const ResponseArea = styled.div`
 `;
 
 export const MessageArea = styled.div`
+  text-align: center;
   margin-top: 3.75em;
   margin-bottom: 5em;
   display: flex;
@@ -59,23 +61,17 @@ export const MessageArea = styled.div`
 
     div {
       display: grid;
-      grid-template-columns: 3fr 1fr;
-      justify-content: center;
-      align-items: center;
-      justify-content: center;
-      align-content: center;
-      place-content: initial;
-      /*display: flex;
-      flex-direction: row;*/
+      grid-template-columns: 2fr 1fr;
+      /* display: flex;
+      flex-direction: row;
+      width: calc(100% / 2); */
     }
   }
 `;
 
 export const Message = styled.div`
-  span {
-    text-align: center;
-    width: 100%;
-  }
+  text-align: center;
+
   @media (min-width: 1024px) {
     padding: 3.75em 8.75em 3.75em 8.75em;
   }
@@ -83,4 +79,5 @@ export const Message = styled.div`
 
 export const StatementContainer = styled.div`
   display: flex;
+  align-items: center;
 `;
