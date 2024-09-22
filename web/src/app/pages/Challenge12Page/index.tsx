@@ -15,6 +15,7 @@ import {
   StyledLogicalOperationChoose,
 } from "./styles";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
+import { Functions } from "../../shared/functions";
 
 type TLogicalOperation = "E" | "NAO" | "OU";
 
@@ -206,8 +207,32 @@ export function Challenge12Page() {
     ([targetArray, setTargetArray]: [
       ISelectableLogicalOperation[],
       React.Dispatch<React.SetStateAction<ISelectableLogicalOperation[]>>
-    ]) => {},
-    []
+    ]) => {
+      Functions.onChooseAndTarget<ISelectableLogicalOperation>(
+        activeChooseContainerIndex,
+        [
+          firstSelectableLogicalOperationGroup,
+          secondSelectableLogicalOperationGroup,
+          thirdSelectableLogicalOperationGroup,
+          firstLogicalOperationTarget,
+          secondLogicalOperationTarget,
+          thirdLogicalOperationTarget,
+        ],
+        targetArray,
+        setActiveChooseContainerIndex,
+        setTargetArray
+      );
+    },
+    [
+      activeChooseContainerIndex,
+      firstSelectableLogicalOperationGroup,
+      secondSelectableLogicalOperationGroup,
+      thirdSelectableLogicalOperationGroup,
+      firstLogicalOperationTarget,
+      secondLogicalOperationTarget,
+      thirdLogicalOperationTarget,
+      setActiveChooseContainerIndex,
+    ]
   );
 
   const logicalOperationChooseMapper = useCallback(
