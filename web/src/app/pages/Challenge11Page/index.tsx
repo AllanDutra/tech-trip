@@ -19,16 +19,12 @@ import JoaoImage from "../../shared/assets/Characters/character-8.svg";
 
 import GraphLineActiveImage from "../../shared/assets/ChallengesImages/11/GraphLineActive.svg";
 import GraphLineInactiveImage from "../../shared/assets/ChallengesImages/11/GraphLineInactive.svg";
+import { Functions } from "../../shared/functions";
 
 interface ISelectableCharacter {
   index: number;
   name: string;
   image: string;
-}
-
-interface ICharacterGroupStateToUpdate {
-  state: ISelectableCharacter[];
-  setState: React.Dispatch<React.SetStateAction<ISelectableCharacter[]>>;
 }
 
 interface ISelectableCharacterProps extends ISelectableCharacter {
@@ -137,65 +133,18 @@ export function Challenge11Page() {
       ISelectableCharacter[],
       React.Dispatch<React.SetStateAction<ISelectableCharacter[]>>
     ]) => {
-      if (
-        activeChooseContainerIndex === null ||
-        activeChooseContainerIndex === undefined
-      )
-        return;
-
-      const isMovingForSameSelectableCharactersGroup =
-        targetArray.findIndex((c) => c.index === activeChooseContainerIndex) !==
-        -1;
-
-      if (isMovingForSameSelectableCharactersGroup) return;
-
-      const characterGroup = {} as ICharacterGroupStateToUpdate;
-
-      const listsOfSelectableCharactersGroupsStates = [
-        firstSelectableCharactersGroupState,
-        secondSelectableCharactersGroupState,
-        bottomTargetCharactersState,
-        rightTargetCharactersState,
-      ];
-
-      for (let i = 0; i < listsOfSelectableCharactersGroupsStates.length; i++) {
-        const characterGroupState = listsOfSelectableCharactersGroupsStates[i];
-
-        const index = characterGroupState[0].findIndex(
-          (c) => c.index === activeChooseContainerIndex
-        );
-
-        if (index === -1) continue;
-
-        characterGroup.state = characterGroupState[0];
-        characterGroup.setState = characterGroupState[1];
-
-        break;
-      }
-
-      // ? Current state with selected character
-      const { state, setState } = characterGroup;
-
-      const characterToMove = state.find(
-        (c) => c.index === activeChooseContainerIndex
-      ) as ISelectableCharacterProps;
-
-      setTargetArray([characterToMove]);
-
-      if (targetArray.length > 0) {
-        const characterReplacedInTargetArea = targetArray[0];
-
-        setState((oldValue) => [
-          ...oldValue.filter((c) => c.index !== activeChooseContainerIndex),
-          characterReplacedInTargetArea,
-        ]);
-      } else {
-        setState((oldValue) =>
-          oldValue.filter((c) => c.index !== activeChooseContainerIndex)
-        );
-      }
-
-      setActiveChooseContainerIndex(null);
+      Functions.onChooseAndTarget<ISelectableCharacter>(
+        activeChooseContainerIndex,
+        [
+          firstSelectableCharactersGroupState,
+          secondSelectableCharactersGroupState,
+          bottomTargetCharactersState,
+          rightTargetCharactersState,
+        ],
+        targetArray,
+        setActiveChooseContainerIndex,
+        setTargetArray
+      );
     },
     [
       activeChooseContainerIndex,
@@ -203,6 +152,7 @@ export function Challenge11Page() {
       secondSelectableCharactersGroupState,
       bottomTargetCharactersState,
       rightTargetCharactersState,
+      setActiveChooseContainerIndex,
     ]
   );
 
