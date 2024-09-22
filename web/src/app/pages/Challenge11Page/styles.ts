@@ -61,28 +61,16 @@ export const StyledGraphContainer = styled.div`
   align-items: center;
   gap: 5vh;
 
-  .choose-container img,
-  .target-container {
-    width: 5em;
-    height: 5em;
-    border-radius: 1.25em;
-    box-shadow: inset 0em 0.5em 0em 0em rgba(0, 0, 0, 0.03);
-  }
-
   .choose-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: auto;
-    z-index: 2;
-
-    * {
-      user-select: none;
+    *:nth-of-type(1) {
+      border: 3px solid #f3f3f3;
+      transition: all 0.2s;
     }
 
-    img {
-      background-color: white;
+    &.highlighted {
+      *:nth-of-type(1) {
+        border: 3px solid #03afed;
+      }
     }
 
     span {
@@ -98,20 +86,6 @@ export const StyledGraphContainer = styled.div`
       font-weight: 600;
       background-color: #ffffff;
       border-radius: 0.5em;
-    }
-  }
-
-  .target-container {
-    background-color: #e4ebea;
-
-    .question {
-      font-family: "Montserrat Alternates", sans-serif;
-      font-weight: 700;
-      font-size: 2em;
-      line-height: 160%;
-      text-align: center;
-      opacity: 0.2;
-      color: #545456;
     }
   }
 

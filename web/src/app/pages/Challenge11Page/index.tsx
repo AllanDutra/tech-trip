@@ -238,7 +238,11 @@ export function Challenge11Page() {
         </SelectableComponents.TargetContainer>
       </StyledSelectableCharacterMapperContainer>
     ),
-    [activeChooseContainerIndex, setActiveChooseContainerIndex]
+    [
+      activeChooseContainerIndex,
+      handleClickOnTarget,
+      setActiveChooseContainerIndex,
+    ]
   );
 
   return (

@@ -14,9 +14,15 @@ interface IButtonProps
   children?: ReactNode;
 }
 
-export function Button({ color, text, children, ...rest }: IButtonProps) {
+export function Button({
+  color,
+  text,
+  children,
+  className,
+  ...rest
+}: IButtonProps) {
   return (
-    <StyledButton className={color} {...rest}>
+    <StyledButton className={`${color} ${className}`} {...rest}>
       <span>
         {text ? (
           text

@@ -11,10 +11,14 @@ interface IChallengeMessageProps
 
 export function ChallengeMessage({
   children,
+  className,
   ...rest
 }: IChallengeMessageProps) {
   return (
-    <StyledChallengeMessage className="challenge-message" {...rest}>
+    <StyledChallengeMessage
+      className={`challenge-message ${className}`}
+      {...rest}
+    >
       {children}
     </StyledChallengeMessage>
   );
