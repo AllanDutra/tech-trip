@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
-import { DraggableComponents } from "../DraggableComponents";
+
+const DEFAULT_SIZE = "7.625em";
+const RESPONSIVE_SIZE = "5em";
 
 interface IStyledDropAreaContainerProps {
   background: string;
@@ -19,6 +21,27 @@ export const StyledChallengeContainer = styled.div`
     max-width: 70%;
   }
 
+  .target-container {
+    width: ${DEFAULT_SIZE};
+    height: ${DEFAULT_SIZE};
+    overflow: hidden;
+  }
+
+  .choose-container {
+    flex: 1;
+    height: 100%;
+
+    border-radius: 1.875em;
+
+    img {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      padding: 0.9375em;
+      box-shadow: inset 0em -0.5em 0em 0em rgba(0, 0, 0, 0.1);
+    }
+  }
+
   @media screen and (max-width: 1020px) {
     button {
       max-width: 90%;
@@ -32,6 +55,29 @@ export const StyledChallengeContainer = styled.div`
   @media screen and (max-height: 760px) {
     .challenge-message {
       font-size: 1em;
+    }
+  }
+
+  @media screen and ((max-width: 790px) or (max-height: 825px)) {
+    .target-container {
+      width: ${RESPONSIVE_SIZE};
+      height: ${RESPONSIVE_SIZE};
+      border-radius: 1.25em;
+    }
+
+    .choose-container {
+      img {
+        height: 100%;
+        padding: 0.9375em 0;
+        box-shadow: inset 0em -0.25em 0em 0em rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+
+  @media screen and ((max-width: 400px) or (max-height: 670px)) {
+    .target-container {
+      width: 3.75em;
+      height: 3.75em;
     }
   }
 
@@ -58,7 +104,7 @@ export const StyledMainChallengeContainer = styled.div`
 
     flex: 1;
     margin-bottom: 4.5%;
-    padding-bottom: calc(${DraggableComponents.RESPONSIVE_SIZE} + 1em);
+    padding-bottom: calc(${RESPONSIVE_SIZE} + 1em);
     gap: 1.25em;
 
     width: 100%;
@@ -71,14 +117,14 @@ export const StyledMainChallengeContainer = styled.div`
 
 export const StyledActivityGroup = styled.div`
   width: 100%;
-  height: calc((2 * ${DraggableComponents.DEFAULT_SIZE}) + 1em);
+  height: calc((2 * ${DEFAULT_SIZE}) + 1em);
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   @media screen and (max-width: 790px) {
-    height: calc((2.5 * ${DraggableComponents.RESPONSIVE_SIZE}) + 1em);
+    height: calc((2.5 * ${RESPONSIVE_SIZE}) + 1em);
   }
 
   @media screen and (max-height: 825px) {
@@ -94,7 +140,7 @@ export const StyledActivityGroup = styled.div`
     align-items: flex-start;
 
     &:nth-of-type(1) {
-      .activity-drag-group {
+      .activity-choose-group {
         left: 0;
       }
     }
@@ -102,7 +148,7 @@ export const StyledActivityGroup = styled.div`
     &:nth-of-type(2) {
       padding-top: calc(13.5em + 1em);
 
-      .activity-drag-group {
+      .activity-choose-group {
         right: 0;
       }
     }
@@ -121,7 +167,7 @@ export const StyledActivityGroup = styled.div`
   }
 `;
 
-export const StyledActivityDragGroup = styled.div`
+export const StyledActivityChooseGroup = styled.div`
   position: relative;
 
   display: flex;
@@ -138,13 +184,6 @@ export const StyledActivityDragGroup = styled.div`
     left: 0;
     top: 0;
     z-index: 0;
-  }
-
-  &.drop-container-visible {
-    .hide-drop {
-      position: unset;
-      z-index: 1;
-    }
   }
 
   @media screen and (max-width: 660px) {
@@ -221,6 +260,12 @@ export const StyledDropAreaContent = styled.div`
     font-size: 1.75em;
     text-align: center;
     z-index: 2;
+  }
+
+  .target-container {
+    img {
+      box-shadow: none;
+    }
   }
 
   @media screen and (max-width: 1200px) {

@@ -21,7 +21,7 @@ const SharedStyles = styled.div`
   justify-content: center;
 `;
 
-export const StyledChooseContainer = styled(SharedStyles)`
+export const StyledChooseContainer = styled(SharedStyles)<{ color?: string }>`
   cursor: copy;
 
   img {
@@ -43,7 +43,7 @@ export const StyledChooseContainer = styled(SharedStyles)`
   }
 
   img {
-    background-color: white;
+    background-color: ${({ color }) => color || "white"};
   }
 
   &.choose-disable {
@@ -51,7 +51,7 @@ export const StyledChooseContainer = styled(SharedStyles)`
   }
 `;
 
-export const StyledTargetContainer = styled(SharedStyles)`
+export const StyledTargetContainer = styled(SharedStyles)<{ color?: string }>`
   cursor: not-allowed;
   transition: all 0.2s;
 
@@ -60,7 +60,7 @@ export const StyledTargetContainer = styled(SharedStyles)`
   border-radius: 1.25em;
   box-shadow: inset 0em 0.5em 0em 0em rgba(0, 0, 0, 0.03);
 
-  background-color: #e4ebea;
+  background-color: ${({ color }) => color || "#e4ebea"};
 
   .question {
     font-family: "Montserrat Alternates", sans-serif;
@@ -75,7 +75,6 @@ export const StyledTargetContainer = styled(SharedStyles)`
   &.highlighted {
     cursor: cell;
 
-    background-color: #d9f3fd !important;
     animation: ${pulse} 2s infinite ease-in-out;
   }
 

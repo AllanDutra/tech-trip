@@ -2,6 +2,11 @@ interface IChooseObject {
   index: number;
 }
 
+export type TChooseGroupState<T> = [
+  T[],
+  React.Dispatch<React.SetStateAction<T[]>>
+];
+
 interface IChooseGroupStateToUpdate<T> {
   state: T[];
   setState: React.Dispatch<React.SetStateAction<T[]>>;
@@ -13,7 +18,7 @@ const delay = (seconds: number): Promise<void> => {
 
 const onChooseAndTarget = <T extends IChooseObject>(
   activeChooseContainerIndex: number | null,
-  listsOfChooseGroupsStates: [T[], React.Dispatch<React.SetStateAction<T[]>>][],
+  listsOfChooseGroupsStates: TChooseGroupState<T>[],
   targetArray: T[],
   setActiveChooseContainerIndex: React.Dispatch<
     React.SetStateAction<number | null>

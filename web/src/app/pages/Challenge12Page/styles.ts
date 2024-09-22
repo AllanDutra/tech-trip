@@ -135,6 +135,12 @@ export const StyledInteractionContainer = styled.div`
   align-items: center;
   gap: 1.25em;
 
+  .target-container {
+    &.highlighted {
+      background-color: #d9f3fd !important;
+    }
+  }
+
   .choose-container {
     width: 100%;
     height: 100%;

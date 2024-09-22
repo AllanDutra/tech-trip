@@ -1,7 +1,7 @@
 import { Button, ChallengeMessage } from "..";
 import { ChallengePageContainer } from "../ChallengePageContainer";
 import {
-  StyledActivityDragGroup,
+  StyledActivityChooseGroup,
   StyledActivityGroup,
   StyledChallengeContainer,
   StyledDropAreaContainer,
@@ -9,7 +9,6 @@ import {
   StyledDroppableRegion,
   StyledMainChallengeContainer,
 } from "./styles";
-import { DraggableComponents } from "../DraggableComponents";
 import React, { ReactNode, useCallback, useMemo, useState } from "react";
 
 // ? First challenge images:
@@ -19,15 +18,12 @@ import SeaImage from "../../assets/DropAreasBackgrounds/Sea.svg";
 // ? Third challenge images:
 import CircuitImage from "../../assets/DropAreasBackgrounds/Circuit.png";
 import SoftwareImage from "../../assets/DropAreasBackgrounds/Software.png";
+import { SelectableComponents } from "../SelectableComponents";
+import { Functions, TChooseGroupState } from "../../functions";
 
 type TCharacterGroup = "TERRESTRE" | "AQUATICO" | "HARDWARE" | "SOFTWARE";
 
-interface ICharacterGroupStateToUpdate {
-  state: IDraggableCharacterProps[];
-  setState: React.Dispatch<React.SetStateAction<IDraggableCharacterProps[]>>;
-}
-
-export interface IDraggableCharacterProps {
+export interface ISelectableCharacterProps {
   group: TCharacterGroup;
   index: number;
   image: string;
@@ -36,23 +32,14 @@ export interface IDraggableCharacterProps {
 
 interface IDropAreaContainerProps {
   group: TCharacterGroup;
-  firstDropArea: IDraggableCharacterProps[];
-  secondDropArea: IDraggableCharacterProps[];
-  onDrop(
-    isDropAreaContainer: boolean,
-    dropAreaElements: IDraggableCharacterProps[],
-    setDropAreaElements: React.Dispatch<
-      React.SetStateAction<IDraggableCharacterProps[]>
-    >
+  firstDropAreaState: TChooseGroupState<ISelectableCharacterProps>;
+  secondDropAreaState: TChooseGroupState<ISelectableCharacterProps>;
+  activeChooseContainerIndex: number | null;
+  onChooseAndTarget(
+    targetArrayState: TChooseGroupState<ISelectableCharacterProps>
   ): void;
-  setActiveDragContainerIndex: React.Dispatch<
+  setActiveChooseContainerIndex: React.Dispatch<
     React.SetStateAction<number | null>
-  >;
-  setFirstDropArea: React.Dispatch<
-    React.SetStateAction<IDraggableCharacterProps[]>
-  >;
-  setSecondDropArea: React.Dispatch<
-    React.SetStateAction<IDraggableCharacterProps[]>
   >;
 }
 
@@ -74,8 +61,8 @@ interface ICharacterGroupingChallengeProps {
   firstCharacterGroupType: TCharacterGroup;
   secondCharacterGroupType: TCharacterGroup;
 
-  firstCharacterGroup: IDraggableCharacterProps[];
-  secondCharacterGroup: IDraggableCharacterProps[];
+  firstCharacterGroup: ISelectableCharacterProps[];
+  secondCharacterGroup: ISelectableCharacterProps[];
 }
 
 function getCharacterGroupColor(group: TCharacterGroup): string {
@@ -90,36 +77,61 @@ function getCharacterGroupColor(group: TCharacterGroup): string {
   return "#fff";
 }
 
-function draggableCharacterMapper(
-  array: IDraggableCharacterProps[],
-  setActiveDragContainerIndex: React.Dispatch<
+function getCharacterGroupTargetColor(group: TCharacterGroup): string {
+  if (group === "TERRESTRE") return "#E6DFD7";
+
+  if (group === "AQUATICO") return "#CFEEFD";
+
+  if (group === "HARDWARE") return "#BBE8E6";
+
+  if (group === "SOFTWARE") return "#F9BCB6";
+
+  return "#fff";
+}
+
+function selectableCharacterMapper(
+  arrayState: TChooseGroupState<ISelectableCharacterProps>,
+  activeChooseContainerIndex: number | null,
+  setActiveChooseContainerIndex: React.Dispatch<
     React.SetStateAction<number | null>
-  >
+  >,
+  onChooseAndTarget: (
+    targetArrayState: TChooseGroupState<ISelectableCharacterProps>
+  ) => void,
+  characterGroup?: TCharacterGroup
 ) {
   return (
-    <>
-      {array.map((character) => (
-        <DraggableComponents.DragContainer
+    <SelectableComponents.TargetContainer
+      color={
+        characterGroup
+          ? getCharacterGroupTargetColor(characterGroup)
+          : undefined
+      }
+      activeChooseContainerIndex={activeChooseContainerIndex}
+      onClick={() => onChooseAndTarget(arrayState)}
+    >
+      {arrayState[0].map((character) => (
+        <SelectableComponents.ChooseContainer
           key={character.index}
           color={getCharacterGroupColor(character.group)}
           index={character.index}
-          setActiveDragContainerIndex={setActiveDragContainerIndex}
+          activeChooseContainerIndex={activeChooseContainerIndex}
+          setActiveChooseContainerIndex={setActiveChooseContainerIndex}
         >
           <img src={character.image} alt={character.description} />
-        </DraggableComponents.DragContainer>
+        </SelectableComponents.ChooseContainer>
       ))}
-    </>
+    </SelectableComponents.TargetContainer>
   );
 }
 
 function DropAreaContainer({
   group,
-  firstDropArea,
-  secondDropArea,
-  onDrop,
-  setActiveDragContainerIndex,
-  setFirstDropArea,
-  setSecondDropArea,
+  firstDropAreaState,
+  secondDropAreaState,
+  activeChooseContainerIndex,
+  onChooseAndTarget,
+  setActiveChooseContainerIndex,
 }: IDropAreaContainerProps) {
   const styles = useMemo((): IDropAreaContainerStyles => {
     if (group === "TERRESTRE")
@@ -188,25 +200,21 @@ function DropAreaContainer({
         <p>{styles.title}</p>
 
         <StyledDroppableRegion>
-          <DraggableComponents.DropContainer
-            color={styles.colors.dropArea}
-            onDrop={() => onDrop(true, firstDropArea, setFirstDropArea)}
-          >
-            {draggableCharacterMapper(
-              firstDropArea,
-              setActiveDragContainerIndex
-            )}
-          </DraggableComponents.DropContainer>
+          {selectableCharacterMapper(
+            firstDropAreaState,
+            activeChooseContainerIndex,
+            setActiveChooseContainerIndex,
+            onChooseAndTarget,
+            group
+          )}
 
-          <DraggableComponents.DropContainer
-            color={styles.colors.dropArea}
-            onDrop={() => onDrop(true, secondDropArea, setSecondDropArea)}
-          >
-            {draggableCharacterMapper(
-              secondDropArea,
-              setActiveDragContainerIndex
-            )}
-          </DraggableComponents.DropContainer>
+          {selectableCharacterMapper(
+            secondDropAreaState,
+            activeChooseContainerIndex,
+            setActiveChooseContainerIndex,
+            onChooseAndTarget,
+            group
+          )}
         </StyledDroppableRegion>
       </StyledDropAreaContent>
     </StyledDropAreaContainer>
@@ -223,116 +231,58 @@ export function CharacterGroupingChallenge({
   firstCharacterGroup,
   secondCharacterGroup,
 }: ICharacterGroupingChallengeProps) {
-  const [activeDragContainerIndex, setActiveDragContainerIndex] = useState<
+  const [activeChooseContainerIndex, setActiveChooseContainerIndex] = useState<
     number | null
   >(null);
 
-  const firstCharacterGroupState = useState<IDraggableCharacterProps[]>([
-    ...firstCharacterGroup,
+  const firstCharacterGroupState = useState<ISelectableCharacterProps[]>([
+    firstCharacterGroup[0],
   ]);
-  const secondCharacterGroupState = useState<IDraggableCharacterProps[]>([
-    ...secondCharacterGroup,
+  const secondCharacterGroupState = useState<ISelectableCharacterProps[]>([
+    firstCharacterGroup[1],
+  ]);
+  const thirdCharacterGroupState = useState<ISelectableCharacterProps[]>([
+    secondCharacterGroup[0],
+  ]);
+  const fourthCharacterGroupState = useState<ISelectableCharacterProps[]>([
+    secondCharacterGroup[1],
   ]);
 
-  const firstDropAreaState = useState<IDraggableCharacterProps[]>([]);
-  const secondDropAreaState = useState<IDraggableCharacterProps[]>([]);
-  const thirdDropAreaState = useState<IDraggableCharacterProps[]>([]);
-  const fourthDropAreaState = useState<IDraggableCharacterProps[]>([]);
+  const firstDropAreaState = useState<ISelectableCharacterProps[]>([]);
+  const secondDropAreaState = useState<ISelectableCharacterProps[]>([]);
+  const thirdDropAreaState = useState<ISelectableCharacterProps[]>([]);
+  const fourthDropAreaState = useState<ISelectableCharacterProps[]>([]);
 
-  const handleDrop = useCallback(
-    (
-      isDropAreaContainer: boolean,
-      dropAreaElements: IDraggableCharacterProps[],
-      setDropAreaElements: React.Dispatch<
-        React.SetStateAction<IDraggableCharacterProps[]>
-      >
-    ) => {
-      if (
-        activeDragContainerIndex === null ||
-        activeDragContainerIndex === undefined
-      )
-        return;
-
-      const characterGroup = {} as ICharacterGroupStateToUpdate;
-
-      const listsOfCharacterGroupsStates = [
-        firstCharacterGroupState,
-        secondCharacterGroupState,
-        firstDropAreaState,
-        secondDropAreaState,
-        thirdDropAreaState,
-        fourthDropAreaState,
-      ];
-
-      for (let i = 0; i < listsOfCharacterGroupsStates.length; i++) {
-        const characterGroupState = listsOfCharacterGroupsStates[i];
-
-        const index = characterGroupState[0].findIndex(
-          (c) => c.index === activeDragContainerIndex
-        );
-
-        if (index === -1) continue;
-
-        characterGroup.state = characterGroupState[0];
-        characterGroup.setState = characterGroupState[1];
-
-        break;
-      }
-
-      const { state, setState } = characterGroup;
-
-      const characterToMove = state.find(
-        (c) => c.index === activeDragContainerIndex
-      ) as IDraggableCharacterProps;
-
-      const arrayIndexOfMovedCharacter = state.findIndex(
-        (c) => c.index === activeDragContainerIndex
+  const handleChooseAndTarget = useCallback(
+    (targetArrayState: TChooseGroupState<ISelectableCharacterProps>) => {
+      Functions.onChooseAndTarget<ISelectableCharacterProps>(
+        activeChooseContainerIndex,
+        [
+          firstCharacterGroupState,
+          secondCharacterGroupState,
+          thirdCharacterGroupState,
+          fourthCharacterGroupState,
+          firstDropAreaState,
+          secondDropAreaState,
+          thirdDropAreaState,
+          fourthDropAreaState,
+        ],
+        targetArrayState[0],
+        setActiveChooseContainerIndex,
+        targetArrayState[1]
       );
-
-      if (isDropAreaContainer) {
-        if (dropAreaElements.length > 0) {
-          const characterReplacedInDropArea = dropAreaElements[0];
-          setDropAreaElements((oldValue) =>
-            oldValue.splice(0, 1, characterToMove)
-          );
-          setState((oldValue) =>
-            oldValue.splice(
-              arrayIndexOfMovedCharacter,
-              1,
-              characterReplacedInDropArea
-            )
-          );
-        } else {
-          setDropAreaElements([characterToMove]);
-          setState((oldValue) =>
-            oldValue.filter((c) => c.index !== activeDragContainerIndex)
-          );
-        }
-      } else {
-        if (dropAreaElements.length === 2) return;
-
-        const isMovingForSameActivityDragGroup =
-          dropAreaElements.findIndex(
-            (c) => c.index === activeDragContainerIndex
-          ) !== -1;
-
-        if (isMovingForSameActivityDragGroup) return;
-
-        setDropAreaElements((oldValue) => [characterToMove, ...oldValue]);
-
-        setState((oldValue) =>
-          oldValue.filter((c) => c.index !== activeDragContainerIndex)
-        );
-      }
     },
     [
-      activeDragContainerIndex,
+      activeChooseContainerIndex,
       firstCharacterGroupState,
       secondCharacterGroupState,
+      thirdCharacterGroupState,
+      fourthCharacterGroupState,
       firstDropAreaState,
       secondDropAreaState,
       thirdDropAreaState,
       fourthDropAreaState,
+      setActiveChooseContainerIndex,
     ]
   );
 
@@ -343,71 +293,56 @@ export function CharacterGroupingChallenge({
 
         <StyledMainChallengeContainer>
           <StyledActivityGroup>
-            <StyledActivityDragGroup
-              className={`activity-drag-group ${
-                firstCharacterGroupState[0].length < 2
-                  ? "drop-container-visible"
-                  : ""
-              }`}
-            >
-              <DraggableComponents.DropContainer
-                onDrop={() =>
-                  handleDrop(
-                    false,
-                    firstCharacterGroupState[0],
-                    firstCharacterGroupState[1]
-                  )
-                }
-              />
-              {draggableCharacterMapper(
-                firstCharacterGroupState[0],
-                setActiveDragContainerIndex
+            <StyledActivityChooseGroup className="activity-choose-group">
+              {selectableCharacterMapper(
+                firstCharacterGroupState,
+                activeChooseContainerIndex,
+                setActiveChooseContainerIndex,
+                handleChooseAndTarget
               )}
-            </StyledActivityDragGroup>
+
+              {selectableCharacterMapper(
+                secondCharacterGroupState,
+                activeChooseContainerIndex,
+                setActiveChooseContainerIndex,
+                handleChooseAndTarget
+              )}
+            </StyledActivityChooseGroup>
 
             <DropAreaContainer
               group={firstCharacterGroupType}
-              firstDropArea={firstDropAreaState[0]}
-              secondDropArea={secondDropAreaState[0]}
-              onDrop={handleDrop}
-              setActiveDragContainerIndex={setActiveDragContainerIndex}
-              setFirstDropArea={firstDropAreaState[1]}
-              setSecondDropArea={secondDropAreaState[1]}
+              firstDropAreaState={firstDropAreaState}
+              secondDropAreaState={secondDropAreaState}
+              onChooseAndTarget={handleChooseAndTarget}
+              activeChooseContainerIndex={activeChooseContainerIndex}
+              setActiveChooseContainerIndex={setActiveChooseContainerIndex}
             />
           </StyledActivityGroup>
 
           <StyledActivityGroup>
-            <StyledActivityDragGroup
-              className={`activity-drag-group ${
-                secondCharacterGroupState[0].length < 2
-                  ? "drop-container-visible"
-                  : ""
-              }`}
-            >
-              <DraggableComponents.DropContainer
-                onDrop={() =>
-                  handleDrop(
-                    false,
-                    secondCharacterGroupState[0],
-                    secondCharacterGroupState[1]
-                  )
-                }
-              />
-
-              {draggableCharacterMapper(
-                secondCharacterGroupState[0],
-                setActiveDragContainerIndex
+            <StyledActivityChooseGroup className="activity-choose-group">
+              {selectableCharacterMapper(
+                thirdCharacterGroupState,
+                activeChooseContainerIndex,
+                setActiveChooseContainerIndex,
+                handleChooseAndTarget
               )}
-            </StyledActivityDragGroup>
+
+              {selectableCharacterMapper(
+                fourthCharacterGroupState,
+                activeChooseContainerIndex,
+                setActiveChooseContainerIndex,
+                handleChooseAndTarget
+              )}
+            </StyledActivityChooseGroup>
 
             <DropAreaContainer
               group={secondCharacterGroupType}
-              firstDropArea={thirdDropAreaState[0]}
-              secondDropArea={fourthDropAreaState[0]}
-              onDrop={handleDrop}
-              setActiveDragContainerIndex={setActiveDragContainerIndex}
-              setFirstDropArea={thirdDropAreaState[1]}
-              setSecondDropArea={fourthDropAreaState[1]}
+              firstDropAreaState={thirdDropAreaState}
+              secondDropAreaState={fourthDropAreaState}
+              onChooseAndTarget={handleChooseAndTarget}
+              activeChooseContainerIndex={activeChooseContainerIndex}
+              setActiveChooseContainerIndex={setActiveChooseContainerIndex}
             />
           </StyledActivityGroup>
         </StyledMainChallengeContainer>

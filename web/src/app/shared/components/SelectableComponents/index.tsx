@@ -3,6 +3,7 @@ import { StyledChooseContainer, StyledTargetContainer } from "./styles";
 
 interface IChooseContainerProps {
   chooseDisable?: boolean;
+  color?: string;
 
   children: ReactNode;
 
@@ -15,6 +16,7 @@ interface IChooseContainerProps {
 
 function ChooseContainer({
   chooseDisable = false,
+  color,
   children,
   index,
   activeChooseContainerIndex,
@@ -40,6 +42,7 @@ function ChooseContainer({
       className={`choose-container ${isHighlighted ? "highlighted" : ""} ${
         chooseDisable ? "choose-disable" : ""
       }`}
+      color={color}
       onClick={handleClick}
     >
       {children}
@@ -50,6 +53,7 @@ function ChooseContainer({
 interface ITargetContainerProps {
   targetDisable?: boolean;
   children?: ReactNode;
+  color?: string;
 
   activeChooseContainerIndex: number | null;
   onClick(): void;
@@ -58,6 +62,7 @@ interface ITargetContainerProps {
 function TargetContainer({
   targetDisable = false,
   children,
+  color,
   activeChooseContainerIndex,
   onClick,
 }: ITargetContainerProps) {
@@ -74,6 +79,7 @@ function TargetContainer({
 
   return (
     <StyledTargetContainer
+      color={color}
       className={`target-container ${isHighLighted ? "highlighted" : ""} ${
         targetDisable ? "target-disable" : ""
       }`}

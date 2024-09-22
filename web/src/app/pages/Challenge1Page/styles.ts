@@ -57,12 +57,6 @@ export const StyledActivityDragGroup = styled.div`
     top: 0;
     z-index: 0;
   }
-
-  &.drop-container-visible {
-    .hide-drop {
-      position: initial;
-    }
-  }
 `;
 
 export const StyledDropAreaContainer = styled.div<IStyledDropAreaContainerProps>`

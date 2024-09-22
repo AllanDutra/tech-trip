@@ -61,6 +61,12 @@ export const StyledGraphContainer = styled.div`
   align-items: center;
   gap: 5vh;
 
+  .target-container {
+    &.highlighted {
+      background-color: #d9f3fd !important;
+    }
+  }
+
   .choose-container {
     *:nth-of-type(1) {
       border: 3px solid #f3f3f3;
