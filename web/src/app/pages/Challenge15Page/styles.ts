@@ -12,7 +12,7 @@ export const StyledMain = styled.div`
   padding: 0.625em;
 
   @media (min-width: 1024px) {
-    padding: 0 1em 0 1em;
+    padding: 0 1.875em 0 1.875em;
   }
 `;
 
@@ -29,13 +29,14 @@ export const ImageArea = styled.div`
     width: 18.5em;
     height: 10.5625em;
     margin-bottom: 7.5em;
+    /* scale: 1.2; */
   }
 `;
 
 export const ImageRobbot = styled.div`
   width: 16.563125em;
   height: 17.6925em;
-  margin: 2.8825em 1.6875em 8.175625em 1.6875em;
+  margin: 2.8825em 1.6875em 3.175625em 1.6875em;
 
   @media (min-width: 1024px) {
     width: 24.165em;
@@ -58,9 +59,4 @@ export const Message = styled.div`
   @media (min-width: 1024px) {
     padding: 3.75em 8.75em 3.75em 8.75em;
   }
-`;
-
-export const ButtonsArea = styled.div`
-  width: 100%;
-  padding-top: 3.125em;
 `;

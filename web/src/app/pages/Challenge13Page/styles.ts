@@ -17,19 +17,41 @@ export const StyledMain = styled.div`
 `;
 
 export const ImageArea = styled.div`
-  /* width: 9.9375em;
-  height: 10.20625em; */
-  /* background-color: red; */
-  scale: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  @media (min-width: 1024px) {
-    scale: 1.2;
-    width: fit-content;
-    height: fit-content;
-    /* width: 18.75em;
-    height: 19.255em; */
+  &.officeObjects {
+    /* background-color: red; */
+    scale: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media (min-width: 1024px) {
+      scale: 1.5;
+      width: fit-content;
+      height: fit-content;
+    }
+  }
+
+  &.computerComponents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15.625em;
+    height: 11.875em;
+    @media (min-width: 1024px) {
+      width: 25.374375em;
+      height: 19.25em;
+    }
+  }
+
+  &.folder {
+    width: 19.25em;
+    height: 19.25em;
+    margin: 2.75em 0;
+    
+    @media (max-width: 1024px) {
+      width: 11.6875em;
+      height: 11.6875em;
+      margin: 1.25em 0;
+    }
   }
 `;
 

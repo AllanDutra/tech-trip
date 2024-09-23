@@ -17,22 +17,21 @@ import {
 } from "./styles";
 import { Investigator } from "../../shared/assets";
 import { useState } from "react";
-import { IOption } from "../Challenge9Page";
 
 export const Challenge10Page = () => {
-  const [response, setResponse] = useState(0);
+  const [response, setResponse] = useState<number>();
 
-  const options: IOption[] = [
-    { id: 1, content: "Acreditar na notícia de imediato" },
-    { id: 2, content: "Procurar a notícia em sites confiáveis" },
-    { id: 3, content: "Ver se os amigos já ouviram falar disso" },
+  const options = [
+    { content: "Acreditar na notícia de imediato" },
+    { content: "Procurar a notícia em sites confiáveis" },
+    { content: "Ver se os amigos já ouviram falar disso" },
   ];
-  const challengeOptions = options.map((option) => ({
-    id: option.id,
+
+  const challengeOptions = options.map((option, index) => ({
     content: option.content,
-    selected: option.id === response,
-    onClick: (id: number) => {
-      setResponse(id);
+    selected: index === response,
+    onClick: () => {
+      setResponse(index);
     },
   }));
 

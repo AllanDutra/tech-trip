@@ -18,22 +18,26 @@ export const StyledMain = styled.div`
 
 export const ImageArea = styled.div`
   display: none;
-  width: 13.711875em;
-  height: 18.75em;
+  scale: 1;
+  max-width: 13.711875em;
+  max-height: 18.75em;
 
   &.mobileVisible {
-    @media (max-width: 1024px) {
+    @media (max-width: 660px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 6.8125em;
       height: 9.315625em;
-      display: block;
     }
   }
 
   &.desktopVisible {
     @media (min-width: 1024px) {
-      display: block;
-      scale: 1.5;
-      width: 13.711875em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 13.75em;
       height: 18.75em;
     }
   }
@@ -62,9 +66,9 @@ export const MessageArea = styled.div`
     div {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      /* display: flex;
-      flex-direction: row;
-      width: calc(100% / 2); */
+      /* background-color: red; */
+      justify-content: space-between;
+      align-items: center;
     }
   }
 `;

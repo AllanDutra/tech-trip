@@ -104,6 +104,7 @@ export const ButtonsArea = styled.div`
   gap: 1.25em;
   display: flex;
   flex-direction: row;
+  margin-bottom: 8em;
 
   @media (min-width: 1024px) {
     gap: 2.5em;

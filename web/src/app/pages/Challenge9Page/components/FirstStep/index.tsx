@@ -10,8 +10,8 @@ import { ImageArea, Message, ResponseArea, StyledMain } from "../../styles";
 
 interface IFirstStepProps {
   options: IOption[];
-  setResponse: React.Dispatch<React.SetStateAction<number>>;
-  response: number;
+  setResponse: React.Dispatch<React.SetStateAction<number | null>>;
+  response: number | null;
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
@@ -21,13 +21,11 @@ export const FirstStep = ({
   response,
   setStep,
 }: IFirstStepProps) => {
-  const challengeOptions = options.map((option) => ({
-    id: option.id,
+  const challengeOptions = options.map((option, index) => ({
     content: option.content,
-    selected: option.id === response,
-    onClick: (id: number) => {
-      setResponse(id);
-      console.log(response);
+    selected: index === response,
+    onClick: () => {
+      setResponse(index);
     },
   }));
 
@@ -58,7 +56,7 @@ export const FirstStep = ({
         text="Confirmar"
         color="green"
         onClick={() => {
-          if (response === 0) {
+          if (response == null) {
             ToastWarning({
               message: "Selecione uma alternativa",
               positionProp: "top-right",

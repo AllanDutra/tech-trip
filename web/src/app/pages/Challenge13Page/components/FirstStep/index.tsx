@@ -5,12 +5,11 @@ import {
   ChallengeMessage,
   ChallengeResponse,
 } from "../../../../shared/components";
-import { IOption } from "../../../Challenge9Page";
-import { ImageArea, Message, MessageArea, ResponseArea, StyledMain } from "../../styles";
+import { ImageArea, MessageArea, ResponseArea, StyledMain } from "../../styles";
 
 interface IFirstStepProps {
-  setResponse: React.Dispatch<React.SetStateAction<number>>;
-  response: number;
+  setResponse: React.Dispatch<React.SetStateAction<number | null>>;
+  response: number | null;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   handleConfirm: CallableFunction;
 }
@@ -21,17 +20,16 @@ export const FirstStep = ({
   setStep,
   handleConfirm,
 }: IFirstStepProps) => {
-  const options: IOption[] = [
-    { id: 1, content: "Teclado" },
-    { id: 2, content: "Mouse" },
-    { id: 3, content: "Câmera" },
+  const options = [
+    { content: "Teclado" },
+    { content: "Mouse" },
+    { content: "Câmera" },
   ];
-  const challengeOptions = options.map((option) => ({
-    id: option.id,
+  const challengeOptions = options.map((option, index) => ({
     content: option.content,
-    selected: option.id === response,
-    onClick: (id: number) => {
-      setResponse(id);
+    selected: index === response,
+    onClick: () => {
+      setResponse(index);
     },
   }));
 
@@ -52,21 +50,27 @@ export const FirstStep = ({
           }
         />
       </MessageArea>
-      <ImageArea>
+      <ImageArea className="officeObjects">
         <OfficeObjects />
       </ImageArea>
       <ResponseArea>
-        <ChallengeResponse.FullComponent options={challengeOptions} />
+        <ChallengeResponse.FullComponent
+          options={challengeOptions}
+          size="large"
+        />
       </ResponseArea>
       <Button
         onClick={() => {
-          setStep(2);
-          /*const result = true;
-          setResponse(1);
+          const result = true;
           const message =
-            "Parabéns! Buscar informações em fontes confiáveis é sempre a melhor escolha ao se deparar com uma notícia.";
-          if (handleConfirm(result, response, message)) {
-          }*/
+            "Parabéns! ";
+          const handle_return = handleConfirm(result, response, message);
+          setTimeout(() => {
+            if (handle_return) {
+              setStep(2);
+              setResponse(null);
+            }
+          }, 5000);
         }}
         text="Confirmar"
         color={"green"}

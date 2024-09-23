@@ -8,15 +8,12 @@ interface IGeneralContainerProps {
 
 type TOptionSize = "small" | "medium" | "large";
 
-interface IOptionProps
-  extends Omit<
-    React.DetailedHTMLProps<
-      React.ButtonHTMLAttributes<HTMLButtonElement>,
-      HTMLButtonElement
-    >,
-    "id"
+export interface IOptionProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
   > {
-  id: number;
+  optionLetterIndex: number;
   children: ReactNode;
   size?: TOptionSize;
   selected?: boolean;
@@ -29,7 +26,7 @@ interface IReceivedOption {
   onClick: CallableFunction;
 }
 
-interface IFullComponentProps {
+interface IFullComponentProps extends Omit<IOptionProps, "optionLetterIndex" | "children">{
   options: IReceivedOption[];
   size?: TOptionSize;
 }
@@ -41,13 +38,16 @@ function GeneralContainer({ children }: IGeneralContainerProps) {
 const OPTION_LETTERS = ["A", "B", "C"];
 
 function Option({
-  id,
+  optionLetterIndex,
   children,
   size = "medium",
   selected = false,
   ...rest
 }: IOptionProps) {
-  const letter = useMemo(() => OPTION_LETTERS[id] ?? "?", [id]);
+  const letter = useMemo(
+    () => OPTION_LETTERS[optionLetterIndex] ?? "?",
+    [optionLetterIndex]
+  );
 
   return (
     <StyledOption className={`${size} ${selected ? "selected" : ""}`} {...rest}>
@@ -59,11 +59,18 @@ function Option({
   );
 }
 
-function FullComponent({ options, size }: IFullComponentProps) {
+function FullComponent({ options, size, ...rest }: IFullComponentProps) {
   return (
     <GeneralContainer>
       {options.map((option, index) => (
-        <Option onClick={() => option.onClick} selected={option.selected} size={size} key={index} id={index}>
+        <Option
+          selected={option.selected}
+          size={size}
+          key={index}
+          optionLetterIndex={index}
+          onClick={() => option.onClick()}
+          {...rest}
+        >
           {option.text ? <b>{option.text}</b> : option.content}
         </Option>
       ))}

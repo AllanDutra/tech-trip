@@ -3,18 +3,17 @@ import { ChallengePageContainer } from "../../shared/components/ChallengePageCon
 import { FirstStep, SecondStep } from "./components";
 import { ToastContainer } from "react-toastify";
 export interface IOption {
-  id: number;
   content: string;
 }
 
 export const Challenge9Page = () => {
-  const [response, setResponse] = useState(0);
+  const [response, setResponse] = useState<number | null>(null);
   const [step, setStep] = useState(1);
 
   const options: IOption[] = [
-    { id: 1, content: "0100 1111 0100 0001" },
-    { id: 2, content: "0110 1001 0100 0001" },
-    { id: 3, content: "0100 1111 0110 1001" },
+    { content: "0100 1111 0100 0001" },
+    { content: "0110 1001 0100 0001" },
+    { content: "0100 1111 0110 1001" },
   ];
 
   return (

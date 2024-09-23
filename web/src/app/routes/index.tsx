@@ -57,6 +57,7 @@ export function Routes() {
         <Route path={routeConfigs.Challenge9} element={<Challenge9Page />} />
         <Route path={routeConfigs.Challenge10} element={<Challenge10Page />} />
         <Route path={routeConfigs.Challenge13} element={<Challenge13Page />} />
+        {/* <Route path={routeConfigs.Challenge15} element={} */}
 
         <Route path="*" element={<Navigate to={routeConfigs.Login} />} />
       </Switch>

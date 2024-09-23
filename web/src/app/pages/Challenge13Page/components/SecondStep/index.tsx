@@ -5,12 +5,11 @@ import {
   ChallengeMessage,
   ChallengeResponse,
 } from "../../../../shared/components";
-import { IOption } from "../../../Challenge9Page";
 import { ImageArea, MessageArea, ResponseArea, StyledMain } from "../../styles";
 
 interface ISecondStepProps {
-  setResponse: React.Dispatch<React.SetStateAction<number>>;
-  response: number;
+  setResponse: React.Dispatch<React.SetStateAction<number | null>>;
+  response: number | null;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   handleConfirm: CallableFunction;
 }
@@ -21,17 +20,16 @@ export const SecondStep = ({
   setStep,
   handleConfirm,
 }: ISecondStepProps) => {
-  const options: IOption[] = [
-    { id: 1, content: "Impressora ou roteador" },
-    { id: 2, content: "Fones de ouvido ou alto-falantes" },
-    { id: 3, content: "Microfone ou teclado" },
+  const options = [
+    { content: "Impressora ou roteador" },
+    { content: "Fones de ouvido ou alto-falantes" },
+    { content: "Microfone ou teclado" },
   ];
-  const challengeOptions = options.map((option) => ({
-    id: option.id,
+  const challengeOptions = options.map((option, index) => ({
     content: option.content,
-    selected: option.id === response,
-    onClick: (id: number) => {
-      setResponse(id);
+    selected: index === response,
+    onClick: () => {
+      setResponse(index);
     },
   }));
 
@@ -48,7 +46,7 @@ export const SecondStep = ({
           }
         />
       </MessageArea>
-      <ImageArea>
+      <ImageArea className="computerComponents">
         <ComputerComponents />
       </ImageArea>
       <ResponseArea>
@@ -59,9 +57,13 @@ export const SecondStep = ({
           const result = true;
           const message =
             "Parabéns! Você acertou! Para ouvir música no computador, os dispositivo ideais são realmente os fones de ouvido ou alto-falantes. Excelente escolha para garantir uma ótima experiência musical para Tina!";
-          if (handleConfirm(result, response, message)) {
-            setStep(3);
-          }
+          const handle_return = handleConfirm(result, response, message);
+          setTimeout(() => {
+            if (handle_return) {
+              setStep(3);
+              setResponse(null);
+            }
+          }, 5000);
         }}
         text="Confirmar"
         color={"green"}

@@ -11,14 +11,15 @@ import {
 
 export const Challenge13Page = () => {
   const [step, setStep] = useState(1);
-  const [response, setResponse] = useState(0);
+  const [response, setResponse] = useState<number | null>(null);
 
   const handleConfirm = (
     result: boolean,
     response: number,
     message: string
   ) => {
-    if (response === 0) {
+    console.log(result, response, message);
+    if (response == null) {
       ToastWarning({
         message: "Selecione uma alternativa",
         positionProp: "top-right",
@@ -66,7 +67,6 @@ export const Challenge13Page = () => {
             <ThirdStep
               setResponse={setResponse}
               response={response}
-              setStep={setStep}
               handleConfirm={handleConfirm}
             />
           )}

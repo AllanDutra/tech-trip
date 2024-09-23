@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { HappyRob } from "../../../../shared/assets";
+import { HappyRob, SadRob } from "../../../../shared/assets";
 import { Button, ChallengeMessage } from "../../../../shared/components";
 import { routeConfigs } from "../../../../shared/configs";
-import { ImageArea, ImageRobbot, Message, StyledMain } from "../../styles";
+import { ButtonsArea, ImageRobbot, Message, StyledMain } from "../../styles";
 
 interface ISecondStepProps {
-  response: number;
+  response: number | null;
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
@@ -39,13 +39,25 @@ export function SecondStep({ response, setStep }: ISecondStepProps) {
 
       <ImageRobbot>
         {result && <HappyRob />}
-        {!result && <HappyRob />}
+        {!result && <SadRob />}
       </ImageRobbot>
 
-      {result && <Button color="green" text="Avançar" onClick={() => navigate(routeConfigs.Map)}/>}
-      {!result && <Button color="red" text="Tentar novamente" onClick={() => setStep(1)}/>}
-
-
+      <ButtonsArea>
+        {result && (
+          <Button
+            color="green"
+            text="Avançar"
+            onClick={() => navigate(routeConfigs.Map)}
+          />
+        )}
+        {!result && (
+          <Button
+            color="red"
+            text="Tentar novamente"
+            onClick={() => setStep(1)}
+          />
+        )}
+      </ButtonsArea>
     </StyledMain>
   );
 }

@@ -215,7 +215,7 @@ export const ComputerComponents: React.FC = () => {
       />
       <mask
         id="mask0_193_3211"
-        style="mask-type:luminance"
+        // style="mask-type:luminance"
         maskUnits="userSpaceOnUse"
         x="393"
         y="104"
@@ -235,7 +235,7 @@ export const ComputerComponents: React.FC = () => {
       </g>
       <mask
         id="mask1_193_3211"
-        style="mask-type:luminance"
+        // style="mask-type:luminance"
         maskUnits="userSpaceOnUse"
         x="393"
         y="103"
@@ -255,7 +255,7 @@ export const ComputerComponents: React.FC = () => {
       </g>
       <mask
         id="mask2_193_3211"
-        style="mask-type:luminance"
+        // style="mask-type:luminance"
         maskUnits="userSpaceOnUse"
         x="388"
         y="107"
@@ -275,7 +275,7 @@ export const ComputerComponents: React.FC = () => {
       </g>
       <mask
         id="mask3_193_3211"
-        style="mask-type:luminance"
+        // style="mask-type:luminance"
         maskUnits="userSpaceOnUse"
         x="388"
         y="107"
@@ -295,7 +295,7 @@ export const ComputerComponents: React.FC = () => {
       </g>
       <mask
         id="mask4_193_3211"
-        style="mask-type:luminance"
+        // style="mask-type:luminance"
         maskUnits="userSpaceOnUse"
         x="385"
         y="109"
@@ -315,7 +315,7 @@ export const ComputerComponents: React.FC = () => {
       </g>
       <mask
         id="mask5_193_3211"
-        style="mask-type:luminance"
+        // style="mask-type:luminance"
         maskUnits="userSpaceOnUse"
         x="385"
         y="108"
@@ -335,7 +335,7 @@ export const ComputerComponents: React.FC = () => {
       </g>
       <mask
         id="mask6_193_3211"
-        style="mask-type:luminance"
+        // style="mask-type:luminance"
         maskUnits="userSpaceOnUse"
         x="382"
         y="110"
@@ -355,7 +355,7 @@ export const ComputerComponents: React.FC = () => {
       </g>
       <mask
         id="mask7_193_3211"
-        style="mask-type:luminance"
+        // style="mask-type:luminance"
         maskUnits="userSpaceOnUse"
         x="382"
         y="110"
@@ -375,7 +375,7 @@ export const ComputerComponents: React.FC = () => {
       </g>
       <mask
         id="mask8_193_3211"
-        style="mask-type:luminance"
+        // style="mask-type:luminance"
         maskUnits="userSpaceOnUse"
         x="380"
         y="112"
@@ -395,7 +395,7 @@ export const ComputerComponents: React.FC = () => {
       </g>
       <mask
         id="mask9_193_3211"
-        style="mask-type:luminance"
+        // style="mask-type:luminance"
         maskUnits="userSpaceOnUse"
         x="379"
         y="112"
