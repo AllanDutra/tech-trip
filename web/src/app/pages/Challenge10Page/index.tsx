@@ -36,7 +36,7 @@ export const Challenge10Page = () => {
   }));
 
   const handleConfirm = (result: boolean) => {
-    if (response === 0) {
+    if (response == undefined) {
       ToastWarning({
         message: "Selecione uma alternativa",
         positionProp: "top-right",
