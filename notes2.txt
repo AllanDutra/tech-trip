@@ -1,0 +1,5 @@
+1. Definir map Container component (pai)
+    - Com display flex, align center
+2. Definir map component (filho de map container)
+    - width 75% do pai até atingir o máximo de 340px
+3.  

@@ -71,4 +71,15 @@ export const StyledButton = styled.button`
   &:active::before {
     box-shadow: none; /* Adiciona uma sombra para efeito de profundidade */
   }
+
+  &:disabled {
+    filter: grayscale(100%);
+    opacity: 50%;
+    pointer-events: none;
+  }
+
+  &:disabled::before {
+    background-color: transparent;
+    box-shadow: none;
+  }
 `;

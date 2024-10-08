@@ -31,7 +31,7 @@ interface IInputProps
 
 interface IFullComponentProps extends IInputProps {
   label: string;
-  Icon: PhosphorIcon;
+  Icon: PhosphorIcon | null;
 }
 
 function MainContainer({ children }: IContainerProps) {
