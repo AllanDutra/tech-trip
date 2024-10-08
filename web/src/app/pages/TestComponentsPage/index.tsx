@@ -6,9 +6,7 @@ import {
   Character,
   ContainedInput,
   DoubleSelection,
-  DragDrop,
   Header,
-  LevelCompletionModal,
   NavBar,
   PreferenceButton,
   SecondaryButton,
@@ -16,17 +14,9 @@ import {
   UnderlinedInput,
 } from "../../shared/components";
 import { StyledMain } from "./styles";
-import { useCallback } from "react";
-import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 import { appConfigs } from "../../shared/configs/App";
 
 export function TestComponentsPage() {
-  const handleOnDragEnd = useCallback((result: DropResult) => {
-    if (!result.destination) return;
-
-    console.log(result);
-  }, []);
-
   return (
     <StyledMain>
       <h2>Contained Input</h2>
@@ -168,22 +158,6 @@ export function TestComponentsPage() {
       {/* <h2>Level Completion Modal</h2>
 
       <LevelCompletionModal.FullComponent performance={4} /> */}
-
-      <h2>Drag and Drop</h2>
-
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <DragDrop.DropContainer droppableId="droppable">
-          <DragDrop.DragContainer draggableId="b" index={1}>
-            <p>teste2</p>
-          </DragDrop.DragContainer>
-        </DragDrop.DropContainer>
-
-        <DragDrop.DropContainer droppableId="droppable">
-          <DragDrop.DragContainer draggableId="a" index={0}>
-            <p>teste</p>
-          </DragDrop.DragContainer>
-        </DragDrop.DropContainer>
-      </DragDropContext>
     </StyledMain>
   );
 }

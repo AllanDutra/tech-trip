@@ -4,9 +4,10 @@ import {
   StyledNoughtsAndCrossesContainer,
   StyledSquare,
 } from "./styles";
-import { useCallback, useEffect, useMemo, useState } from "react";
-
-type TNoughtAndCrossesGameOption = "O" | "X" | "";
+import { useCallback, useEffect, useMemo } from "react";
+import { useLoading } from "../../../../shared/hooks/useLoading";
+import { Functions } from "../../../../shared/functions";
+import { TGameStatus, TNoughtAndCrossesGameOption } from "../..";
 
 interface ISquarePositionProps {
   rowIndex: number;
@@ -15,24 +16,38 @@ interface ISquarePositionProps {
 
 interface ISquareProps extends ISquarePositionProps {
   value: TNoughtAndCrossesGameOption;
+  gameStatus: TGameStatus;
   onMarkSquare: (destinationSquare: ISquarePositionProps) => void;
+}
+
+interface INoughtAndCrossesProps {
+  gameMatriz: TNoughtAndCrossesGameOption[][];
+  isMachineTime: boolean;
+  gameStatus: TGameStatus;
+  setIsMachineTime: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsFirstTime: React.Dispatch<React.SetStateAction<boolean>>;
+  setGameMatriz: React.Dispatch<
+    React.SetStateAction<TNoughtAndCrossesGameOption[][]>
+  >;
 }
 
 const STUDENT_SYMBOL = "O";
 const MACHINE_SYMBOL = "X";
 
-const INITIAL_GAME_MATRIZ: TNoughtAndCrossesGameOption[][] = [
-  ["", "", ""],
-  ["", "", ""],
-  ["", "", ""],
-];
+function Square({
+  rowIndex,
+  columnIndex,
+  value,
+  gameStatus,
+  onMarkSquare,
+}: ISquareProps) {
+  const endedGame = useMemo(() => gameStatus !== "playing", [gameStatus]);
 
-function Square({ rowIndex, columnIndex, value, onMarkSquare }: ISquareProps) {
   const isBusy = useMemo(() => value !== "", [value]);
 
   return (
     <StyledSquare
-      className={isBusy ? "busy" : ""}
+      className={isBusy || endedGame ? "blocked" : ""}
       onClick={() => onMarkSquare({ rowIndex, columnIndex })}
     >
       {isBusy ? (
@@ -44,11 +59,15 @@ function Square({ rowIndex, columnIndex, value, onMarkSquare }: ISquareProps) {
   );
 }
 
-export function NoughtAndCrosses() {
-  const [isMachineTime, setIsMachineTime] = useState(false);
-
-  const [gameMatriz, setGameMatriz] =
-    useState<TNoughtAndCrossesGameOption[][]>(INITIAL_GAME_MATRIZ);
+export function NoughtAndCrosses({
+  gameMatriz,
+  isMachineTime,
+  gameStatus,
+  setGameMatriz,
+  setIsMachineTime,
+  setIsFirstTime,
+}: INoughtAndCrossesProps) {
+  const { setIsGlobalLoadingActive } = useLoading();
 
   const haveSquareEmpty = useMemo((): boolean => {
     for (let i = 0; i < gameMatriz.length; i++) {
@@ -68,21 +87,16 @@ export function NoughtAndCrosses() {
     [gameMatriz]
   );
 
-  const checkResult = useCallback(() => {
-    console.log("ACABOU");
-  }, []);
-
+  // ? Returns a boolean value indicating whether the square was marked (true) or no (false)
   const markSquare = useCallback(
     (
       destinationSquare: ISquarePositionProps,
       symbol: TNoughtAndCrossesGameOption
-    ) => {
-      if (isSquareBusy(destinationSquare)) return;
+    ): boolean => {
+      if (isSquareBusy(destinationSquare)) return false;
 
-      let newGameMatrizConfiguration: TNoughtAndCrossesGameOption[][];
-
-      setGameMatriz((oldValue) => {
-        newGameMatrizConfiguration = oldValue.map((row, i) =>
+      setGameMatriz((oldValue) =>
+        oldValue.map((row, i) =>
           row.map((square, j) => {
             if (
               destinationSquare.rowIndex === i &&
@@ -93,29 +107,39 @@ export function NoughtAndCrosses() {
 
             return square;
           })
-        );
+        )
+      );
 
-        return newGameMatrizConfiguration;
-      });
+      return true;
     },
     [isSquareBusy, setGameMatriz]
   );
 
   const handleMarkSquare = useCallback(
     (destinationSquare: ISquarePositionProps) => {
+      if (gameStatus !== "playing") return;
+
       if (isMachineTime) return;
 
-      markSquare(destinationSquare, STUDENT_SYMBOL);
+      const squareWasMarked = markSquare(destinationSquare, STUDENT_SYMBOL);
+
+      if (!squareWasMarked) return;
+
+      setIsFirstTime(false);
 
       setIsMachineTime(true);
     },
-    [isMachineTime, markSquare]
+    [isMachineTime, gameStatus, markSquare]
   );
 
-  const markSquareAsMachine = useCallback(() => {
+  const markSquareAsMachine = useCallback(async () => {
     if (!isMachineTime) return;
 
     if (!haveSquareEmpty) return;
+
+    setIsGlobalLoadingActive(true);
+
+    await Functions.delay(1);
 
     let rowIndex: number;
     let columnIndex: number;
@@ -125,13 +149,20 @@ export function NoughtAndCrosses() {
       columnIndex = Math.floor(Math.random() * 3);
     } while (isSquareBusy({ rowIndex, columnIndex }));
 
-    markSquare({ rowIndex, columnIndex }, MACHINE_SYMBOL);
+    const squareWasMarked = markSquare(
+      { rowIndex, columnIndex },
+      MACHINE_SYMBOL
+    );
+
+    if (!squareWasMarked) return;
 
     setIsMachineTime(false);
+
+    setIsGlobalLoadingActive(false);
   }, [isMachineTime, haveSquareEmpty, isSquareBusy, markSquare]);
 
   useEffect(() => {
-    if (isMachineTime) {
+    if (isMachineTime && gameStatus === "playing") {
       markSquareAsMachine();
     }
   }, [isMachineTime]);
@@ -147,6 +178,7 @@ export function NoughtAndCrosses() {
                 rowIndex={i}
                 columnIndex={j}
                 value={squareValue}
+                gameStatus={gameStatus}
                 onMarkSquare={handleMarkSquare}
               />
             ))}

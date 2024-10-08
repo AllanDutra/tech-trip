@@ -59,8 +59,8 @@ export const StyledSquare = styled.div`
     cursor: pointer;
     filter: brightness(85%);
   }
-  
-  &.busy:hover {
+
+  &.blocked:hover {
     cursor: not-allowed;
     filter: brightness(100%);
   }
@@ -87,12 +87,12 @@ export const StyledSquare = styled.div`
   @media screen and (max-height: 540px) {
     font-size: 1em;
   }
-  
+
   @media screen and (max-height: 760px) {
-    font-size: 1.5vh;
+    font-size: 1.8vh;
   }
-  
+
   @media screen and (max-width: 570px) {
-    font-size: 1.5vh;
+    font-size: 1.8vh;
   }
 `;

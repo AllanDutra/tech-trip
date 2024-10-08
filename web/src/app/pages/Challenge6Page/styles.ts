@@ -7,7 +7,7 @@ export const StyledContainer = styled.div`
   align-items: center;
   flex-direction: column;
 
-  padding: 3.75em;
+  padding: 2em;
 
   @media screen and (max-height: 820px) {
     padding: 1.875em;
@@ -48,5 +48,17 @@ export const StyledMessageGroup = styled.div`
     .challenge-message {
       margin: 0;
     }
+  }
+`;
+
+export const StyledButtonGroup = styled.div`
+  width: 100%;
+
+  max-width: 50vh;
+
+  display: flex;
+
+  @media screen and (max-width: 570px) {
+    max-width: none;
   }
 `;
