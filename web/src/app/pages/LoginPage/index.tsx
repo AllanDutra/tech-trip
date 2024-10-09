@@ -16,10 +16,15 @@ import { useState } from "react";
 import { IdentificationBadge, Lock } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../shared/configs";
-import { StudentsService, IStudents } from "../../shared/services";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { appConfigs } from "../../shared/configs/App";
+import { TechKidsApiService } from "../../shared/services";
+
+interface ILoginCredentials {
+  user: string;
+  password: string;
+}
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -28,89 +33,47 @@ export function LoginPage() {
     navigate(routeConfigs.Register);
   };
 
-  const [student, setStudent] = useState<IStudents>({
-    id: 0,
-    name: "",
-    email: "",
+  const [credentials, setCredentials] = useState<ILoginCredentials>({
     user: "",
     password: "",
-    birth: "",
-    gender: "",
-    character_id: 0,
-    sound: true,
-    vibration: true,
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setStudent((prevStudent) => ({
-      ...prevStudent,
+
+    setCredentials((prevCredentials) => ({
+      ...prevCredentials,
       [name]: value,
     }));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(student);
-    if (!student.user || !student.password) {
-      toast.warning("Preencha todos os campos!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-      });
+
+    if (!credentials.user || !credentials.password) {
+      toast.warning("Preencha todos os campos!");
+
       return;
     }
+
     try {
-      const authenticatedStudent = await StudentsService.authenticate(
-        student.user,
-        student.password
-      );
+      const { user, password } = credentials;
+
+      const authenticatedStudent =
+        await TechKidsApiService.StudentsController.authenticate({
+          user,
+          password,
+        });
 
       if (authenticatedStudent instanceof Error) {
-        toast.error(authenticatedStudent.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          transition: Bounce,
-        });
+        toast.error(authenticatedStudent.message);
       } else {
-        toast.success("Login realizado com sucesso!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          transition: Bounce,
-        });
+        toast.success("Login realizado com sucesso!");
+
         navigate(routeConfigs.Map);
       }
     } catch (error) {
-      console.error("Erro durante autenticação", error);
-      toast.error("Erro durante autenticação", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-      });
+      toast.error("Erro durante autenticação");
     }
   };
 
@@ -127,7 +90,7 @@ export function LoginPage() {
             label="Usuário"
             Icon={IdentificationBadge}
             placeholder="Nome de usuário ou e-mail..."
-            value={student.user}
+            value={credentials.user}
             name="user"
             onChange={handleInputChange}
           />
@@ -135,7 +98,7 @@ export function LoginPage() {
             label="Senha"
             Icon={Lock}
             placeholder="Digite sua senha aqui..."
-            value={student.password}
+            value={credentials.password}
             onChange={handleInputChange}
             name="password"
             type="password"

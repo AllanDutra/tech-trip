@@ -33,12 +33,10 @@ import {
   DoubleSelection,
   PreferenceButton,
   Button,
-  ToastError,
-  ToastSuccess,
 } from "../../shared/components";
 import { useState, useEffect } from "react";
-import { IStudents, StudentsService } from "../../shared/services";
 import { ToastContainer } from "react-toastify";
+import { IStudentClaims } from "../../shared/services/TechKidsApi/StudentsController";
 
 export function SettingsPage() {
   const navigate = useNavigate();
@@ -46,12 +44,12 @@ export function SettingsPage() {
   const fetchStudentSettings = async () => {
     const token = sessionStorage.getItem("authToken");
     if (token) {
-      const response = await StudentsService.getSettings(token);
-      if (response instanceof Error) {
-        redirectToLogin(response.message);
-      } else {
-        setStudent(response);
-      }
+      // const response = await TechKidsApiService.StudentsController.getSettings(token);
+      // if (response instanceof Error) {
+      //   redirectToLogin(response.message);
+      // } else {
+      //   setStudent(response);
+      // }
     } else {
       redirectToLogin("");
     }
@@ -70,17 +68,16 @@ export function SettingsPage() {
     // console.error(message);
   };
 
-  const [student, setStudent] = useState<IStudents>({
+  const [student, setStudent] = useState<IStudentClaims>({
     id: 0,
     name: "",
     email: "",
     user: "",
-    password: "",
     birth: "",
     gender: "",
-    character_id: 1,
-    sound: true,
-    vibration: true,
+    character_Id: 0,
+    preference_Sound: false,
+    preference_Vibration: false,
   });
 
   const [isCharacterPickerOpen, setCharacterPickerOpen] = useState(false);
@@ -98,21 +95,21 @@ export function SettingsPage() {
   };
 
   const [soundPreference, setSoundPreference] = useState<boolean>(
-    student.sound
+    student.preference_Sound
   );
 
   const handleSoundPreference = (preference: boolean) => {
     setSoundPreference(preference);
-    student.sound = preference;
+    student.preference_Sound = preference;
   };
 
   const [vibrationPreference, setVibrationPreference] = useState<boolean>(
-    student.vibration
+    student.preference_Vibration
   );
 
   const handleVibrationPreference = (preference: boolean) => {
     setVibrationPreference(preference);
-    student.vibration = preference;
+    student.preference_Vibration = preference;
   };
 
   const [selectedGender, setSelectedGender] = useState<"male" | "female">(
@@ -127,7 +124,7 @@ export function SettingsPage() {
   const [selectedCharacterId, setSelectedCharacterId] = useState<number>(1);
   const handleCharacterSelect = (id: number) => {
     setSelectedCharacterId(id);
-    student.character_id = id;
+    student.character_Id = id;
   };
 
   const handleSave = async (event) => {
@@ -140,20 +137,20 @@ export function SettingsPage() {
       return;
     }
 
-    const response = await StudentsService.updateStudent(token, student);
+    // const response = await StudentsService.updateStudent(token, student);
 
-    if (response instanceof Error) {
-      ToastError({
-        message: response.message,
-        positionProp: "top-right",
-      });
-    } else {
-      ToastSuccess({
-        message: "Dados atualizados com sucesso!",
-        positionProp: "top-right",
-      });
-      navigate(routeConfigs.Map);
-    }
+    // if (response instanceof Error) {
+    //   ToastError({
+    //     message: response.message,
+    //     positionProp: "top-right",
+    //   });
+    // } else {
+    //   ToastSuccess({
+    //     message: "Dados atualizados com sucesso!",
+    //     positionProp: "top-right",
+    //   });
+    //   navigate(routeConfigs.Map);
+    // }
   };
 
   return (
@@ -264,16 +261,16 @@ export function SettingsPage() {
         <PreferenceSection>
           <PreferenceButton
             variant="sound"
-            active={student.sound}
+            active={student.preference_Sound}
             onClick={() => {
-              handleSoundPreference(!student.sound);
+              handleSoundPreference(!student.preference_Sound);
             }}
           />
           <PreferenceButton
             variant="vibration"
-            active={student.vibration}
+            active={student.preference_Vibration}
             onClick={() => {
-              handleVibrationPreference(!student.vibration);
+              handleVibrationPreference(!student.preference_Vibration);
             }}
           />
         </PreferenceSection>

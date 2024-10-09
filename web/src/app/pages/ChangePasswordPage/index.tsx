@@ -17,9 +17,9 @@ import {
 import { CaretLeft, Lock } from "@phosphor-icons/react";
 import { routeConfigs } from "../../shared/configs";
 import { useNavigate } from "react-router-dom";
-import { StudentsService } from "../../shared/services";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
+import { TechKidsApiService } from "../../shared/services";
 
 export const ChangePasswordPage = () => {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ export const ChangePasswordPage = () => {
     new_password_confirmation: "",
   });
 
-  const redirectToLogin = (message: string) => {
+  const redirectToLogin = (_: string) => {
     // ToastWarning({message: message, positionProp: 'top-right'})
     // navigate(routeConfigs.Login);
   };
@@ -84,11 +84,10 @@ export const ChangePasswordPage = () => {
         return;
       }
 
-      StudentsService.changePassword(
-        token,
-        passwords.password,
-        passwords.new_password
-      );
+      TechKidsApiService.StudentsController.updatePassword({
+        currentPassword: passwords.password,
+        newPassword: passwords.new_password,
+      });
 
       ToastSuccess({
         message: "Senha alterada com sucesso",
