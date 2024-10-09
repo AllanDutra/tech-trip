@@ -27,8 +27,8 @@ import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../shared/configs";
 import React from "react";
 import { Star } from "@phosphor-icons/react/dist/ssr";
-import { IChallenge } from "../../shared/services/TechKidsApi/ChallengesController";
-import { IStudentClaims } from "../../shared/services/TechKidsApi/StudentsController";
+import { IChallenge } from "../../shared/services/TechTripApi/ChallengesController";
+import { IStudentClaims } from "../../shared/services/TechTripApi/StudentsController";
 
 export function MapPage() {
   const student: IStudentClaims = {

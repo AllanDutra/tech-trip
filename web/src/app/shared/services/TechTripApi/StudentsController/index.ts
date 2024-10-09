@@ -1,4 +1,4 @@
-import { TechKidsApi } from "../axios-config";
+import { TechTripApi } from "../axios-config";
 
 interface IAuthenticateRequest {
   user: string;
@@ -42,7 +42,7 @@ const authenticate = async (
   request: IAuthenticateRequest
 ): Promise<IAuthenticateResponse | null> => {
   try {
-    const { data } = await TechKidsApi.post<IAuthenticateResponse>(
+    const { data } = await TechTripApi.post<IAuthenticateResponse>(
       "/students/authenticate",
       request
     );
@@ -56,7 +56,7 @@ const authenticate = async (
 // * allow anonymous
 const register = async (request: IRegisterRequest): Promise<number> => {
   try {
-    const { data } = await TechKidsApi.post<number>(
+    const { data } = await TechTripApi.post<number>(
       "/students/register",
       request
     );
@@ -70,7 +70,7 @@ const register = async (request: IRegisterRequest): Promise<number> => {
 // * requires authentication
 const getClaims = async (): Promise<IStudentClaims | null> => {
   try {
-    const { data } = await TechKidsApi.get<IStudentClaims>("/students/claims");
+    const { data } = await TechTripApi.get<IStudentClaims>("/students/claims");
 
     return data;
   } catch {
@@ -83,7 +83,7 @@ const update = async (
   request: Omit<IStudentClaims, "id">
 ): Promise<boolean> => {
   try {
-    await TechKidsApi.put("/students/update", request);
+    await TechTripApi.put("/students/update", request);
 
     return true;
   } catch {
@@ -96,7 +96,7 @@ const updatePassword = async (
   request: IUpdatePasswordRequest
 ): Promise<boolean> => {
   try {
-    await TechKidsApi.put("/students/update-password", request);
+    await TechTripApi.put("/students/update-password", request);
 
     return true;
   } catch {

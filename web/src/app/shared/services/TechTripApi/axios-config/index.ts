@@ -2,13 +2,13 @@ import axios from "axios";
 import { errorInterceptor, responseInterceptor } from "./interceptors";
 import { Environment } from "../../../environment";
 
-const TechKidsApi = axios.create({
+const TechTripApi = axios.create({
   baseURL: Environment.URL_BASE,
 });
 
-TechKidsApi.interceptors.response.use(
+TechTripApi.interceptors.response.use(
   (response) => responseInterceptor(response),
   (error) => errorInterceptor(error)
 );
 
-export { TechKidsApi };
+export { TechTripApi };

@@ -33,8 +33,8 @@ import { routeConfigs } from "../../shared/configs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { appConfigs } from "../../shared/configs/App";
-import { IStudentClaims } from "../../shared/services/TechKidsApi/StudentsController";
-import { TechKidsApiService } from "../../shared/services";
+import { IStudentClaims } from "../../shared/services/TechTripApi/StudentsController";
+import { TechTripApiService } from "../../shared/services";
 
 export function RegisterPage() {
   const navigate = useNavigate();
@@ -79,7 +79,7 @@ export function RegisterPage() {
       student.gender = selectedGender;
       student.character_Id = selectedCharacterId;
 
-      const studentId = await TechKidsApiService.StudentsController.register(
+      const studentId = await TechTripApiService.StudentsController.register(
         {} as any // TODO: change
       );
 

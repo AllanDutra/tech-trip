@@ -1,4 +1,4 @@
-import { TechKidsApi } from "../axios-config";
+import { TechTripApi } from "../axios-config";
 
 interface ITotalScore {
   stars: number;
@@ -18,7 +18,7 @@ interface IRankingScore {
 // * requires authentication
 const getTotalScore = async (): Promise<ITotalScore> => {
   try {
-    const { data } = await TechKidsApi.get<ITotalScore>("/scores/total");
+    const { data } = await TechTripApi.get<ITotalScore>("/scores/total");
 
     return data;
   } catch {
@@ -29,7 +29,7 @@ const getTotalScore = async (): Promise<ITotalScore> => {
 // * requires authentication
 const getRanking = async (): Promise<IRankingScore[]> => {
   try {
-    const { data } = await TechKidsApi.get<IRankingScore[]>("/scores/ranking");
+    const { data } = await TechTripApi.get<IRankingScore[]>("/scores/ranking");
 
     return data;
   } catch {

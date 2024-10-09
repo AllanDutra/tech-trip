@@ -19,7 +19,7 @@ import { routeConfigs } from "../../shared/configs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { appConfigs } from "../../shared/configs/App";
-import { TechKidsApiService } from "../../shared/services";
+import { TechTripApiService } from "../../shared/services";
 
 interface ILoginCredentials {
   user: string;
@@ -60,7 +60,7 @@ export function LoginPage() {
       const { user, password } = credentials;
 
       const authenticatedStudent =
-        await TechKidsApiService.StudentsController.authenticate({
+        await TechTripApiService.StudentsController.authenticate({
           user,
           password,
         });

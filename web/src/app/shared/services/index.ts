@@ -1,1 +1,1 @@
-export * from "./TechKidsApi";
+export * from "./TechTripApi";

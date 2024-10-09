@@ -1,4 +1,4 @@
-import { TechKidsApi } from "../axios-config";
+import { TechTripApi } from "../axios-config";
 
 export interface IChallenge {
   challenge_Id: number;
@@ -29,7 +29,7 @@ interface IProcessAttemptResponse {
 // * requires authentication
 const getChallengesMap = async (): Promise<IChallenge[]> => {
   try {
-    const { data } = await TechKidsApi.get<IChallenge[]>("/challenges/map");
+    const { data } = await TechTripApi.get<IChallenge[]>("/challenges/map");
 
     return data;
   } catch {
@@ -40,7 +40,7 @@ const getChallengesMap = async (): Promise<IChallenge[]> => {
 // * requires authentication
 const getChallengesProgress = async (): Promise<IChallengesProgress> => {
   try {
-    const { data } = await TechKidsApi.get<IChallengesProgress>(
+    const { data } = await TechTripApi.get<IChallengesProgress>(
       "/challenges/progress"
     );
 
@@ -55,7 +55,7 @@ const getCurrentStageOnCompoundChallenge = async (
   id: number
 ): Promise<number> => {
   try {
-    const { data } = await TechKidsApi.get<number>(
+    const { data } = await TechTripApi.get<number>(
       `/challenges/compounds/current-stage/${id}`
     );
 
@@ -70,7 +70,7 @@ const processAttemptOnChallenge = async (
   body: IProcessAttemptRequest
 ): Promise<IProcessAttemptResponse> => {
   try {
-    const { data } = await TechKidsApi.post<IProcessAttemptResponse>(
+    const { data } = await TechTripApi.post<IProcessAttemptResponse>(
       "/challenges/process-attempt",
       body
     );

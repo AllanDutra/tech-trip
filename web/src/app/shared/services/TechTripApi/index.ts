@@ -2,7 +2,7 @@ import { ChallengesController } from "./ChallengesController";
 import { ScoresController } from "./ScoresController";
 import { StudentsController } from "./StudentsController";
 
-export const TechKidsApiService = {
+export const TechTripApiService = {
   ChallengesController,
   ScoresController,
   StudentsController,

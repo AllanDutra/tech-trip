@@ -19,7 +19,7 @@ import { routeConfigs } from "../../shared/configs";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
-import { TechKidsApiService } from "../../shared/services";
+import { TechTripApiService } from "../../shared/services";
 
 export const ChangePasswordPage = () => {
   const navigate = useNavigate();
@@ -84,7 +84,7 @@ export const ChangePasswordPage = () => {
         return;
       }
 
-      TechKidsApiService.StudentsController.updatePassword({
+      TechTripApiService.StudentsController.updatePassword({
         currentPassword: passwords.password,
         newPassword: passwords.new_password,
       });

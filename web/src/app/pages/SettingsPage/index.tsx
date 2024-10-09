@@ -36,7 +36,7 @@ import {
 } from "../../shared/components";
 import { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
-import { IStudentClaims } from "../../shared/services/TechKidsApi/StudentsController";
+import { IStudentClaims } from "../../shared/services/TechTripApi/StudentsController";
 
 export function SettingsPage() {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ export function SettingsPage() {
   const fetchStudentSettings = async () => {
     const token = sessionStorage.getItem("authToken");
     if (token) {
-      // const response = await TechKidsApiService.StudentsController.getSettings(token);
+      // const response = await TechTripApiService.StudentsController.getSettings(token);
       // if (response instanceof Error) {
       //   redirectToLogin(response.message);
       // } else {
