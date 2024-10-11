@@ -1,6 +1,7 @@
-import { ReactNode } from "react";
+import { ReactNode, useCallback } from "react";
 import { StyledButton } from "./styles";
 import { IconContext } from "@phosphor-icons/react";
+import { ProgressIcon } from "../ProgressIcon";
 
 type TButtonColor = "green" | "red" | "yellow" | "blue";
 
@@ -12,6 +13,7 @@ interface IButtonProps
   color: TButtonColor;
   text?: string;
   children?: ReactNode;
+  isLoading?: boolean;
 }
 
 export function Button({
@@ -19,12 +21,36 @@ export function Button({
   text,
   children,
   className,
+  isLoading,
+  onClick,
   ...rest
 }: IButtonProps) {
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      if (isLoading) return;
+
+      onClick?.(e);
+    },
+    [isLoading, onClick]
+  );
+
   return (
-    <StyledButton className={`${color} ${className}`} {...rest}>
+    <StyledButton
+      onClick={handleClick}
+      className={`${color} ${className} ${isLoading ? "loading" : ""}`}
+      {...rest}
+    >
       <span>
-        {text ? (
+        {isLoading ? (
+          <IconContext.Provider
+            value={{
+              weight: "bold",
+              size: 21,
+            }}
+          >
+            <ProgressIcon />
+          </IconContext.Provider>
+        ) : text ? (
           text
         ) : (
           <IconContext.Provider

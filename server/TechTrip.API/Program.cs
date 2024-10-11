@@ -43,6 +43,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseCors(p => p.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+
 app.UseMiddleware<StudentAuthenticationMiddleware>();
 
 app.UseMiddleware<GlobalExceptionMiddleware>();

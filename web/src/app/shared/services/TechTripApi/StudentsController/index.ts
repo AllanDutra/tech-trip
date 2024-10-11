@@ -17,7 +17,7 @@ export interface IStudentClaims {
   preference_Vibration: boolean;
 }
 
-interface IAuthenticateResponse {
+export interface IAuthenticateResponse {
   token: string;
   claims: IStudentClaims;
 }

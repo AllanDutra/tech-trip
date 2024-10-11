@@ -33,4 +33,10 @@ export const StyledButton = styled.button`
   &:active {
     transform: scale(0.98); /* Reduz o tamanho do botão */
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    transform: scale(1);
+    opacity: 0.5;
+  }
 `;

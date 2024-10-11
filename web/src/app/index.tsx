@@ -3,6 +3,7 @@ import { Routes } from "./routes";
 import { Loading } from "./shared/components/Loading";
 import { GlobalStyle } from "./shared/global/";
 import { LoadingProvider } from "./shared/hooks/useLoading";
+import { AuthenticationProvider } from "./shared/hooks/useAuthentication";
 
 export function App() {
   return (
@@ -18,11 +19,12 @@ export function App() {
         transition={Bounce}
       />
       <LoadingProvider>
-        <GlobalStyle />
-        <Loading />
-        <Routes />
+        <AuthenticationProvider>
+          <GlobalStyle />
+          <Loading />
+          <Routes />
+        </AuthenticationProvider>
       </LoadingProvider>
-      <ToastContainer />
     </>
   );
 }

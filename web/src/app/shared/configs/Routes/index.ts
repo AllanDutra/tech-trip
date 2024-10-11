@@ -1,4 +1,3 @@
-const TestComponents = "/test-components";
 const Map = "/mapa-desafios";
 const Resume = "/resumo";
 const Ranking = "/ranking";
@@ -23,7 +22,6 @@ const Challenge11 = "/desafio-onze";
 const Challenge12 = "/desafio-doze";
 
 export const routeConfigs = {
-  TestComponents,
   Map,
   Resume,
   Ranking,

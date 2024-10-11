@@ -20,6 +20,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { appConfigs } from "../../shared/configs/App";
 import { TechTripApiService } from "../../shared/services";
+import { authConfigs } from "../../shared/configs/Auth";
+import { useLoading } from "../../shared/hooks/useLoading";
 
 interface ILoginCredentials {
   user: string;
@@ -28,6 +30,8 @@ interface ILoginCredentials {
 
 export function LoginPage() {
   const navigate = useNavigate();
+
+  const { isGlobalLoadingActive, setIsGlobalLoadingActive } = useLoading();
 
   const handleFirstAccess = () => {
     navigate(routeConfigs.Register);
@@ -50,6 +54,8 @@ export function LoginPage() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (isGlobalLoadingActive) return;
+
     if (!credentials.user || !credentials.password) {
       toast.warning("Preencha todos os campos!");
 
@@ -57,6 +63,8 @@ export function LoginPage() {
     }
 
     try {
+      setIsGlobalLoadingActive(true);
+
       const { user, password } = credentials;
 
       const authenticatedStudent =
@@ -65,15 +73,20 @@ export function LoginPage() {
           password,
         });
 
-      if (authenticatedStudent instanceof Error) {
-        toast.error(authenticatedStudent.message);
-      } else {
-        toast.success("Login realizado com sucesso!");
+      if (!authenticatedStudent) {
+        toast.warning("Usuário ou senha inválidos");
 
-        navigate(routeConfigs.Map);
+        return;
       }
-    } catch (error) {
-      toast.error("Erro durante autenticação");
+
+      sessionStorage.setItem(
+        authConfigs.USER_CREDENTIALS,
+        JSON.stringify(authenticatedStudent)
+      );
+
+      navigate(routeConfigs.Map);
+    } finally {
+      setIsGlobalLoadingActive(false);
     }
   };
 
@@ -93,6 +106,7 @@ export function LoginPage() {
             value={credentials.user}
             name="user"
             onChange={handleInputChange}
+            autoFocus
           />
           <ContainedInput.FullComponent
             label="Senha"
@@ -107,10 +121,12 @@ export function LoginPage() {
 
         <LoginFooter>
           <Button color="green" text="Entrar" type="submit" />
+
           <SecondaryButton
             title="Primeiro acesso"
             type="button"
             onClick={handleFirstAccess}
+            disabled={isGlobalLoadingActive}
           />
         </LoginFooter>
       </LoginForm>

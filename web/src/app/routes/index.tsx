@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 import { routeConfigs } from "../shared/configs";
 import {
-  TestComponentsPage,
   RegisterPage,
   LoginPage,
   SettingsPage,
@@ -29,44 +28,105 @@ import {
 import { Challenge3Page } from "../pages/Challenge3Page";
 import { Challenge11Page } from "../pages/Challenge11Page";
 import { Challenge12Page } from "../pages/Challenge12Page";
+import { PrivateRoute } from "../shared/components/PrivateRoute";
+import { PublicRoute } from "../shared/components/PublicRoute";
 
 export function Routes() {
   return (
     <BrowserRouter>
       <Switch>
         <Route
-          path={routeConfigs.TestComponents}
-          element={<TestComponentsPage />}
+          path={routeConfigs.Register}
+          element={<PublicRoute PageComponent={RegisterPage} />}
         />
-        <Route path={routeConfigs.Register} element={<RegisterPage />} />
-        <Route path={routeConfigs.Login} element={<LoginPage />} />
-        <Route path={routeConfigs.Settings} element={<SettingsPage />} />
+        <Route
+          path={routeConfigs.Login}
+          element={<PublicRoute PageComponent={LoginPage} />}
+        />
+
+        <Route
+          path={routeConfigs.Settings}
+          element={<PrivateRoute PageComponent={SettingsPage} />}
+        />
         <Route
           path={routeConfigs.ChangePassword}
-          element={<ChangePasswordPage />}
+          element={<PrivateRoute PageComponent={ChangePasswordPage} />}
         />
-        <Route path={routeConfigs.Map} element={<MapPage />} />
-        <Route path={routeConfigs.Resume} element={<ResumePage />} />
-        <Route path={routeConfigs.Ranking} element={<RankingPage />} />
 
-        <Route path={routeConfigs.Challenge1} element={<Challenge1Page />} />
-        <Route path={routeConfigs.Challenge2} element={<Challenge2Page />} />
-        <Route path={routeConfigs.Challenge3} element={<Challenge3Page />} />
+        <Route
+          path={routeConfigs.Map}
+          element={<PrivateRoute PageComponent={MapPage} />}
+        />
+        <Route
+          path={routeConfigs.Resume}
+          element={<PrivateRoute PageComponent={ResumePage} />}
+        />
+        <Route
+          path={routeConfigs.Ranking}
+          element={<PrivateRoute PageComponent={RankingPage} />}
+        />
 
-        <Route path={routeConfigs.Challenge4} element={<Challenge4Page />} />
-        <Route path={routeConfigs.Challenge5} element={<Challenge5Page />} />
-        <Route path={routeConfigs.Challenge6} element={<Challenge6Page />} />
+        <Route
+          path={routeConfigs.Challenge1}
+          element={<PrivateRoute PageComponent={Challenge1Page} />}
+        />
+        <Route
+          path={routeConfigs.Challenge2}
+          element={<PrivateRoute PageComponent={Challenge2Page} />}
+        />
+        <Route
+          path={routeConfigs.Challenge3}
+          element={<PrivateRoute PageComponent={Challenge3Page} />}
+        />
 
-        <Route path={routeConfigs.Challenge7} element={<Challenge7Page />} />
-        <Route path={routeConfigs.Challenge8} element={<Challenge8Page />} />
-        <Route path={routeConfigs.Challenge9} element={<Challenge9Page />} />
-        <Route path={routeConfigs.Challenge10} element={<Challenge10Page />} />
-        <Route path={routeConfigs.Challenge13} element={<Challenge13Page />} />
-        <Route path={routeConfigs.Challenge15} element={<Challenge15Page />} />
+        <Route
+          path={routeConfigs.Challenge4}
+          element={<PrivateRoute PageComponent={Challenge4Page} />}
+        />
+        <Route
+          path={routeConfigs.Challenge5}
+          element={<PrivateRoute PageComponent={Challenge5Page} />}
+        />
+        <Route
+          path={routeConfigs.Challenge6}
+          element={<PrivateRoute PageComponent={Challenge6Page} />}
+        />
 
-        <Route path={routeConfigs.Challenge11} element={<Challenge11Page />} />
+        <Route
+          path={routeConfigs.Challenge7}
+          element={<PrivateRoute PageComponent={Challenge7Page} />}
+        />
+        <Route
+          path={routeConfigs.Challenge8}
+          element={<PrivateRoute PageComponent={Challenge8Page} />}
+        />
+        <Route
+          path={routeConfigs.Challenge9}
+          element={<PrivateRoute PageComponent={Challenge9Page} />}
+        />
 
-        <Route path={routeConfigs.Challenge12} element={<Challenge12Page />} />
+        <Route
+          path={routeConfigs.Challenge10}
+          element={<PrivateRoute PageComponent={Challenge10Page} />}
+        />
+        <Route
+          path={routeConfigs.Challenge11}
+          element={<PrivateRoute PageComponent={Challenge11Page} />}
+        />
+        <Route
+          path={routeConfigs.Challenge12}
+          element={<PrivateRoute PageComponent={Challenge12Page} />}
+        />
+
+        <Route
+          path={routeConfigs.Challenge13}
+          element={<PrivateRoute PageComponent={Challenge13Page} />}
+        />
+        {/* // TODO: 14  */}
+        <Route
+          path={routeConfigs.Challenge15}
+          element={<PrivateRoute PageComponent={Challenge15Page} />}
+        />
 
         <Route path="*" element={<Navigate to={routeConfigs.Login} />} />
       </Switch>
