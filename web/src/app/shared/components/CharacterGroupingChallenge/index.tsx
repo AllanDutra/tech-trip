@@ -20,6 +20,8 @@ import CircuitImage from "../../assets/DropAreasBackgrounds/Circuit.png";
 import SoftwareImage from "../../assets/DropAreasBackgrounds/Software.png";
 import { SelectableComponents } from "../SelectableComponents";
 import { Functions, TChooseGroupState } from "../../functions";
+import { useChallengeCorrection } from "../../hooks/useChallengeCorrection";
+import { toast } from "react-toastify";
 
 type TCharacterGroup = "TERRESTRE" | "AQUATICO" | "HARDWARE" | "SOFTWARE";
 
@@ -87,6 +89,12 @@ function getCharacterGroupTargetColor(group: TCharacterGroup): string {
   if (group === "SOFTWARE") return "#F9BCB6";
 
   return "#fff";
+}
+
+function getCharacterGroupFromDropArea(
+  dropArea: ISelectableCharacterProps[]
+): string {
+  return dropArea[0].group;
 }
 
 function selectableCharacterMapper(
@@ -231,6 +239,8 @@ export function CharacterGroupingChallenge({
   firstCharacterGroup,
   secondCharacterGroup,
 }: ICharacterGroupingChallengeProps) {
+  const { checkChallengeCorrection } = useChallengeCorrection();
+
   const [activeChooseContainerIndex, setActiveChooseContainerIndex] = useState<
     number | null
   >(null);
@@ -285,6 +295,43 @@ export function CharacterGroupingChallenge({
       setActiveChooseContainerIndex,
     ]
   );
+
+  const handleVerify = useCallback(async () => {
+    const dropAreas: ISelectableCharacterProps[][] = [
+      firstDropAreaState[0],
+      secondDropAreaState[0],
+      thirdDropAreaState[0],
+      fourthDropAreaState[0],
+    ];
+
+    const dropAreaGroups: string[] = [];
+
+    for (let i = 0; i < dropAreas.length; i++) {
+      const dropArea = dropAreas[i];
+
+      if (dropArea.length === 0)
+        return toast.warning(
+          "Preencha todos os espaços vazios antes de finalizar a tentativa!"
+        );
+
+      dropAreaGroups.push(getCharacterGroupFromDropArea(dropArea));
+    }
+
+    const responseString = dropAreaGroups.join("-");
+
+    await checkChallengeCorrection({
+      challenge_Id: currentLevel,
+      steps: 1,
+      studentResponse: responseString,
+    });
+  }, [
+    firstDropAreaState,
+    secondDropAreaState,
+    thirdDropAreaState,
+    fourthDropAreaState,
+    currentLevel,
+    checkChallengeCorrection,
+  ]);
 
   return (
     <ChallengePageContainer currentLevel={currentLevel}>
@@ -347,7 +394,7 @@ export function CharacterGroupingChallenge({
           </StyledActivityGroup>
         </StyledMainChallengeContainer>
 
-        <Button color="green" text="VERIFICAR" />
+        <Button color="green" text="VERIFICAR" onClick={handleVerify} />
       </StyledChallengeContainer>
     </ChallengePageContainer>
   );
