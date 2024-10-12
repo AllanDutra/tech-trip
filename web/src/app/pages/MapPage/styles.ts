@@ -84,6 +84,7 @@ export const ChallengeContainer = styled.div<{
   align-items: center;
   gap: 0.2em;
   position: relative;
+  user-select: none;
 `;
 
 export const Challenge = styled.div<{

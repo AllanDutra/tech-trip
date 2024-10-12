@@ -20,11 +20,14 @@ import JoaoImage from "../../shared/assets/Characters/character-8.svg";
 import GraphLineActiveImage from "../../shared/assets/ChallengesImages/11/GraphLineActive.svg";
 import GraphLineInactiveImage from "../../shared/assets/ChallengesImages/11/GraphLineInactive.svg";
 import { Functions } from "../../shared/functions";
+import { toast } from "react-toastify";
+import { useChallengeCorrection } from "../../shared/hooks/useChallengeCorrection";
 
 interface ISelectableCharacter {
   index: number;
   name: string;
   image: string;
+  nameToAnswerKey: string;
 }
 
 interface ISelectableCharacterProps extends ISelectableCharacter {
@@ -102,6 +105,8 @@ function GraphLine({ active = false, angle }: IGraphLineProps) {
 }
 
 export function Challenge11Page() {
+  const { checkChallengeCorrection } = useChallengeCorrection();
+
   const rightTargetCharactersState = useState<ISelectableCharacter[]>([]);
 
   const bottomTargetCharactersState = useState<ISelectableCharacter[]>([]);
@@ -111,6 +116,7 @@ export function Challenge11Page() {
       index: 2,
       name: "Ester",
       image: EsterImage,
+      nameToAnswerKey: "ESTER",
     },
   ]);
 
@@ -120,6 +126,7 @@ export function Challenge11Page() {
         index: 3,
         name: "João",
         image: JoaoImage,
+        nameToAnswerKey: "JOAO",
       },
     ]
   );
@@ -176,6 +183,7 @@ export function Challenge11Page() {
           ) : (
             selectableCharacterGroupState[0].map((selectableCharacter) => (
               <SelectableCharacter
+                nameToAnswerKey={selectableCharacter.nameToAnswerKey}
                 key={selectableCharacter.index}
                 index={selectableCharacter.index}
                 name={selectableCharacter.name}
@@ -194,6 +202,38 @@ export function Challenge11Page() {
       setActiveChooseContainerIndex,
     ]
   );
+
+  const handleVerify = useCallback(async () => {
+    const dropAreas: ISelectableCharacter[][] = [
+      bottomTargetCharactersState[0],
+      rightTargetCharactersState[0],
+    ];
+
+    const dropAreaGroups: string[] = [];
+
+    for (let i = 0; i < dropAreas.length; i++) {
+      const dropArea = dropAreas[i];
+
+      if (dropArea.length === 0)
+        return toast.warning(
+          "Preencha todos os espaços vazios antes de finalizar a tentativa!"
+        );
+
+      dropAreaGroups.push(dropArea[0].nameToAnswerKey);
+    }
+
+    const responseString = dropAreaGroups.join("-");
+
+    await checkChallengeCorrection({
+      challenge_Id: 11,
+      steps: 1,
+      studentResponse: responseString,
+    });
+  }, [
+    bottomTargetCharactersState,
+    rightTargetCharactersState,
+    checkChallengeCorrection,
+  ]);
 
   return (
     <ChallengePageContainer currentLevel={11}>
@@ -221,6 +261,7 @@ export function Challenge11Page() {
           <StyledGraph>
             <div>
               <SelectableCharacter
+                nameToAnswerKey={""}
                 chooseDisable
                 index={0}
                 name="Ana"
@@ -238,6 +279,7 @@ export function Challenge11Page() {
 
             <div>
               <SelectableCharacter
+                nameToAnswerKey={""}
                 chooseDisable
                 index={1}
                 name="Pedro"
@@ -277,7 +319,7 @@ export function Challenge11Page() {
           </StyledSelectableCharactersGroupContainer>
         </StyledGraphContainer>
 
-        <Button color="green" text="Verificar" />
+        <Button color="green" text="Verificar" onClick={handleVerify} />
       </StyledContainer>
     </ChallengePageContainer>
   );
