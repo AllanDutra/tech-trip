@@ -1,3 +1,6 @@
+import { TypeOptions } from "react-toastify";
+import { appConfigs } from "../configs/App";
+
 interface IChooseObject {
   index: number;
 }
@@ -10,6 +13,11 @@ export type TChooseGroupState<T> = [
 interface IChooseGroupStateToUpdate<T> {
   state: T[];
   setState: React.Dispatch<React.SetStateAction<T[]>>;
+}
+
+export interface IReloadNotification {
+  type: TypeOptions;
+  message: string;
 }
 
 const delay = (seconds: number): Promise<void> => {
@@ -78,4 +86,15 @@ const onChooseAndTarget = <T extends IChooseObject>(
   setActiveChooseContainerIndex(null);
 };
 
-export const Functions = { delay, onChooseAndTarget };
+const setReloadNotification = (type: TypeOptions, message: string) => {
+  const reloadNotification: IReloadNotification = { type, message };
+
+  sessionStorage.setItem(
+    appConfigs.RELOAD_NOTIFICATION,
+    JSON.stringify(reloadNotification)
+  );
+
+  window.location.reload();
+};
+
+export const Functions = { delay, onChooseAndTarget, setReloadNotification };

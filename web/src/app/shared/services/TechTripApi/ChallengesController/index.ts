@@ -14,7 +14,7 @@ interface IChallengesProgress {
   percentProgress: number;
 }
 
-interface IProcessAttemptRequest {
+export interface IProcessAttemptRequest {
   steps: number;
   studentResponse: string;
   challenge_Id: number;
