@@ -1,5 +1,6 @@
 import { TypeOptions } from "react-toastify";
 import { appConfigs } from "../configs/App";
+import { routeConfigs } from "../configs";
 
 interface IChooseObject {
   index: number;
@@ -103,9 +104,14 @@ const getFirstName = (fullName: string): string => {
   return nameSeparated[0];
 };
 
+const getChallengeRouteByNumber = (challengeNumber: number): string => {
+  return routeConfigs[`Challenge${challengeNumber}`];
+};
+
 export const Functions = {
   delay,
   onChooseAndTarget,
   setReloadNotification,
   getFirstName,
+  getChallengeRouteByNumber,
 };

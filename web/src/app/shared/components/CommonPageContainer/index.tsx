@@ -33,11 +33,11 @@ export function CommonPageContainer({ children }: ICommonPageContainerProps) {
               <StyledProgressBar
                 className="progress-bar"
                 percentprogress={progress.percentProgress}
-              >
-                <span className="mobile-progress">
-                  {progress.percentProgress} %
-                </span>
-              </StyledProgressBar>
+              ></StyledProgressBar>
+
+              <span className="mobile-progress">
+                {progress.percentProgress} %
+              </span>
             </div>
 
             <strong>{progress.percentProgress} %</strong>

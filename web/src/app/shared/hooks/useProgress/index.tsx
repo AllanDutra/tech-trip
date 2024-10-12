@@ -1,17 +1,10 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { useAuthentication } from "../useAuthentication";
-import { useLoading } from "../useLoading";
-import { TechTripApiService } from "../../services";
+import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 import { IChallengesProgress } from "../../services/TechTripApi/ChallengesController";
 
 interface IProgressContextData {
   progress: IChallengesProgress;
+  currentChallengeNumber: number;
+  setProgress: React.Dispatch<React.SetStateAction<IChallengesProgress>>;
 }
 
 type ProgressProviderProps = {
@@ -27,32 +20,19 @@ const INITIAL_PROGRESS: IChallengesProgress = {
 const ProgressContext = createContext({} as IProgressContextData);
 
 function ProgressProvider({ children }: ProgressProviderProps) {
-  const { isAuthenticated } = useAuthentication();
-  const { setIsGlobalLoadingActive } = useLoading();
-
   const [progress, setProgress] = useState<IChallengesProgress>({
     ...INITIAL_PROGRESS,
   });
 
-  useEffect(() => {
-    (async () => {
-      try {
-        if (await isAuthenticated()) {
-          setIsGlobalLoadingActive(true);
-
-          const progressData =
-            await TechTripApiService.ChallengesController.getChallengesProgress();
-
-          setProgress(progressData);
-        }
-      } finally {
-        setIsGlobalLoadingActive(false);
-      }
-    })();
-  }, []);
+  const currentChallengeNumber = useMemo(
+    () => progress.totalSolvedChallenges + 1,
+    [progress]
+  );
 
   return (
-    <ProgressContext.Provider value={{ progress }}>
+    <ProgressContext.Provider
+      value={{ progress, currentChallengeNumber, setProgress }}
+    >
       {children}
     </ProgressContext.Provider>
   );

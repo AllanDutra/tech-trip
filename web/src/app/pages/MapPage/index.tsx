@@ -1,9 +1,5 @@
 import {
   TrackContainer,
-  TrackHeader,
-  Greetings,
-  ProgressContainer,
-  ActionHeader,
   Map,
   Challenge,
   LineContainer,
@@ -14,7 +10,6 @@ import {
 } from "./styles";
 import {
   NavBar,
-  ProgressBar,
   Line1,
   Line1Unfilled,
   Line2,
@@ -22,181 +17,42 @@ import {
   Line3,
   Line3Unfilled,
 } from "../../shared/components";
-import { GearSix, MapPin } from "@phosphor-icons/react";
-import { useNavigate } from "react-router-dom";
-import { routeConfigs } from "../../shared/configs";
-import React, { useEffect, useRef } from "react";
+import { MapPin } from "@phosphor-icons/react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Star } from "@phosphor-icons/react/dist/ssr";
 import { IChallenge } from "../../shared/services/TechTripApi/ChallengesController";
-import { IStudentClaims } from "../../shared/services/TechTripApi/StudentsController";
 import { CommonPageContainer } from "../../shared/components/CommonPageContainer";
-import { useAuthentication } from "../../shared/hooks/useAuthentication";
+import { useLoading } from "../../shared/hooks/useLoading";
+import { TechTripApiService } from "../../shared/services";
+import { useProgress } from "../../shared/hooks/useProgress";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { Functions } from "../../shared/functions";
 
 export function MapPage() {
-  const { userCredentials } = useAuthentication();
+  const navigate = useNavigate();
+
+  const { setIsGlobalLoadingActive } = useLoading();
+  const { currentChallengeNumber } = useProgress();
 
   const mapPinRef = useRef<SVGSVGElement>(null);
 
-  const challenges: IChallenge[] = [
-    {
-      challenge_Id: 1,
-      number: 1,
-      current: false,
-      score_Stars: 1,
-      score_Diamonds: 0,
-    },
-    {
-      challenge_Id: 2,
-      number: 2,
-      current: false,
-      score_Stars: 2,
-      score_Diamonds: 0,
-    },
-    {
-      challenge_Id: 3,
-      number: 3,
-      current: false,
-      score_Stars: 3,
-      score_Diamonds: 0,
-    },
-    {
-      challenge_Id: 4,
-      number: 4,
-      current: true,
-      score_Stars: 2,
-      score_Diamonds: 0,
-    },
-    {
-      challenge_Id: 5,
-      number: 5,
-      current: false,
-      score_Stars: 0,
-      score_Diamonds: 0,
-    },
-    {
-      challenge_Id: 6,
-      number: 6,
-      current: false,
-      score_Stars: 0,
-      score_Diamonds: 0,
-    },
-    {
-      challenge_Id: 7,
-      number: 7,
-      current: false,
-      score_Stars: 0,
-      score_Diamonds: 0,
-    },
-    {
-      challenge_Id: 8,
-      number: 8,
-      current: false,
-      score_Stars: 0,
-      score_Diamonds: 0,
-    },
-    {
-      challenge_Id: 9,
-      number: 9,
-      current: false,
-      score_Stars: 0,
-      score_Diamonds: 0,
-    },
-    {
-      challenge_Id: 10,
-      number: 10,
-      current: false,
-      score_Stars: 0,
-      score_Diamonds: 0,
-    },
-    {
-      challenge_Id: 11,
-      number: 11,
-      current: false,
-      score_Stars: 0,
-      score_Diamonds: 0,
-    },
-    {
-      challenge_Id: 12,
-      number: 12,
-      current: false,
-      score_Stars: 0,
-      score_Diamonds: 0,
-    },
-    {
-      challenge_Id: 13,
-      number: 13,
-      current: false,
-      score_Stars: 0,
-      score_Diamonds: 0,
-    },
-    {
-      challenge_Id: 14,
-      number: 14,
-      current: false,
-      score_Stars: 0,
-      score_Diamonds: 0,
-    },
-    {
-      challenge_Id: 15,
-      number: 15,
-      current: false,
-      score_Stars: 0,
-      score_Diamonds: 0,
-    },
-  ];
+  const [challenges, setChallenges] = useState<IChallenge[]>([]);
 
-  const current = 4;
-  const loading = false;
-  const progress = 75;
+  const handleGoToChallenge = useCallback(
+    (challenge_Number: number) => {
+      if (challenge_Number < currentChallengeNumber)
+        return toast.info("Você já completou este desafio anteriormente!");
 
-  const navigate = useNavigate();
+      if (challenge_Number > currentChallengeNumber)
+        return toast.info(
+          `Complete o desafio ${currentChallengeNumber} antes de resolver o desafio ${challenge_Number}`
+        );
 
-  /*const [student, setStudent] = useState<IStudents | null>(null);
-  const [challenges, setChallenges] = useState<IChallengesStudent[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [current, setCurrent] = useState(0);
-  const [progress, setProgress] = useState(0);*/
-
-  /*useEffect(() => {
-    const token = sessionStorage.getItem("authToken");
-
-    if (token) {
-      StudentsService.getSettings(token).then((response) => {
-        if (response instanceof Error) {
-          redirectToLogin(response.message);
-        } else {
-          setStudent(response);
-        }
-      });
-
-      ChallengesStudentService.getChallengesByStudent(token).then((response) => {
-        if (response instanceof Error) {
-          redirectToLogin(response.message);
-        } else {
-          setChallenges(response);
-
-          const currentChallenge = response.find(
-            (challenge) => challenge.current
-          );
-          if (currentChallenge) {
-            setCurrent(currentChallenge.challenge_id);
-          }
-
-          const completedChallenges = response.filter(
-            (challenge) => challenge.current || challenge.challenge_id < current
-          ).length;
-          const totalChallenges = response.length;
-          const progressPercentage =
-            (completedChallenges / totalChallenges) * 100;
-          setProgress(progressPercentage);
-
-          setLoading(false);
-        }
-      });
-    } else {
-      redirectToLogin("Por favor, realize login novamente");
-    }
-  }, [navigate]);*/
+      navigate(Functions.getChallengeRouteByNumber(challenge_Number));
+    },
+    [currentChallengeNumber]
+  );
 
   const generateBottomValues = (numChallenges: number) => {
     const baseValues = [20, -26, -46];
@@ -228,24 +84,25 @@ export function MapPage() {
     return challenges.map((challenge, index) => {
       const bottom = bottomValues[index % bottomValues.length];
       const left = leftValues[index % leftValues.length];
-      const LineComponent =
-        challenge.challenge_Id < current
-          ? lines[index % lines.length]
-          : linesUnfilled[index % linesUnfilled.length];
+
+      const isCompleted = challenge.challenge_Id < currentChallengeNumber;
+
+      const LineComponent = isCompleted
+        ? lines[index % lines.length]
+        : linesUnfilled[index % linesUnfilled.length];
 
       const offsets = lineOffsets[index % lineOffsets.length];
 
       return (
         <React.Fragment key={challenge.challenge_Id}>
           {renderChallenge(
-            challenge.challenge_Id,
+            challenge,
+            isCompleted,
             bottom,
             left,
             <LineComponent />,
             offsets,
-            challenge.challenge_Id === current,
-            numChallenges,
-            challenge.score_Stars
+            numChallenges
           )}
         </React.Fragment>
       );
@@ -253,22 +110,26 @@ export function MapPage() {
   };
 
   const renderChallenge = (
-    id: number,
+    challenge: IChallenge,
+    isCompleted: boolean,
     bottom: number,
     left: number,
     lineComponent: JSX.Element | null,
     lineOffsets: { bottomOffset: number; leftOffset: number } | null = null,
-    isCurrent: boolean,
-    numChallenges: number,
-    stars: number
+
+    numChallenges: number
   ) => {
     const lineBottom = lineOffsets ? bottom + lineOffsets.bottomOffset : 0;
     const lineLeft = lineOffsets ? left + lineOffsets.leftOffset : 0;
 
     return (
       <>
-        <ChallengeContainer bottom={bottom} left={left}>
-          {isCurrent && (
+        <ChallengeContainer
+          onClick={() => handleGoToChallenge(challenge.number)}
+          bottom={bottom}
+          left={left}
+        >
+          {challenge.current && (
             <MapPinContainer>
               <MapPin
                 size={36}
@@ -279,23 +140,23 @@ export function MapPage() {
             </MapPinContainer>
           )}
 
-          <Challenge completed={id < current}>
-            <span>{id}</span>
+          <Challenge completed={isCompleted}>
+            <span>{challenge.challenge_Id}</span>
           </Challenge>
-          {id < current && (
+          {isCompleted && (
             <StarsContainer>
               {[...Array(3)].map((_, index) => (
                 <Star
                   key={index}
                   size={index == 1 ? 28 : 22}
-                  color={index < stars ? "#FFA425" : "#99B9B7"}
+                  color={index < challenge.score_Stars ? "#FFA425" : "#99B9B7"}
                   weight="fill"
                 />
               ))}
             </StarsContainer>
           )}
         </ChallengeContainer>
-        {id != numChallenges && lineComponent && (
+        {challenge.challenge_Id != numChallenges && lineComponent && (
           <LineContainer bottom={lineBottom} left={lineLeft}>
             {lineComponent}
           </LineContainer>
@@ -305,6 +166,21 @@ export function MapPage() {
   };
 
   useEffect(() => {
+    (async () => {
+      try {
+        setIsGlobalLoadingActive(true);
+
+        const challengesData =
+          await TechTripApiService.ChallengesController.getChallengesMap();
+
+        setChallenges([...challengesData]);
+      } finally {
+        setIsGlobalLoadingActive(false);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
     if (mapPinRef.current) {
       mapPinRef.current.scrollIntoView({
         behavior: "smooth",
@@ -312,7 +188,7 @@ export function MapPage() {
         inline: "center",
       });
     }
-  }, []);
+  }, [challenges]);
 
   return (
     <CommonPageContainer>

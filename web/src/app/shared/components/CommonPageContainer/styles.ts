@@ -29,6 +29,28 @@ export const StyledProgressInfo = styled.div`
   .progress-bar-container {
     width: 35vw;
     background-color: #ebf1f1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mobile-progress {
+    display: none;
+    color: #424243 !important;
+  }
+
+  @media screen and (max-width: 1280px) {
+    .mobile-progress {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      display: flex;
+      font-family: "Lilita One", sans-serif;
+      font-weight: 400;
+      color: white;
+      font-size: 1.25em;
+    }
   }
 
   @media screen and (max-width: 1280px) {
@@ -51,22 +73,10 @@ export const StyledProgressBar = styled.div<IStyledProgressBarProps>`
   width: ${({ percentprogress }) => `${percentprogress}%`};
   background-color: #2bcb9a;
 
-  .mobile-progress {
-    display: none;
-  }
-
   @media screen and (max-width: 1280px) {
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-
-    .mobile-progress {
-      display: flex;
-      font-family: "Lilita One", sans-serif;
-      font-weight: 400;
-      color: white;
-      font-size: 1.25em;
-    }
   }
 `;

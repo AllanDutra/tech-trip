@@ -13,14 +13,13 @@ import { useChallengeCorrection } from "../../hooks/useChallengeCorrection";
 import { routeConfigs } from "../../configs";
 import { useNavigate } from "react-router-dom";
 import { useProgress } from "../../hooks/useProgress";
+import { Functions } from "../../functions";
+import { useLoading } from "../../hooks/useLoading";
+import { TechTripApiService } from "../../services";
 
 interface IChallengePageContainerProps {
   currentLevel: number;
   children: ReactNode;
-}
-
-function getChallengeRouteByNumber(challengeNumber: number): string {
-  return routeConfigs[`Challenge${challengeNumber}`];
 }
 
 export function ChallengePageContainer({
@@ -29,7 +28,9 @@ export function ChallengePageContainer({
 }: IChallengePageContainerProps) {
   const navigate = useNavigate();
 
-  const { progress } = useProgress();
+  const { setIsGlobalLoadingActive } = useLoading();
+
+  const { progress, setProgress } = useProgress();
 
   const {
     challengeCorrection,
@@ -39,12 +40,21 @@ export function ChallengePageContainer({
 
   const { challengeCompleted, challengePerformance } = challengeCorrection;
 
-  const handleGoToNextChallenge = useCallback((currentLevel: number) => {
+  const handleGoToNextChallenge = useCallback(async (currentLevel: number) => {
+    setIsGlobalLoadingActive(true);
+
+    const progressData =
+      await TechTripApiService.ChallengesController.getChallengesProgress();
+
+    setIsGlobalLoadingActive(false);
+
+    setProgress({ ...progressData });
+
     setChallengeCorrection({ ...INITIAL_CHALLENGE_CORRECTION });
 
     const nextLevel = currentLevel + 1;
 
-    const nextLevelRoute = getChallengeRouteByNumber(nextLevel);
+    const nextLevelRoute = Functions.getChallengeRouteByNumber(nextLevel);
 
     if (!nextLevelRoute) return navigate(routeConfigs.Map);
 

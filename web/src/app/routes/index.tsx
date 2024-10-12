@@ -68,64 +68,107 @@ export function Routes() {
 
         <Route
           path={routeConfigs.Challenge1}
-          element={<PrivateRoute PageComponent={Challenge1Page} />}
+          element={
+            <PrivateRoute PageComponent={Challenge1Page} challengeNumber={1} />
+          }
         />
         <Route
           path={routeConfigs.Challenge2}
-          element={<PrivateRoute PageComponent={Challenge2Page} />}
+          element={
+            <PrivateRoute PageComponent={Challenge2Page} challengeNumber={2} />
+          }
         />
         <Route
           path={routeConfigs.Challenge3}
-          element={<PrivateRoute PageComponent={Challenge3Page} />}
+          element={
+            <PrivateRoute PageComponent={Challenge3Page} challengeNumber={3} />
+          }
         />
 
         <Route
           path={routeConfigs.Challenge4}
-          element={<PrivateRoute PageComponent={Challenge4Page} />}
+          element={
+            <PrivateRoute PageComponent={Challenge4Page} challengeNumber={4} />
+          }
         />
         <Route
           path={routeConfigs.Challenge5}
-          element={<PrivateRoute PageComponent={Challenge5Page} />}
+          element={
+            <PrivateRoute PageComponent={Challenge5Page} challengeNumber={5} />
+          }
         />
         <Route
           path={routeConfigs.Challenge6}
-          element={<PrivateRoute PageComponent={Challenge6Page} />}
+          element={
+            <PrivateRoute PageComponent={Challenge6Page} challengeNumber={6} />
+          }
         />
 
         <Route
           path={routeConfigs.Challenge7}
-          element={<PrivateRoute PageComponent={Challenge7Page} />}
+          element={
+            <PrivateRoute PageComponent={Challenge7Page} challengeNumber={7} />
+          }
         />
         <Route
           path={routeConfigs.Challenge8}
-          element={<PrivateRoute PageComponent={Challenge8Page} />}
+          element={
+            <PrivateRoute PageComponent={Challenge8Page} challengeNumber={8} />
+          }
         />
         <Route
           path={routeConfigs.Challenge9}
-          element={<PrivateRoute PageComponent={Challenge9Page} />}
+          element={
+            <PrivateRoute PageComponent={Challenge9Page} challengeNumber={9} />
+          }
         />
 
         <Route
           path={routeConfigs.Challenge10}
-          element={<PrivateRoute PageComponent={Challenge10Page} />}
+          element={
+            <PrivateRoute
+              PageComponent={Challenge10Page}
+              challengeNumber={10}
+            />
+          }
         />
         <Route
           path={routeConfigs.Challenge11}
-          element={<PrivateRoute PageComponent={Challenge11Page} />}
+          element={
+            <PrivateRoute
+              PageComponent={Challenge11Page}
+              challengeNumber={11}
+            />
+          }
         />
         <Route
           path={routeConfigs.Challenge12}
-          element={<PrivateRoute PageComponent={Challenge12Page} />}
+          element={
+            <PrivateRoute
+              PageComponent={Challenge12Page}
+              challengeNumber={12}
+            />
+          }
         />
 
         <Route
           path={routeConfigs.Challenge13}
-          element={<PrivateRoute PageComponent={Challenge13Page} />}
+          element={
+            <PrivateRoute
+              PageComponent={Challenge13Page}
+              challengeNumber={13}
+            />
+          }
         />
         {/* // TODO: 14  */}
         <Route
           path={routeConfigs.Challenge15}
-          element={<PrivateRoute PageComponent={Challenge15Page} />}
+          element={
+            <PrivateRoute
+              PageComponent={Challenge15Page}
+              challengeNumber={15}
+            />
+          }
         />
 
         <Route path="*" element={<Navigate to={routeConfigs.Login} />} />
