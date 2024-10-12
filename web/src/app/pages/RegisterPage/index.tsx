@@ -30,25 +30,25 @@ import {
 
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../shared/configs";
-import { StudentsService, IStudents } from "../../shared/services";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { appConfigs } from "../../shared/configs/App";
+import { IStudentClaims } from "../../shared/services/TechTripApi/StudentsController";
+import { TechTripApiService } from "../../shared/services";
 
 export function RegisterPage() {
   const navigate = useNavigate();
 
-  const [student, setStudent] = useState<IStudents>({
+  const [student, setStudent] = useState<IStudentClaims>({
     id: 0,
     name: "",
     email: "",
     user: "",
-    password: "",
     birth: "",
-    gender: "female",
-    character_id: 2,
-    sound: true,
-    vibration: true,
+    gender: "",
+    character_Id: 0,
+    preference_Sound: false,
+    preference_Vibration: false,
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,48 +77,21 @@ export function RegisterPage() {
     event.preventDefault();
     try {
       student.gender = selectedGender;
-      student.character_id = selectedCharacterId;
-      const studentId = await StudentsService.register(student);
+      student.character_Id = selectedCharacterId;
+
+      const studentId = await TechTripApiService.StudentsController.register(
+        {} as any // TODO: change
+      );
 
       if (typeof studentId === "number") {
-        toast.success("Usuário registrado com sucesso!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          transition: Bounce,
-        });
+        toast.success("Usuário registrado com sucesso!");
+
         navigate(routeConfigs.Login);
       } else {
-        toast.error(studentId.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          transition: Bounce,
-        });
+        // toast.error(studentId.message);
       }
     } catch (error) {
-      console.error("Erro ao conectar com a API:", error);
-      toast.error("Erro ao conectar", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-      });
+      toast.error("Erro ao conectar");
     }
   };
 
@@ -186,7 +159,7 @@ export function RegisterPage() {
               placeholder="Mínimo de 8 caracteres..."
               name="password"
               type="password"
-              value={student.password}
+              value={""}
               onChange={handleInputChange}
             />
             <ContainedInput.FullComponent

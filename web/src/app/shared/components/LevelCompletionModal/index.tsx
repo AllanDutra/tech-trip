@@ -102,7 +102,7 @@ function ThreeStarsAndDiamondSequence() {
   );
 }
 
-const PERFORMANCE_MAP = {
+export const PERFORMANCE_MAP = {
   1: OneStar,
   2: TwoStars,
   3: ThreeStars,

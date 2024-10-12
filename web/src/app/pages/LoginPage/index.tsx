@@ -17,101 +17,77 @@ import { useState } from "react";
 import { IdentificationBadge, Lock } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../shared/configs";
-import { StudentsService, IStudents } from "../../shared/services";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { appConfigs } from "../../shared/configs/App";
+import { TechTripApiService } from "../../shared/services";
+import { authConfigs } from "../../shared/configs/Auth";
+import { useLoading } from "../../shared/hooks/useLoading";
+
+interface ILoginCredentials {
+  user: string;
+  password: string;
+}
 
 export function LoginPage() {
   const navigate = useNavigate();
+
+  const { isGlobalLoadingActive, setIsGlobalLoadingActive } = useLoading();
 
   const handleFirstAccess = () => {
     navigate(routeConfigs.Register);
   };
 
-  const [student, setStudent] = useState<IStudents>({
-    id: 0,
-    name: "",
-    email: "",
+  const [credentials, setCredentials] = useState<ILoginCredentials>({
     user: "",
     password: "",
-    birth: "",
-    gender: "",
-    character_id: 0,
-    sound: true,
-    vibration: true,
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setStudent((prevStudent) => ({
-      ...prevStudent,
+
+    setCredentials((prevCredentials) => ({
+      ...prevCredentials,
       [name]: value,
     }));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(student);
-    if (!student.user || !student.password) {
-      toast.warning("Preencha todos os campos!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-      });
+
+    if (isGlobalLoadingActive) return;
+
+    if (!credentials.user || !credentials.password) {
+      toast.warning("Preencha todos os campos!");
+
       return;
     }
+
     try {
-      const authenticatedStudent = await StudentsService.authenticate(
-        student.user,
-        student.password
+      setIsGlobalLoadingActive(true);
+
+      const { user, password } = credentials;
+
+      const authenticatedStudent =
+        await TechTripApiService.StudentsController.authenticate({
+          user,
+          password,
+        });
+
+      if (!authenticatedStudent) {
+        toast.warning("Usuário ou senha inválidos");
+
+        return;
+      }
+
+      sessionStorage.setItem(
+        authConfigs.USER_CREDENTIALS,
+        JSON.stringify(authenticatedStudent)
       );
 
-      if (authenticatedStudent instanceof Error) {
-        toast.error(authenticatedStudent.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          transition: Bounce,
-        });
-      } else {
-        toast.success("Login realizado com sucesso!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          transition: Bounce,
-        });
-        navigate(routeConfigs.Map);
-      }
-    } catch (error) {
-      console.error("Erro durante autenticação", error);
-      toast.error("Erro durante autenticação", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-      });
+      navigate(routeConfigs.Map);
+    } finally {
+      setIsGlobalLoadingActive(false);
     }
   };
 
@@ -128,15 +104,16 @@ export function LoginPage() {
             label="Usuário"
             Icon={IdentificationBadge}
             placeholder="Nome de usuário ou e-mail..."
-            value={student.user}
+            value={credentials.user}
             name="user"
             onChange={handleInputChange}
+            autoFocus
           />
           <ContainedInput.FullComponent
             label="Senha"
             Icon={Lock}
             placeholder="Digite sua senha aqui..."
-            value={student.password}
+            value={credentials.password}
             onChange={handleInputChange}
             name="password"
             type="password"
@@ -145,10 +122,12 @@ export function LoginPage() {
 
         <LoginFooter>
           <Button color="green" text="Entrar" type="submit" />
+
           <SecondaryButton
             title="Primeiro acesso"
             type="button"
             onClick={handleFirstAccess}
+            disabled={isGlobalLoadingActive}
           />
         </LoginFooter>
       </LoginForm>

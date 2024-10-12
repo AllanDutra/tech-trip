@@ -40,3 +40,7 @@ export const StyledHeader = styled.header`
     padding: 1.25em 0.625em;
   }
 `;
+
+export const StyledMain = styled.main`
+  position: relative;
+`;

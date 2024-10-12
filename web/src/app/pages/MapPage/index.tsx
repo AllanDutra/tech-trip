@@ -21,50 +21,134 @@ import {
   Line2Unfilled,
   Line3,
   Line3Unfilled,
-  ToastWarning,
 } from "../../shared/components";
-import {
-  IChallengesStudent,
-  ChallengesStudentService,
-  IStudents,
-  StudentsService,
-} from "../../shared/services";
 import { GearSix, MapPin } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../shared/configs";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Star } from "@phosphor-icons/react/dist/ssr";
+import { IChallenge } from "../../shared/services/TechTripApi/ChallengesController";
+import { IStudentClaims } from "../../shared/services/TechTripApi/StudentsController";
 
 export function MapPage() {
-  const student: IStudents = {
+  const student: IStudentClaims = {
     id: 0,
-    name: "Oliver",
+    name: "",
     email: "",
     user: "",
-    password: "",
     birth: "",
-    gender: "male",
-    character_id: 0,
-    sound: true,
-    vibration: true,
+    gender: "",
+    character_Id: 0,
+    preference_Sound: false,
+    preference_Vibration: false,
   };
 
-  const challenges: Array<IChallengesStudent> = [
-    { challenge_id: 1, current: false, score_Stars: 1, score_Diamonds: 0 },
-    { challenge_id: 2, current: false, score_Stars: 2, score_Diamonds: 0 },
-    { challenge_id: 3, current: false, score_Stars: 3, score_Diamonds: 0 },
-    { challenge_id: 4, current: true, score_Stars: 2, score_Diamonds: 0 },
-    { challenge_id: 5, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 6, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 7, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 8, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 9, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 10, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 11, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 12, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 13, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 14, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 15, current: false, score_Stars: 0, score_Diamonds: 0 },
+  const challenges: IChallenge[] = [
+    {
+      challenge_Id: 1,
+      number: 1,
+      current: false,
+      score_Stars: 1,
+      score_Diamonds: 0,
+    },
+    {
+      challenge_Id: 2,
+      number: 2,
+      current: false,
+      score_Stars: 2,
+      score_Diamonds: 0,
+    },
+    {
+      challenge_Id: 3,
+      number: 3,
+      current: false,
+      score_Stars: 3,
+      score_Diamonds: 0,
+    },
+    {
+      challenge_Id: 4,
+      number: 4,
+      current: true,
+      score_Stars: 2,
+      score_Diamonds: 0,
+    },
+    {
+      challenge_Id: 5,
+      number: 5,
+      current: false,
+      score_Stars: 0,
+      score_Diamonds: 0,
+    },
+    {
+      challenge_Id: 6,
+      number: 6,
+      current: false,
+      score_Stars: 0,
+      score_Diamonds: 0,
+    },
+    {
+      challenge_Id: 7,
+      number: 7,
+      current: false,
+      score_Stars: 0,
+      score_Diamonds: 0,
+    },
+    {
+      challenge_Id: 8,
+      number: 8,
+      current: false,
+      score_Stars: 0,
+      score_Diamonds: 0,
+    },
+    {
+      challenge_Id: 9,
+      number: 9,
+      current: false,
+      score_Stars: 0,
+      score_Diamonds: 0,
+    },
+    {
+      challenge_Id: 10,
+      number: 10,
+      current: false,
+      score_Stars: 0,
+      score_Diamonds: 0,
+    },
+    {
+      challenge_Id: 11,
+      number: 11,
+      current: false,
+      score_Stars: 0,
+      score_Diamonds: 0,
+    },
+    {
+      challenge_Id: 12,
+      number: 12,
+      current: false,
+      score_Stars: 0,
+      score_Diamonds: 0,
+    },
+    {
+      challenge_Id: 13,
+      number: 13,
+      current: false,
+      score_Stars: 0,
+      score_Diamonds: 0,
+    },
+    {
+      challenge_Id: 14,
+      number: 14,
+      current: false,
+      score_Stars: 0,
+      score_Diamonds: 0,
+    },
+    {
+      challenge_Id: 15,
+      number: 15,
+      current: false,
+      score_Stars: 0,
+      score_Diamonds: 0,
+    },
   ];
 
   const current = 4;
@@ -78,11 +162,6 @@ export function MapPage() {
   const [loading, setLoading] = useState(true);
   const [current, setCurrent] = useState(0);
   const [progress, setProgress] = useState(0);*/
-
-  const redirectToLogin = (message: string) => {
-    /*ToastWarning({ message: message, positionProp: "top-right" });
-    navigate(routeConfigs.Login);*/
-  };
 
   /*useEffect(() => {
     const token = sessionStorage.getItem("authToken");
@@ -158,21 +237,21 @@ export function MapPage() {
       const bottom = bottomValues[index % bottomValues.length];
       const left = leftValues[index % leftValues.length];
       const LineComponent =
-        challenge.challenge_id < current
+        challenge.challenge_Id < current
           ? lines[index % lines.length]
           : linesUnfilled[index % linesUnfilled.length];
 
       const offsets = lineOffsets[index % lineOffsets.length];
 
       return (
-        <React.Fragment key={challenge.challenge_id}>
+        <React.Fragment key={challenge.challenge_Id}>
           {renderChallenge(
-            challenge.challenge_id,
+            challenge.challenge_Id,
             bottom,
             left,
             <LineComponent />,
             offsets,
-            challenge.challenge_id === current,
+            challenge.challenge_Id === current,
             numChallenges,
             challenge.score_Stars
           )}

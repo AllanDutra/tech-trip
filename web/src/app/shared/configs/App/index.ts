@@ -1,3 +1,5 @@
-const NAME = "TECH KIDs";
+const NAME = "TECH TRIP";
 
-export const appConfigs = { NAME };
+const RELOAD_NOTIFICATION = "@RELOAD_NOTIFICATION";
+
+export const appConfigs = { NAME, RELOAD_NOTIFICATION };

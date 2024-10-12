@@ -50,7 +50,8 @@ export const StyledButton = styled.button`
   }
 
   &:hover::before,
-  &:focus::before {
+  &:focus::before,
+  &.loading::before {
     background-color: rgba(
       0,
       0,
@@ -68,7 +69,12 @@ export const StyledButton = styled.button`
     transform: scale(0.98); /* Reduz o tamanho do botão */
   }
 
-  &:active::before {
+  &.loading:active {
+    transform: scale(1);
+  }
+
+  &:active::before,
+  &.loading {
     box-shadow: none; /* Adiciona uma sombra para efeito de profundidade */
   }
 
@@ -78,8 +84,13 @@ export const StyledButton = styled.button`
     pointer-events: none;
   }
 
-  &:disabled::before {
+  &:disabled::before,
+  &.loading::before {
     background-color: transparent;
     box-shadow: none;
+  }
+
+  &.loading {
+    cursor: progress;
   }
 `;

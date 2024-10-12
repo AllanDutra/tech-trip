@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const StyledContainer = styled.div`
-  position: fixed;
+  position: absolute;
   z-index: 1000;
   left: 0;
   top: 0;
 
-  height: 100vh;
+  height: 100%;
   width: 100%;
 
   display: flex;
@@ -20,6 +20,8 @@ export const StyledContainer = styled.div`
     height: 1.875em;
     width: 1.875em;
     padding: 0;
+    opacity: 0;
+    pointer-events: none;
   }
 
   & button:nth-of-type(2) {

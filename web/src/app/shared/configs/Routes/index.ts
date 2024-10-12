@@ -1,4 +1,3 @@
-const TestComponents = "/test-components";
 const Map = "/mapa-desafios";
 const Resume = "/resumo";
 const Ranking = "/ranking";
@@ -17,13 +16,12 @@ const Challenge7 = "/desafio-sete";
 const Challenge8 = "/desafio-oito";
 const Challenge9 = "/desafio-nove";
 const Challenge10 = "/desafio-dez";
-const Challenge13 = "/desafio-treze";
-const Challenge15 = "/desafio-quinze";
 const Challenge11 = "/desafio-onze";
 const Challenge12 = "/desafio-doze";
+const Challenge13 = "/desafio-treze";
+const Challenge15 = "/desafio-quinze";
 
-export const routeConfigs = {
-  TestComponents,
+const routes = {
   Map,
   Resume,
   Ranking,
@@ -46,3 +44,11 @@ export const routeConfigs = {
   Challenge11,
   Challenge12,
 };
+
+type TRoutes = typeof routes;
+
+interface IRouteConfigs extends TRoutes {
+  [key: string]: string;
+}
+
+export const routeConfigs: IRouteConfigs = { ...routes };
