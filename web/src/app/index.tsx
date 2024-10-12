@@ -17,6 +17,7 @@ export function App() {
         hideProgressBar={false}
         closeOnClick={true}
         pauseOnHover={true}
+        pauseOnFocusLoss={false}
         draggable={true}
         theme={"colored"}
         transition={Bounce}
