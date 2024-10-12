@@ -30,6 +30,10 @@ export const StyledContainer = styled.div`
     box-sizing: border-box;
     pointer-events: none; /* Evita que a borda interfira nas interações do usuário */
   }
+
+  @media screen and (min-width: 1281px) {
+    display: none;
+  }
 `;
 
 export const StyledOption = styled(Link)`

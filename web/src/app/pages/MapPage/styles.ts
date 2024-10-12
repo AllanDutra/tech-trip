@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const TrackContainer = styled.div`
-  min-width: 470px;
+  /* min-width: 470px; */
+  width: 100%;
   font-family: "Lilita One", sans-serif;
   display: flex;
   flex-direction: column;
@@ -62,6 +63,7 @@ export const MapContainer = styled.div`
 `;
 
 export const Map = styled.div`
+  margin-top: -40em;
   width: 75%;
   max-width: 340px;
   display: flex;
@@ -101,6 +103,11 @@ export const Challenge = styled.div<{
 
   span {
     font-size: 2em;
+  }
+
+  &:hover {
+    filter: brightness(90%);
+    transition: all 0.2s;
   }
 `;
 

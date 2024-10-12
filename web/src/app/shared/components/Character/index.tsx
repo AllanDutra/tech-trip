@@ -42,7 +42,7 @@ function Container({
 
   return (
     <StyledContainer
-      className={`${withShadow ? "withShadow" : ""} ${gray ? "gray" : ""} ${selected ? "selected" : ""}`}
+      className={`character-container ${withShadow ? "withShadow" : ""} ${gray ? "gray" : ""} ${selected ? "selected" : ""}`}
       style={{ width: sizeAsEM, height: sizeAsEM }}
       onClick={onClick}
     >

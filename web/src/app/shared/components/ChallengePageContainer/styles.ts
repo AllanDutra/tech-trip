@@ -6,6 +6,47 @@ export const StyledPageContainer = styled.div`
 
   display: flex;
   overflow: hidden;
+
+  @media screen and (max-width: 680px) {
+    &.common-page {
+      .greetings {
+        display: flex !important;
+
+        .character-container {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 1280px) {
+    &.common-page {
+      background-color: rgb(192, 240, 225);
+
+      header {
+        background-color: white;
+        border-bottom-left-radius: 2.5em;
+        border-bottom-right-radius: 2.5em;
+
+        position: relative;
+      }
+      .greetings {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
+      }
+
+      .gear-icon-container {
+        padding-right: 6vw;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1281px) {
+    .gear-icon-container {
+      display: none;
+    }
+  }
 `;
 
 export const StyledSubPageContainer = styled.div`

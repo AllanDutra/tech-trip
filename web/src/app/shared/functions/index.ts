@@ -97,4 +97,15 @@ const setReloadNotification = (type: TypeOptions, message: string) => {
   window.location.reload();
 };
 
-export const Functions = { delay, onChooseAndTarget, setReloadNotification };
+const getFirstName = (fullName: string): string => {
+  const nameSeparated = fullName.trim().split(" ");
+
+  return nameSeparated[0];
+};
+
+export const Functions = {
+  delay,
+  onChooseAndTarget,
+  setReloadNotification,
+  getFirstName,
+};

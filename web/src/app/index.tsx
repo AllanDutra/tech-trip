@@ -6,6 +6,7 @@ import { LoadingProvider } from "./shared/hooks/useLoading";
 import { AuthenticationProvider } from "./shared/hooks/useAuthentication";
 import { ChallengeCorrectionProvider } from "./shared/hooks/useChallengeCorrection";
 import { NotifyOnReload } from "./shared/components/NotifyOnReload";
+import { ProgressProvider } from "./shared/hooks/useProgress";
 
 export function App() {
   return (
@@ -23,10 +24,12 @@ export function App() {
       <LoadingProvider>
         <AuthenticationProvider>
           <ChallengeCorrectionProvider>
-            <GlobalStyle />
-            <Loading />
-            <NotifyOnReload />
-            <Routes />
+            <ProgressProvider>
+              <GlobalStyle />
+              <Loading />
+              <NotifyOnReload />
+              <Routes />
+            </ProgressProvider>
           </ChallengeCorrectionProvider>
         </AuthenticationProvider>
       </LoadingProvider>

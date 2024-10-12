@@ -1,26 +1,27 @@
 import { useMemo } from "react";
 import { StyledGreetings } from "./styles";
 import { Character } from "../Character";
-
-// TODO: MAKE THIS DYNAMIC
-const STUDENT_GENDER = "male";
-const STUDENT_NAME = "Oliver";
-const STUDENT_CHARACTER_ID = 1;
+import { useAuthentication } from "../../hooks/useAuthentication";
+import { Functions } from "../../functions";
 
 export function Greetings() {
+  const { userCredentials } = useAuthentication();
+
   const article = useMemo(
-    () => (STUDENT_GENDER === "male" ? "o" : "a"),
-    [STUDENT_GENDER]
+    () => (userCredentials.gender === "male" ? "o" : "a"),
+    [userCredentials]
   );
 
   return (
-    <StyledGreetings>
+    <StyledGreetings className="greetings">
       <div>
         <span>Olá, Pequen{article}</span>
-        <strong>{STUDENT_NAME.toLocaleUpperCase()}!</strong>
+        <strong>
+          {Functions.getFirstName(userCredentials.name).toLocaleUpperCase()}!
+        </strong>
       </div>
 
-      <Character.FullComponent number={STUDENT_CHARACTER_ID} />
+      <Character.FullComponent number={userCredentials.character_Id} />
     </StyledGreetings>
   );
 }

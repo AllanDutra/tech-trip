@@ -12,6 +12,7 @@ import { LevelCompletionModal } from "../LevelCompletionModal";
 import { useChallengeCorrection } from "../../hooks/useChallengeCorrection";
 import { routeConfigs } from "../../configs";
 import { useNavigate } from "react-router-dom";
+import { useProgress } from "../../hooks/useProgress";
 
 interface IChallengePageContainerProps {
   currentLevel: number;
@@ -27,6 +28,8 @@ export function ChallengePageContainer({
   children,
 }: IChallengePageContainerProps) {
   const navigate = useNavigate();
+
+  const { progress } = useProgress();
 
   const {
     challengeCorrection,
@@ -54,8 +57,10 @@ export function ChallengePageContainer({
 
       <StyledSubPageContainer>
         <StyledHeader>
-          {/* // TODO: MAKE TOTAL LEVELS DYNAMIC */}
-          <Header.FullComponent currentLevel={currentLevel} totalLevels={15} />
+          <Header.FullComponent
+            currentLevel={currentLevel}
+            totalLevels={progress.totalChallenges}
+          />
 
           <Greetings />
         </StyledHeader>

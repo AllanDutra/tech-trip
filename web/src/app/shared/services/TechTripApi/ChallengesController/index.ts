@@ -8,7 +8,7 @@ export interface IChallenge {
   number: number;
 }
 
-interface IChallengesProgress {
+export interface IChallengesProgress {
   totalChallenges: number;
   totalSolvedChallenges: number;
   percentProgress: number;

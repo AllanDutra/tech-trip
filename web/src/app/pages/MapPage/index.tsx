@@ -25,23 +25,17 @@ import {
 import { GearSix, MapPin } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../shared/configs";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Star } from "@phosphor-icons/react/dist/ssr";
 import { IChallenge } from "../../shared/services/TechTripApi/ChallengesController";
 import { IStudentClaims } from "../../shared/services/TechTripApi/StudentsController";
+import { CommonPageContainer } from "../../shared/components/CommonPageContainer";
+import { useAuthentication } from "../../shared/hooks/useAuthentication";
 
 export function MapPage() {
-  const student: IStudentClaims = {
-    id: 0,
-    name: "",
-    email: "",
-    user: "",
-    birth: "",
-    gender: "",
-    character_Id: 0,
-    preference_Sound: false,
-    preference_Vibration: false,
-  };
+  const { userCredentials } = useAuthentication();
+
+  const mapPinRef = useRef<SVGSVGElement>(null);
 
   const challenges: IChallenge[] = [
     {
@@ -204,8 +198,6 @@ export function MapPage() {
     }
   }, [navigate]);*/
 
-  const article = student?.gender === "male" ? "o" : "a";
-
   const generateBottomValues = (numChallenges: number) => {
     const baseValues = [20, -26, -46];
     const increment = -137;
@@ -278,7 +270,12 @@ export function MapPage() {
         <ChallengeContainer bottom={bottom} left={left}>
           {isCurrent && (
             <MapPinContainer>
-              <MapPin size={36} color="#2BCB9A" weight="duotone" />
+              <MapPin
+                size={36}
+                color="#2BCB9A"
+                weight="duotone"
+                ref={mapPinRef}
+              />
             </MapPinContainer>
           )}
 
@@ -307,28 +304,25 @@ export function MapPage() {
     );
   };
 
+  useEffect(() => {
+    if (mapPinRef.current) {
+      mapPinRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+    }
+  }, []);
+
   return (
-    <TrackContainer>
-      <TrackHeader>
-        <ProgressContainer>
-          <ProgressBar progress={loading ? 0 : progress} />
-        </ProgressContainer>
-        <Greetings>
-          {`Olá, Pequen${article}`}
-          <span>{student?.name.toLocaleUpperCase()}!</span>
-        </Greetings>
-        <ActionHeader
-          onClick={() => {
-            navigate(routeConfigs.Settings);
-          }}
-        >
-          <GearSix weight="fill" size={32} />
-        </ActionHeader>
-      </TrackHeader>
-      <MapContainer>
-        <Map>{renderChallenges()}</Map>
-      </MapContainer>
-      <NavBar.FullComponent />
-    </TrackContainer>
+    <CommonPageContainer>
+      <TrackContainer>
+        <MapContainer>
+          <Map>{renderChallenges()}</Map>
+        </MapContainer>
+
+        <NavBar.FullComponent />
+      </TrackContainer>
+    </CommonPageContainer>
   );
 }
