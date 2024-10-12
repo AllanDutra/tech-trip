@@ -1,20 +1,18 @@
 import React from "react";
+import { LinkArea } from "./styled";
 
-interface ReferenceProps {
+interface IReferenceProps {
   description: string;
   url: string;
+  backgroundColor?: string;
 }
 
-export const Reference: React.FC<ReferenceProps> = ({ description, url }) => {
+export const Reference: React.FC<IReferenceProps> = ({ description, url, backgroundColor }) => {
   return (
-    <a
-      href={url}
-      aria-label={description}
-      style={{ display: "none" }}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      {description}
-    </a>
+    <LinkArea backgroundColor={backgroundColor ?? "#fff"}>
+      <a href={url} aria-label={description} target="_blank">
+        {description}
+      </a>
+    </LinkArea>
   );
 };
