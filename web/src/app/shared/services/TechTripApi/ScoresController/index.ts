@@ -1,6 +1,6 @@
 import { TechTripApi } from "../axios-config";
 
-interface ITotalScore {
+export interface ITotalScore {
   stars: number;
   diamonds: number;
 }

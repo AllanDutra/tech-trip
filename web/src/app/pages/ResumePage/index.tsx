@@ -1,11 +1,6 @@
-import { GearSix, SketchLogo, Star } from "@phosphor-icons/react/dist/ssr";
-import { ProgressBar } from "../../shared/components/ProgressBar";
+import { SketchLogo, Star } from "@phosphor-icons/react/dist/ssr";
 import {
-  Header,
   StyledMain,
-  ProgressContainer,
-  Greetings,
-  ActionHeader,
   StyledLabel,
   Indicator,
   List,
@@ -18,58 +13,32 @@ import {
   DiamondContainer,
   CharacterPicture,
   IndicatorTitle,
-  ChallengeScoreContainer,
-  NavBarContainer,
 } from "./styles";
 import { Character, NavBar } from "../../shared/components";
-import { IStudents, IChallengesStudent } from "../../shared/services";
-import { useNavigate } from "react-router-dom";
-import { routeConfigs } from "../../shared/configs";
-import { StarAndCrescent, StarFour } from "@phosphor-icons/react";
+import { CommonPageContainer } from "../../shared/components/CommonPageContainer";
+import { useAuthentication } from "../../shared/hooks/useAuthentication";
+import { IChallenge } from "../../shared/services/TechTripApi/ChallengesController";
+import { useEffect, useState } from "react";
+import { ITotalScore } from "../../shared/services/TechTripApi/ScoresController";
+import { useLoading } from "../../shared/hooks/useLoading";
+import { TechTripApiService } from "../../shared/services";
 
 export const ResumePage = () => {
-  const navigate = useNavigate();
-  const student: IStudents = {
-    id: 0,
-    name: "Oliver",
-    email: "",
-    user: "",
-    password: "",
-    birth: "",
-    gender: "male",
-    character_id: 1,
-    sound: true,
-    vibration: true,
-  };
-  const article = student.gender == "female" ? "a" : "o";
+  const { setIsGlobalLoadingActive } = useLoading();
+  const { userCredentials } = useAuthentication();
 
-  const challenges: Array<IChallengesStudent> = [
-    { challenge_id: 1, current: false, score_Stars: 3, score_Diamonds: 0 },
-    { challenge_id: 2, current: false, score_Stars: 3, score_Diamonds: 0 },
-    { challenge_id: 3, current: false, score_Stars: 3, score_Diamonds: 1 },
-    { challenge_id: 4, current: true, score_Stars: 2, score_Diamonds: 0 },
-    { challenge_id: 5, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 6, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 7, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 8, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 9, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 10, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 11, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 12, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 13, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 14, current: false, score_Stars: 0, score_Diamonds: 0 },
-    { challenge_id: 15, current: false, score_Stars: 0, score_Diamonds: 0 },
-  ];
+  const [totalScore, setTotalScore] = useState<ITotalScore>({
+    stars: 0,
+    diamonds: 0,
+  });
 
-  const progress = 75;
-  const star_total = 11;
-  const diamonds_total = 1;
+  const [challenges, setChallenges] = useState<IChallenge[]>([]);
 
   const renderChallenges = () => {
     return challenges.map((challenge) => (
-      <ListItem key={challenge.challenge_id}>
+      <ListItem key={challenge.challenge_Id}>
         <Number>
-          <span>{challenge.challenge_id}</span>
+          <span>{challenge.challenge_Id}</span>
         </Number>
         <StarsContainer>
           {[...Array(3)].map((_, index) => (
@@ -91,47 +60,59 @@ export const ResumePage = () => {
     ));
   };
 
+  useEffect(() => {
+    (async () => {
+      try {
+        setIsGlobalLoadingActive(true);
+
+        const results = await Promise.all([
+          TechTripApiService.ScoresController.getTotalScore(),
+          TechTripApiService.ChallengesController.getChallengesMap(),
+        ]);
+
+        const [totalScoreData, challengesData] = results;
+
+        setTotalScore({ ...totalScoreData });
+        setChallenges([...challengesData]);
+      } finally {
+        setIsGlobalLoadingActive(false);
+      }
+    })();
+  }, []);
+
   return (
-    <StyledMain>
-      <Header>
-        <ProgressContainer>
-          <ProgressBar progress={progress} />
-        </ProgressContainer>
-        <Greetings>
-          {`Olá, Pequen${article}`}
-          <span>{student?.name.toLocaleUpperCase()}!</span>
-        </Greetings>
-        <ActionHeader onClick={() => navigate(routeConfigs.Settings)}>
-          <GearSix weight="fill" size={32} />
-        </ActionHeader>
-      </Header>
+    <CommonPageContainer>
+      <StyledMain>
+        <Content>
+          <CharacterPicture>
+            <Character.FullComponent
+              size="large"
+              number={userCredentials.character_Id}
+            />
+          </CharacterPicture>
+          <StyledLabel>Minha pontuação</StyledLabel>
+          <IndicatorArea>
+            <Indicator>
+              <IndicatorTitle>Total de Estrelas</IndicatorTitle>
+              <IndicatorContent color="#FFA425">
+                <Star size={38} color={"#FFA425"} weight="fill" />{" "}
+                <span>{totalScore.stars}</span>
+              </IndicatorContent>
+            </Indicator>
+            <Indicator>
+              <IndicatorTitle>Total de Diamantes</IndicatorTitle>
+              <IndicatorContent color="#00C3FF">
+                <SketchLogo size={38} color={"#00C3FF"} weight="fill" />
+                <span>{totalScore.diamonds}</span>
+              </IndicatorContent>
+            </Indicator>
+          </IndicatorArea>
 
-      <Content>
-        <CharacterPicture>
-          <Character.FullComponent size="large" number={student.character_id} />
-        </CharacterPicture>
-        <StyledLabel>Minha pontuação</StyledLabel>
-        <IndicatorArea>
-          <Indicator>
-            <IndicatorTitle>Total de Estrelas</IndicatorTitle>
-            <IndicatorContent color="#FFA425">
-              <Star size={38} color={"#FFA425"} weight="fill" />{" "}
-              <span>{star_total}</span>
-            </IndicatorContent>
-          </Indicator>
-          <Indicator>
-            <IndicatorTitle>Total de Diamantes</IndicatorTitle>
-            <IndicatorContent color="#00C3FF">
-              <SketchLogo size={38} color={"#00C3FF"} weight="fill" />
-              <span>{diamonds_total}</span>
-            </IndicatorContent>
-          </Indicator>
-        </IndicatorArea>
-
-        <StyledLabel>Resumo</StyledLabel>
-        <List>{renderChallenges()}</List>
-      </Content>
-      <NavBar.FullComponent />
-    </StyledMain>
+          <StyledLabel>Resumo</StyledLabel>
+          <List>{renderChallenges()}</List>
+        </Content>
+        <NavBar.FullComponent />
+      </StyledMain>
+    </CommonPageContainer>
   );
 };
