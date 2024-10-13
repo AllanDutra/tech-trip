@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { ChallengeMessage } from "../../shared/components";
 import { ChallengePageContainer } from "../../shared/components/ChallengePageContainer";
 import { ControlButtons } from "./components/ControlButtons";
@@ -8,6 +8,7 @@ import {
   Maze,
 } from "./components/Maze";
 import { StyledChallengeContainer } from "./styles";
+import { useChallengeCorrection } from "../../shared/hooks/useChallengeCorrection";
 
 const SHOE_COORDINATES: ICharacterCoordinates = {
   lineIndex: 2,
@@ -81,6 +82,16 @@ export function Challenge2Page() {
     useState<ICharacterCoordinates>({
       ...INITIAL_CHARACTER_COORDINATES,
     });
+
+  const { checkChallengeCorrection } = useChallengeCorrection();
+
+  const handleVerify = useCallback(async () => {
+    await checkChallengeCorrection({
+      challenge_Id: 2,
+      steps: 1,
+      studentResponse: characterCoordinates,
+    });
+  }, [checkChallengeCorrection, characterCoordinates]);
 
   return (
     <ChallengePageContainer currentLevel={2}>
