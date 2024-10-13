@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ChallengePageContainer } from "../../shared/components/ChallengePageContainer";
 import { FirstStep, SecondStep } from "./components";
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 export interface IOption {
   content: string;
 }
@@ -21,7 +21,7 @@ export const Challenge9Page = () => {
       currentLevel={9}
       children={
         <>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
           {step == 1 && (
             <FirstStep
               options={options}

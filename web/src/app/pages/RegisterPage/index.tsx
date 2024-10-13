@@ -30,8 +30,8 @@ import {
 
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../shared/configs";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 import { appConfigs } from "../../shared/configs/App";
 import { IStudentClaims } from "../../shared/services/TechTripApi/StudentsController";
 import { TechTripApiService } from "../../shared/services";
@@ -97,7 +97,7 @@ export function RegisterPage() {
 
   return (
     <StyledMain>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <RegisterContainer>
         <RegisterForm onSubmit={handleSubmit}>
           <div>

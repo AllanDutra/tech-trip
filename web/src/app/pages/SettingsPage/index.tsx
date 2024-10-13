@@ -35,7 +35,7 @@ import {
   Button,
 } from "../../shared/components";
 import { useState, useEffect } from "react";
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 import { IStudentClaims } from "../../shared/services/TechTripApi/StudentsController";
 
 export function SettingsPage() {
@@ -155,7 +155,7 @@ export function SettingsPage() {
 
   return (
     <SettingsContainer>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <SettingsHeader>
         <SettingsHeaderColumn>
           <ActionHeader

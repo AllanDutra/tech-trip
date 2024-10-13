@@ -1,4 +1,4 @@
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 import { OfficeObjects } from "../../../../shared/assets";
 import {
   Button,
@@ -35,7 +35,7 @@ export const FirstStep = ({
 
   return (
     <StyledMain>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <MessageArea>
         <ChallengeMessage
           children={

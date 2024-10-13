@@ -18,7 +18,7 @@ import { CaretLeft, Lock } from "@phosphor-icons/react";
 import { routeConfigs } from "../../shared/configs";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 import { TechTripApiService } from "../../shared/services";
 
 export const ChangePasswordPage = () => {
@@ -152,7 +152,7 @@ export const ChangePasswordPage = () => {
           name="new_password_confirmation"
           onChange={handleInputChange}
         />
-        <ToastContainer></ToastContainer>
+        {/* <ToastContainer></ToastContainer> */}
         <Button
           onClick={(event) => {
             handleSave(event);

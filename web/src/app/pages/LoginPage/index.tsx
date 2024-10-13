@@ -16,8 +16,8 @@ import { useState } from "react";
 import { IdentificationBadge, Lock } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../shared/configs";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 import { appConfigs } from "../../shared/configs/App";
 import { TechTripApiService } from "../../shared/services";
 import { authConfigs } from "../../shared/configs/Auth";
@@ -92,7 +92,7 @@ export function LoginPage() {
 
   return (
     <LoginContainer>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <LoginForm onSubmit={handleSubmit}>
         <LoginHeader>
           <Title value={appConfigs.NAME}></Title>

@@ -7,6 +7,7 @@ import { AuthenticationProvider } from "./shared/hooks/useAuthentication";
 import { ChallengeCorrectionProvider } from "./shared/hooks/useChallengeCorrection";
 import { NotifyOnReload } from "./shared/components/NotifyOnReload";
 import { ProgressProvider } from "./shared/hooks/useProgress";
+import "react-toastify/dist/ReactToastify.css";
 
 export function App() {
   return (

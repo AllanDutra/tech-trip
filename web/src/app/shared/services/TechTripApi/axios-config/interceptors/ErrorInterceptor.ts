@@ -1,15 +1,15 @@
 import { AxiosError } from "axios";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
-interface IApiMessage {
-  message: string;
-}
+// interface IApiMessage {
+//   message: string;
+// }
 
-const isApiMessage = (error: any): error is IApiMessage => {
-  if (!error) return false;
+// const isApiMessage = (error: any): error is IApiMessage => {
+//   if (!error) return false;
 
-  return "message" in error;
-};
+//   return "message" in error;
+// };
 
 export const errorInterceptor = (error: AxiosError) => {
   if (error.message === "Network Error") {
@@ -17,9 +17,9 @@ export const errorInterceptor = (error: AxiosError) => {
   }
 
   if (error.response?.status !== 401) {
-    if (error.response?.data && isApiMessage(error)) {
-      toast.error(error.message);
-    }
+    // if (error.response?.data && isApiMessage(error)) {
+    //   toast.error(error.message);
+    // }
   }
 
   return Promise.reject(error);

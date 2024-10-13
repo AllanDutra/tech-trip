@@ -1,4 +1,4 @@
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 import {
   Button,
   ChallengeMessage,
@@ -64,7 +64,7 @@ export const Challenge10Page = () => {
       children={
         <>
           <StyledMain>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <StatementContainer>
               {" "}
               <MessageArea>

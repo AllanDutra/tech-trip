@@ -16,6 +16,8 @@ import {
 } from "./styles";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { Functions } from "../../shared/functions";
+import { toast } from "react-toastify";
+import { useChallengeCorrection } from "../../shared/hooks/useChallengeCorrection";
 
 type TLogicalOperation = "E" | "NAO" | "OU";
 
@@ -117,6 +119,8 @@ function InteractiveMessage({
 }
 
 export function Challenge12Page() {
+  const { checkChallengeCorrection } = useChallengeCorrection();
+
   const [currentMobileStep, setCurrentMobileStep] = useState(1);
 
   const [activeChooseContainerIndex, setActiveChooseContainerIndex] = useState<
@@ -278,7 +282,39 @@ export function Challenge12Page() {
     [setCurrentMobileStep]
   );
 
-  const handleVerifyChallengeResponse = useCallback(() => {}, []);
+  const handleVerifyChallengeResponse = useCallback(async () => {
+    const targets: ISelectableLogicalOperation[][] = [
+      firstLogicalOperationTarget[0],
+      secondLogicalOperationTarget[0],
+      thirdLogicalOperationTarget[0],
+    ];
+
+    const targetGroups: string[] = [];
+
+    for (let i = 0; i < targets.length; i++) {
+      const target = targets[i];
+
+      if (target.length === 0)
+        return toast.warning(
+          "Preencha todos os espaços vazios antes de finalizar a tentativa!"
+        );
+
+      targetGroups.push(target[0].type);
+    }
+
+    const responseString = targetGroups.join("-");
+
+    await checkChallengeCorrection({
+      challenge_Id: 12,
+      steps: 1,
+      studentResponse: responseString,
+    });
+  }, [
+    firstLogicalOperationTarget,
+    secondLogicalOperationTarget,
+    thirdLogicalOperationTarget,
+    checkChallengeCorrection,
+  ]);
 
   return (
     <ChallengePageContainer currentLevel={12}>
