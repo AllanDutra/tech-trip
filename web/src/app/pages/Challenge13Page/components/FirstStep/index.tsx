@@ -10,21 +10,20 @@ import { ImageArea, MessageArea, ResponseArea, StyledMain } from "../../styles";
 interface IFirstStepProps {
   setResponse: React.Dispatch<React.SetStateAction<number | null>>;
   response: number | null;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-  handleConfirm: CallableFunction;
+  onConfirm(): Promise<void>;
 }
 
 export const FirstStep = ({
   setResponse,
   response,
-  setStep,
-  handleConfirm,
+  onConfirm,
 }: IFirstStepProps) => {
   const options = [
     { content: "Teclado" },
     { content: "Mouse" },
     { content: "Câmera" },
   ];
+
   const challengeOptions = options.map((option, index) => ({
     content: option.content,
     selected: index === response,
@@ -53,28 +52,15 @@ export const FirstStep = ({
       <ImageArea className="officeObjects">
         <OfficeObjects />
       </ImageArea>
+
       <ResponseArea>
         <ChallengeResponse.FullComponent
           options={challengeOptions}
           size="large"
         />
       </ResponseArea>
-      <Button
-        onClick={() => {
-          const result = true;
-          const message =
-            "Parabéns! ";
-          const handle_return = handleConfirm(result, response, message);
-          setTimeout(() => {
-            if (handle_return) {
-              setStep(2);
-              setResponse(null);
-            }
-          }, 5000);
-        }}
-        text="Confirmar"
-        color={"green"}
-      />
+
+      <Button onClick={onConfirm} text="Confirmar" color={"green"} />
     </StyledMain>
   );
 };

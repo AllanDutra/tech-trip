@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { Folder } from "../../../../shared/assets";
 import {
   Button,
@@ -6,20 +5,18 @@ import {
   ChallengeResponse,
 } from "../../../../shared/components";
 import { ImageArea, Message, ResponseArea, StyledMain } from "../../styles";
-import { routeConfigs } from "../../../../shared/configs";
 
 interface IThirdStepProps {
   setResponse: React.Dispatch<React.SetStateAction<number | null>>;
   response: number | null;
-  handleConfirm: CallableFunction;
+  onConfirm(): Promise<void>;
 }
 
 export const ThirdStep = ({
   setResponse,
   response,
-  handleConfirm,
+  onConfirm,
 }: IThirdStepProps) => {
-  const navigate = useNavigate();
   const options = [
     { content: "Monitor ou Processador" },
     { content: "Disco Rigído (HD) ou Pen Drive" },
@@ -47,24 +44,13 @@ export const ThirdStep = ({
           }
         />
       </Message>
-      <ImageArea className='folder'>
-        <Folder/>
+      <ImageArea className="folder">
+        <Folder />
       </ImageArea>
       <ResponseArea>
         <ChallengeResponse.FullComponent options={challengeOptions} />
       </ResponseArea>
-      <Button
-        onClick={() => {
-          const result = true;
-          const message =
-            "Parabéns! Você acertou! Para armazenar arquivos e fotos no computador, devemos utilizar dispositivos de armazenamento, como o disco rígido ou pen drives.";
-          if (handleConfirm(result, response, message)) {
-            navigate(routeConfigs.Map);
-          }
-        }}
-        text="Confirmar"
-        color={"green"}
-      />
+      <Button onClick={onConfirm} text="Confirmar" color={"green"} />
     </StyledMain>
   );
 };

@@ -22,7 +22,8 @@ interface IChallengeCorrectionContextData {
   INITIAL_CHALLENGE_CORRECTION: IChallengeCorrection;
   challengeCorrection: IChallengeCorrection;
   checkChallengeCorrection: (
-    challengeAttempt: IProcessAttemptRequest
+    challengeAttempt: IProcessAttemptRequest,
+    goToNextChallenge?: boolean
   ) => Promise<IChallengeCorrection>;
   setChallengeCorrection: React.Dispatch<
     React.SetStateAction<IChallengeCorrection>
@@ -53,7 +54,8 @@ function ChallengeCorrectionProvider({
 
   const checkChallengeCorrection = useCallback(
     async (
-      challengeAttempt: IProcessAttemptRequest
+      challengeAttempt: IProcessAttemptRequest,
+      goToNextChallenge: boolean = true
     ): Promise<IChallengeCorrection> => {
       try {
         setIsGlobalLoadingActive(true);
@@ -79,7 +81,9 @@ function ChallengeCorrectionProvider({
           challengePerformance: challengePerformance as TPerformanceMap,
         };
 
-        setChallengeCorrection({ ...correctionResult });
+        if (goToNextChallenge) {
+          setChallengeCorrection({ ...correctionResult });
+        }
 
         return correctionResult;
       } finally {

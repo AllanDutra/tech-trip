@@ -10,21 +10,20 @@ import { ImageArea, MessageArea, ResponseArea, StyledMain } from "../../styles";
 interface ISecondStepProps {
   setResponse: React.Dispatch<React.SetStateAction<number | null>>;
   response: number | null;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-  handleConfirm: CallableFunction;
+  onConfirm(): Promise<void>;
 }
 
 export const SecondStep = ({
   setResponse,
   response,
-  setStep,
-  handleConfirm,
+  onConfirm,
 }: ISecondStepProps) => {
   const options = [
     { content: "Impressora ou roteador" },
     { content: "Fones de ouvido ou alto-falantes" },
     { content: "Microfone ou teclado" },
   ];
+
   const challengeOptions = options.map((option, index) => ({
     content: option.content,
     selected: index === response,
@@ -52,22 +51,8 @@ export const SecondStep = ({
       <ResponseArea>
         <ChallengeResponse.FullComponent options={challengeOptions} />
       </ResponseArea>
-      <Button
-        onClick={() => {
-          const result = true;
-          const message =
-            "Parabéns! Você acertou! Para ouvir música no computador, os dispositivo ideais são realmente os fones de ouvido ou alto-falantes. Excelente escolha para garantir uma ótima experiência musical para Tina!";
-          const handle_return = handleConfirm(result, response, message);
-          setTimeout(() => {
-            if (handle_return) {
-              setStep(3);
-              setResponse(null);
-            }
-          }, 5000);
-        }}
-        text="Confirmar"
-        color={"green"}
-      />
+
+      <Button onClick={onConfirm} text="Confirmar" color={"green"} />
     </StyledMain>
   );
 };
