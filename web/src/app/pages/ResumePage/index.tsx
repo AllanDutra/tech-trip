@@ -13,6 +13,8 @@ import {
   DiamondContainer,
   CharacterPicture,
   IndicatorTitle,
+  StyledTotalScoreContainer,
+  StyledResumeContainer,
 } from "./styles";
 import { Character, NavBar } from "../../shared/components";
 import { CommonPageContainer } from "../../shared/components/CommonPageContainer";
@@ -90,26 +92,42 @@ export const ResumePage = () => {
               number={userCredentials.character_Id}
             />
           </CharacterPicture>
-          <StyledLabel>Minha pontuação</StyledLabel>
-          <IndicatorArea>
-            <Indicator>
-              <IndicatorTitle>Total de Estrelas</IndicatorTitle>
-              <IndicatorContent color="#FFA425">
-                <Star size={38} color={"#FFA425"} weight="fill" />{" "}
-                <span>{totalScore.stars}</span>
-              </IndicatorContent>
-            </Indicator>
-            <Indicator>
-              <IndicatorTitle>Total de Diamantes</IndicatorTitle>
-              <IndicatorContent color="#00C3FF">
-                <SketchLogo size={38} color={"#00C3FF"} weight="fill" />
-                <span>{totalScore.diamonds}</span>
-              </IndicatorContent>
-            </Indicator>
-          </IndicatorArea>
 
-          <StyledLabel>Resumo</StyledLabel>
-          <List>{renderChallenges()}</List>
+          <StyledTotalScoreContainer>
+            <StyledLabel className="label">Minha pontuação</StyledLabel>
+            <IndicatorArea>
+              <Indicator className="indicator">
+                <IndicatorTitle className="mobile">
+                  Total de Estrelas
+                </IndicatorTitle>
+
+                <IndicatorContent color="#FFA425">
+                  <Star size={38} color={"#FFA425"} weight="fill" />{" "}
+                  <span className="mobile">{totalScore.stars}</span>
+                  <strong className="desktop">
+                    ({totalScore.stars}) Estrelas
+                  </strong>
+                </IndicatorContent>
+              </Indicator>
+              <Indicator className="indicator">
+                <IndicatorTitle className="mobile">
+                  Total de Diamantes
+                </IndicatorTitle>
+                <IndicatorContent color="#00C3FF">
+                  <SketchLogo size={38} color={"#00C3FF"} weight="fill" />
+                  <span className="mobile">{totalScore.diamonds}</span>
+                  <strong className="desktop">
+                    ({totalScore.diamonds}) Diamantes
+                  </strong>
+                </IndicatorContent>
+              </Indicator>
+            </IndicatorArea>
+          </StyledTotalScoreContainer>
+
+          <StyledResumeContainer>
+            <StyledLabel className="label">Resumo</StyledLabel>
+            <List className="list">{renderChallenges()}</List>
+          </StyledResumeContainer>
         </Content>
         <NavBar.FullComponent />
       </StyledMain>
