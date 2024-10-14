@@ -5,7 +5,7 @@ export interface ITotalScore {
   diamonds: number;
 }
 
-interface IRankingScore {
+export interface IRankingScore {
   id: number;
   name: string;
   character_Id: number;
