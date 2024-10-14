@@ -39,6 +39,7 @@ namespace TechTrip.API.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpPost("register")]
         [ProducesResponseType(typeof(int), 200)]
         [ProducesResponseType(typeof(DefaultResponseViewModel), 400)]
