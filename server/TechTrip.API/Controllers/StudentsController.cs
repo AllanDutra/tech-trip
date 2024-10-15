@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TechTrip.Application.Commands;
+using TechTrip.Application.Queries;
 using TechTrip.Core.Configurations;
 using TechTrip.Core.Configurations.Models;
 using TechTrip.Core.Interfaces.Notifications;
@@ -61,9 +62,13 @@ namespace TechTrip.API.Controllers
         /// <returns></returns>
         [HttpGet("claims")]
         [ProducesResponseType(typeof(StudentClaimsModel), 200)]
-        public IActionResult ReadStudentClaims()
+        public async Task<IActionResult> ReadStudentClaims()
         {
-            return PersonalizedResponse(Ok(StudentAuthenticationSettings.Claims));
+            var query = new GetStudentClaimsQuery();
+
+            var studentClaims = await _mediator.Send(query);
+
+            return PersonalizedResponse(Ok(studentClaims));
         }
 
         /// <summary>

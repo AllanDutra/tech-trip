@@ -25,7 +25,6 @@ import {
   CalendarDots,
   Lock,
 } from "@phosphor-icons/react";
-import { useNavigate } from "react-router-dom";
 import { routeConfigs } from "../../shared/configs";
 import {
   Character,
@@ -33,57 +32,29 @@ import {
   DoubleSelection,
   PreferenceButton,
   Button,
+  TSelectionVariant,
 } from "../../shared/components";
-import { useState, useEffect } from "react";
+import { useCallback, useState } from "react";
 // import { ToastContainer } from "react-toastify";
 import { IStudentClaims } from "../../shared/services/TechTripApi/StudentsController";
+import { useAuthentication } from "../../shared/hooks/useAuthentication";
+import { useNavigate } from "react-router-dom";
+import { TechTripApiService } from "../../shared/services";
+import { toast } from "react-toastify";
+import { useLoading } from "../../shared/hooks/useLoading";
 
 export function SettingsPage() {
   const navigate = useNavigate();
 
-  const fetchStudentSettings = async () => {
-    const token = sessionStorage.getItem("authToken");
-    if (token) {
-      // const response = await TechTripApiService.StudentsController.getSettings(token);
-      // if (response instanceof Error) {
-      //   redirectToLogin(response.message);
-      // } else {
-      //   setStudent(response);
-      // }
-    } else {
-      redirectToLogin("");
-    }
-  };
+  const { setIsGlobalLoadingActive } = useLoading();
 
-  useEffect(() => {
-    fetchStudentSettings();
-  }, []);
-
-  const redirectToLogin = (message: string) => {
-    // ToastWarning({
-    //   message: "Realize login!",
-    //   positionProp: "top-right",
-    // });
-    // navigate(routeConfigs.Login);
-    // console.error(message);
-  };
+  const { userCredentials, setUserCredentials } = useAuthentication();
 
   const [student, setStudent] = useState<IStudentClaims>({
-    id: 0,
-    name: "",
-    email: "",
-    user: "",
-    birth: "",
-    gender: "",
-    character_Id: 0,
-    preference_Sound: false,
-    preference_Vibration: false,
+    ...userCredentials,
   });
 
-  const [isCharacterPickerOpen, setCharacterPickerOpen] = useState(false);
-  const handleChangeCharacter = () => {
-    setCharacterPickerOpen((prevState) => !prevState);
-  };
+  const [isCharacterPickerEnable, setIsCharacterPickerEnable] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -94,64 +65,48 @@ export function SettingsPage() {
     }));
   };
 
-  const [soundPreference, setSoundPreference] = useState<boolean>(
-    student.preference_Sound
-  );
-
-  const handleSoundPreference = (preference: boolean) => {
-    setSoundPreference(preference);
-    student.preference_Sound = preference;
+  const toggleSoundPreference = () => {
+    setStudent((oldValue) => ({
+      ...oldValue,
+      preference_Sound: !oldValue.preference_Sound,
+    }));
   };
 
-  const [vibrationPreference, setVibrationPreference] = useState<boolean>(
-    student.preference_Vibration
-  );
-
-  const handleVibrationPreference = (preference: boolean) => {
-    setVibrationPreference(preference);
-    student.preference_Vibration = preference;
+  const toggleVibrationPreference = () => {
+    setStudent((oldValue) => ({
+      ...oldValue,
+      preference_Vibration: !oldValue.preference_Vibration,
+    }));
   };
 
-  const [selectedGender, setSelectedGender] = useState<"male" | "female">(
-    "female"
-  );
-
-  const handleGenderSelection = (gender: "male" | "female") => {
-    setSelectedGender(gender);
-    student.gender = gender;
+  const handleChangeCharacter = (characterNumber: number) => {
+    setStudent((oldValue) => ({ ...oldValue, character_Id: characterNumber }));
   };
 
-  const [selectedCharacterId, setSelectedCharacterId] = useState<number>(1);
-  const handleCharacterSelect = (id: number) => {
-    setSelectedCharacterId(id);
-    student.character_Id = id;
+  const handleChangeGenderSelection = (genderOption: string) => {
+    setStudent((oldValue) => ({ ...oldValue, gender: genderOption }));
   };
 
-  const handleSave = async (event) => {
-    event.preventDefault();
-    const token = sessionStorage.getItem("authToken");
-    /*console.log(student);
-    return;*/
-    if (!token) {
-      redirectToLogin("");
-      return;
+  const handleSave = useCallback(async () => {
+    try {
+      setIsGlobalLoadingActive(true);
+
+      const updateSuccessful =
+        await TechTripApiService.StudentsController.update({ ...student });
+
+      if (updateSuccessful) {
+        setUserCredentials({ ...student });
+
+        toast.success("Dados atualizados com sucesso!");
+      } else {
+        toast.warning(
+          "Não foi possível atualizar as informações, verifique os campos informados e tente novamente!"
+        );
+      }
+    } finally {
+      setIsGlobalLoadingActive(false);
     }
-
-    // const response = await StudentsService.updateStudent(token, student);
-
-    // if (response instanceof Error) {
-    //   ToastError({
-    //     message: response.message,
-    //     positionProp: "top-right",
-    //   });
-    // } else {
-    //   ToastSuccess({
-    //     message: "Dados atualizados com sucesso!",
-    //     positionProp: "top-right",
-    //   });
-    //   navigate(routeConfigs.Map);
-    // }
-  };
+  }, [student]);
 
   return (
     <SettingsContainer>
@@ -166,19 +121,20 @@ export function SettingsPage() {
             <CaretLeft size={26} />
           </ActionHeader>
           <StyledLabelBold>Editar perfil</StyledLabelBold>
-          <ActionHeader
-            onClick={(event) => {
-              handleSave(event);
-            }}
-          >
+          <ActionHeader onClick={handleSave}>
             <StyledLabel>Salvar</StyledLabel>
           </ActionHeader>
         </SettingsHeaderColumn>
       </SettingsHeader>
 
-      <ProfileContainer>
+      <ProfileContainer
+        style={{ marginBottom: isCharacterPickerEnable ? "0" : "2em" }}
+      >
         <CharacterContainer>
-          <Character.FullComponent size="medium" number={selectedCharacterId} />
+          <Character.FullComponent
+            size="medium"
+            number={student.character_Id}
+          />
         </CharacterContainer>
         <Name>{student.name}</Name>
         <ButtonChangePassword
@@ -189,13 +145,13 @@ export function SettingsPage() {
           <Lock size={18}></Lock> Alterar senha
         </ButtonChangePassword>
         <ButtonChangeImage
-          onClick={handleChangeCharacter}
-          isopen={isCharacterPickerOpen}
+          onClick={() => setIsCharacterPickerEnable((oldValue) => !oldValue)}
+          isopen={isCharacterPickerEnable}
         >
           <UserCircle size={18} /> Alterar Imagem
         </ButtonChangeImage>
 
-        {isCharacterPickerOpen && (
+        {isCharacterPickerEnable && (
           <CharacterPickerContainer>
             {[...Array(12)].map((_, index) => (
               <Characters>
@@ -203,8 +159,8 @@ export function SettingsPage() {
                   key={index}
                   number={index + 1}
                   size="medium"
-                  gray={selectedCharacterId != index + 1}
-                  onClick={() => handleCharacterSelect(index + 1)}
+                  gray={student.character_Id !== index + 1}
+                  onClick={() => handleChangeCharacter(index + 1)}
                 />
               </Characters>
             ))}
@@ -250,11 +206,13 @@ export function SettingsPage() {
           <LabelForm>Gênero</LabelForm>
           <DoubleSelection.FullComponent
             variant="gender"
-            selected={selectedGender}
+            selected={student.gender as TSelectionVariant}
             type="button"
             onClick={(e) => {
               const value = (e.target as HTMLButtonElement).textContent;
-              handleGenderSelection(value === "Masculino" ? "male" : "female");
+              handleChangeGenderSelection(
+                value === "Masculino" ? "male" : "female"
+              );
             }}
           />
         </GenderButtons>
@@ -262,25 +220,15 @@ export function SettingsPage() {
           <PreferenceButton
             variant="sound"
             active={student.preference_Sound}
-            onClick={() => {
-              handleSoundPreference(!student.preference_Sound);
-            }}
+            onClick={toggleSoundPreference}
           />
           <PreferenceButton
             variant="vibration"
             active={student.preference_Vibration}
-            onClick={() => {
-              handleVibrationPreference(!student.preference_Vibration);
-            }}
+            onClick={toggleVibrationPreference}
           />
         </PreferenceSection>
-        <Button
-          onClick={(event) => {
-            handleSave(event);
-          }}
-          color="green"
-          text="Salvar alterações"
-        />
+        <Button onClick={handleSave} color="green" text="Salvar alterações" />
       </ContainerInformation>
     </SettingsContainer>
   );
