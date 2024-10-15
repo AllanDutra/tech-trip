@@ -16,6 +16,10 @@ import {
   CharacterPickerContainer,
   Characters,
   ButtonChangePassword,
+  StyledDesktopHeader,
+  StyledButtons,
+  StyledFormContainer,
+  StyledInputGroup,
 } from "./styles";
 import {
   CaretLeft,
@@ -33,6 +37,7 @@ import {
   PreferenceButton,
   Button,
   TSelectionVariant,
+  Header,
 } from "../../shared/components";
 import { useCallback, useState } from "react";
 // import { ToastContainer } from "react-toastify";
@@ -42,6 +47,7 @@ import { useNavigate } from "react-router-dom";
 import { TechTripApiService } from "../../shared/services";
 import { toast } from "react-toastify";
 import { useLoading } from "../../shared/hooks/useLoading";
+import { CommonPageContainer } from "../../shared/components/CommonPageContainer";
 
 export function SettingsPage() {
   const navigate = useNavigate();
@@ -108,128 +114,148 @@ export function SettingsPage() {
     }
   }, [student]);
 
+  const handleBack = useCallback(() => navigate(routeConfigs.Map), []);
+
   return (
-    <SettingsContainer>
-      {/* <ToastContainer /> */}
-      <SettingsHeader>
-        <SettingsHeaderColumn>
-          <ActionHeader
-            onClick={() => {
-              navigate(routeConfigs.Map);
-            }}
-          >
-            <CaretLeft size={26} />
-          </ActionHeader>
-          <StyledLabelBold>Editar perfil</StyledLabelBold>
-          <ActionHeader onClick={handleSave}>
-            <StyledLabel>Salvar</StyledLabel>
-          </ActionHeader>
-        </SettingsHeaderColumn>
-      </SettingsHeader>
+    <CommonPageContainer className="settings-common-page">
+      <SettingsContainer>
+        <SettingsHeader className="mobile">
+          <SettingsHeaderColumn>
+            <ActionHeader onClick={handleBack}>
+              <CaretLeft size={26} />
+            </ActionHeader>
+            <StyledLabelBold>Editar perfil</StyledLabelBold>
+            <ActionHeader onClick={handleSave}>
+              <StyledLabel>Salvar</StyledLabel>
+            </ActionHeader>
+          </SettingsHeaderColumn>
+        </SettingsHeader>
 
-      <ProfileContainer
-        style={{ marginBottom: isCharacterPickerEnable ? "0" : "2em" }}
-      >
-        <CharacterContainer>
-          <Character.FullComponent
-            size="medium"
-            number={student.character_Id}
-          />
-        </CharacterContainer>
-        <Name>{student.name}</Name>
-        <ButtonChangePassword
-          onClick={() => {
-            navigate(routeConfigs.ChangePassword);
-          }}
+        <ProfileContainer
+          style={{ marginBottom: isCharacterPickerEnable ? "0" : "2em" }}
         >
-          <Lock size={18}></Lock> Alterar senha
-        </ButtonChangePassword>
-        <ButtonChangeImage
-          onClick={() => setIsCharacterPickerEnable((oldValue) => !oldValue)}
-          isopen={isCharacterPickerEnable}
-        >
-          <UserCircle size={18} /> Alterar Imagem
-        </ButtonChangeImage>
+          <StyledDesktopHeader>
+            <Header.CloseButton onClick={handleBack} />
 
-        {isCharacterPickerEnable && (
-          <CharacterPickerContainer>
-            {[...Array(12)].map((_, index) => (
-              <Characters>
-                <Character.FullComponent
-                  key={index}
-                  number={index + 1}
-                  size="medium"
-                  gray={student.character_Id !== index + 1}
-                  onClick={() => handleChangeCharacter(index + 1)}
+            <h2>EDITAR PERFIL</h2>
+
+            <span></span>
+          </StyledDesktopHeader>
+
+          <CharacterContainer>
+            <Character.FullComponent
+              size="medium"
+              number={student.character_Id}
+            />
+          </CharacterContainer>
+          <Name>{student.name}</Name>
+          <StyledButtons>
+            <ButtonChangePassword
+              onClick={() => {
+                navigate(routeConfigs.ChangePassword);
+              }}
+            >
+              <Lock size={18}></Lock> Alterar senha
+            </ButtonChangePassword>
+
+            <ButtonChangeImage
+              onClick={() =>
+                setIsCharacterPickerEnable((oldValue) => !oldValue)
+              }
+              isopen={isCharacterPickerEnable}
+            >
+              <UserCircle size={18} /> Alterar Imagem
+            </ButtonChangeImage>
+          </StyledButtons>
+
+          {isCharacterPickerEnable && (
+            <CharacterPickerContainer>
+              {[...Array(12)].map((_, index) => (
+                <Characters>
+                  <Character.FullComponent
+                    key={index}
+                    number={index + 1}
+                    size="medium"
+                    gray={student.character_Id !== index + 1}
+                    onClick={() => handleChangeCharacter(index + 1)}
+                  />
+                </Characters>
+              ))}
+            </CharacterPickerContainer>
+          )}
+        </ProfileContainer>
+
+        <ContainerInformation>
+          <StyledFormContainer>
+            <StyledInputGroup>
+              <UnderlinedInput.FullComponent
+                label="Nome"
+                Icon={UserCircle}
+                placeholder="Digite seu nome aqui..."
+                value={student.name}
+                name="name"
+                onChange={handleInputChange}
+              />
+              <UnderlinedInput.FullComponent
+                label="E-mail"
+                Icon={Envelope}
+                placeholder="Digite seu email aqui..."
+                value={student.email}
+                name="email"
+                onChange={handleInputChange}
+              />
+              <UnderlinedInput.FullComponent
+                label="Usuário"
+                Icon={IdentificationBadge}
+                placeholder="Digite seu usuário aqui..."
+                value={student.user}
+                name="user"
+                onChange={handleInputChange}
+              />
+            </StyledInputGroup>
+
+            <StyledInputGroup>
+              <UnderlinedInput.FullComponent
+                label="Data de nascimento"
+                Icon={CalendarDots}
+                placeholder="Digite sua data de nascimento aqui..."
+                value={student.birth}
+                name="birth"
+                onChange={handleInputChange}
+                type="date"
+              />
+              <GenderButtons>
+                <LabelForm>Gênero</LabelForm>
+                <DoubleSelection.FullComponent
+                  variant="gender"
+                  selected={student.gender as TSelectionVariant}
+                  type="button"
+                  onClick={(e) => {
+                    const value = (e.target as HTMLButtonElement).textContent;
+                    handleChangeGenderSelection(
+                      value === "Masculino" ? "male" : "female"
+                    );
+                  }}
                 />
-              </Characters>
-            ))}
-          </CharacterPickerContainer>
-        )}
-      </ProfileContainer>
+              </GenderButtons>
+              <PreferenceSection>
+                <PreferenceButton
+                  variant="sound"
+                  active={student.preference_Sound}
+                  onClick={toggleSoundPreference}
+                />
+                <PreferenceButton
+                  variant="vibration"
+                  active={student.preference_Vibration}
+                  onClick={toggleVibrationPreference}
+                />
+              </PreferenceSection>
+            </StyledInputGroup>
+          </StyledFormContainer>
 
-      <ContainerInformation>
-        <UnderlinedInput.FullComponent
-          label="Nome"
-          Icon={UserCircle}
-          placeholder="Digite seu nome aqui..."
-          value={student.name}
-          name="name"
-          onChange={handleInputChange}
-        />
-        <UnderlinedInput.FullComponent
-          label="E-mail"
-          Icon={Envelope}
-          placeholder="Digite seu email aqui..."
-          value={student.email}
-          name="email"
-          onChange={handleInputChange}
-        />
-        <UnderlinedInput.FullComponent
-          label="Usuário"
-          Icon={IdentificationBadge}
-          placeholder="Digite seu usuário aqui..."
-          value={student.user}
-          name="user"
-          onChange={handleInputChange}
-        />
-        <UnderlinedInput.FullComponent
-          label="Data de nascimento"
-          Icon={CalendarDots}
-          placeholder="Digite sua data de nascimento aqui..."
-          value={student.birth}
-          name="birth"
-          onChange={handleInputChange}
-          type="date"
-        />
-        <GenderButtons>
-          <LabelForm>Gênero</LabelForm>
-          <DoubleSelection.FullComponent
-            variant="gender"
-            selected={student.gender as TSelectionVariant}
-            type="button"
-            onClick={(e) => {
-              const value = (e.target as HTMLButtonElement).textContent;
-              handleChangeGenderSelection(
-                value === "Masculino" ? "male" : "female"
-              );
-            }}
-          />
-        </GenderButtons>
-        <PreferenceSection>
-          <PreferenceButton
-            variant="sound"
-            active={student.preference_Sound}
-            onClick={toggleSoundPreference}
-          />
-          <PreferenceButton
-            variant="vibration"
-            active={student.preference_Vibration}
-            onClick={toggleVibrationPreference}
-          />
-        </PreferenceSection>
-        <Button onClick={handleSave} color="green" text="Salvar alterações" />
-      </ContainerInformation>
-    </SettingsContainer>
+          <Button onClick={handleSave} color="green" text="Salvar alterações" />
+        </ContainerInformation>
+      </SettingsContainer>
+    </CommonPageContainer>
   );
 }

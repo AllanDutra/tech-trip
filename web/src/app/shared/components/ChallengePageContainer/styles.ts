@@ -44,10 +44,21 @@ export const StyledPageContainer = styled.div`
     &.ranking-common-page {
       background-color: #2bcb9a;
     }
+
+    &.settings-common-page {
+      header,
+      .desktop {
+        display: none;
+      }
+    }
   }
 
-  @media screen and (min-width: 1281px) {
+  @media screen and (min-width: 1280px) {
     .gear-icon-container {
+      display: none;
+    }
+
+    .mobile {
       display: none;
     }
   }
