@@ -6,23 +6,22 @@ import {
   StyledLabel,
   StyledLabelBold,
   ContainerInformation,
+  StyledInputGroup,
+  StyledDesktopHeader,
 } from "./styles";
-import {
-  Button,
-  ToastError,
-  ToastSuccess,
-  ToastWarning,
-  UnderlinedInput,
-} from "../../shared/components";
+import { Button, Header, UnderlinedInput } from "../../shared/components";
 import { CaretLeft, Lock } from "@phosphor-icons/react";
 import { routeConfigs } from "../../shared/configs";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-// import { ToastContainer } from "react-toastify";
+import { useCallback, useState } from "react";
+import { CommonPageContainer } from "../../shared/components/CommonPageContainer";
+import { useLoading } from "../../shared/hooks/useLoading";
 import { TechTripApiService } from "../../shared/services";
+import { toast } from "react-toastify";
 
 export const ChangePasswordPage = () => {
   const navigate = useNavigate();
+  const { setIsGlobalLoadingActive } = useLoading();
 
   interface IPasswords {
     password: string;
@@ -36,11 +35,6 @@ export const ChangePasswordPage = () => {
     new_password_confirmation: "",
   });
 
-  const redirectToLogin = (_: string) => {
-    // ToastWarning({message: message, positionProp: 'top-right'})
-    // navigate(routeConfigs.Login);
-  };
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
@@ -50,117 +44,105 @@ export const ChangePasswordPage = () => {
     }));
   };
 
-  const handleSave = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    console.log(passwords);
+  const handleBack = useCallback(() => navigate(routeConfigs.Settings), []);
 
-    if (
-      passwords.password == "" ||
-      passwords.new_password == "" ||
-      passwords.new_password_confirmation == ""
-    ) {
-      ToastWarning({
-        message: "Preencha todos os campos",
-        positionProp: "top-right",
-      });
-      return;
-    }
+  const handleSaveNewPassword = useCallback(async () => {
+    if (!passwords.password)
+      return toast.info("A senha atual deve ser informada.");
 
-    if (passwords.new_password !== passwords.new_password_confirmation) {
-      ToastWarning({
-        message: "A nova senha e a confirmação devem ser iguais",
-        positionProp: "top-right",
-      });
-      return;
-    }
+    if (!passwords.new_password)
+      return toast.info("A nova senha deve ser informada.");
+
+    if (!passwords.new_password_confirmation)
+      return toast.info("É preciso confirmar a nova senha.");
+
+    if (passwords.new_password !== passwords.new_password_confirmation)
+      return toast.info("A nova senha não corresponde à sua confirmação.");
 
     try {
-      const token = sessionStorage.getItem("authToken");
+      setIsGlobalLoadingActive(true);
 
-      if (!token) {
-        redirectToLogin(
-          "Erro de autenticação. Por favor, faça login novamente."
+      const updatedPassword =
+        await TechTripApiService.StudentsController.updatePassword({
+          currentPassword: passwords.password,
+          newPassword: passwords.new_password,
+        });
+
+      if (updatedPassword) {
+        toast.success("Senha alterada com sucesso!");
+
+        navigate(routeConfigs.Settings);
+      } else {
+        toast.warning(
+          "Não foi possível alterar a senha, verifique os campos informados e tente novamente!"
         );
-        return;
       }
-
-      TechTripApiService.StudentsController.updatePassword({
-        currentPassword: passwords.password,
-        newPassword: passwords.new_password,
-      });
-
-      ToastSuccess({
-        message: "Senha alterada com sucesso",
-        positionProp: "top-right",
-      });
-      navigate(routeConfigs.Settings);
-    } catch (error) {
-      ToastError({
-        message: "Erro ao mudar a senha. Por favor, tente novamente.",
-        positionProp: "top-right",
-      });
-      console.error(error);
+    } finally {
+      setIsGlobalLoadingActive(false);
     }
-  };
+  }, [passwords]);
 
   return (
-    <StyledMain>
-      <SettingsHeader>
-        <SettingsHeaderColumn>
-          <ActionHeader
-            onClick={() => {
-              navigate(routeConfigs.Settings);
-            }}
-          >
-            <CaretLeft size={26} />
-          </ActionHeader>
-          <StyledLabelBold>Trocar Senha</StyledLabelBold>
-          <ActionHeader
-            onClick={(event) => {
-              handleSave(event);
-            }}
-          >
-            <StyledLabel>Salvar</StyledLabel>
-          </ActionHeader>
-        </SettingsHeaderColumn>
-      </SettingsHeader>
+    <CommonPageContainer className="change-password-common-page">
+      <StyledMain>
+        <SettingsHeader>
+          <SettingsHeaderColumn>
+            <ActionHeader onClick={handleBack}>
+              <CaretLeft size={26} />
+            </ActionHeader>
+            <StyledLabelBold>Trocar Senha</StyledLabelBold>
+            <ActionHeader onClick={handleSaveNewPassword}>
+              <StyledLabel>Salvar</StyledLabel>
+            </ActionHeader>
+          </SettingsHeaderColumn>
+        </SettingsHeader>
 
-      <ContainerInformation>
-        <UnderlinedInput.FullComponent
-          label="Senha atual"
-          Icon={Lock}
-          type="password"
-          placeholder="Digite sua senha atual..."
-          name="password"
-          onChange={handleInputChange}
-        />
+        <ContainerInformation>
+          <StyledDesktopHeader>
+            <Header.CloseButton onClick={handleBack} />
 
-        <UnderlinedInput.FullComponent
-          label="Nova senha"
-          Icon={Lock}
-          type="password"
-          placeholder="Digite sua nova senha..."
-          name="new_password"
-          onChange={handleInputChange}
-        />
+            <h2>TROCAR SENHA</h2>
 
-        <UnderlinedInput.FullComponent
-          label="Confirme a nova senha"
-          Icon={Lock}
-          type="password"
-          placeholder="Confirme a senha..."
-          name="new_password_confirmation"
-          onChange={handleInputChange}
-        />
-        {/* <ToastContainer></ToastContainer> */}
-        <Button
-          onClick={(event) => {
-            handleSave(event);
-          }}
-          color="green"
-          text="Trocar senha"
-        />
-      </ContainerInformation>
-    </StyledMain>
+            <span></span>
+          </StyledDesktopHeader>
+
+          <StyledInputGroup>
+            <UnderlinedInput.FullComponent
+              label="Senha atual"
+              Icon={Lock}
+              type="password"
+              placeholder="Digite sua senha atual..."
+              name="password"
+              onChange={handleInputChange}
+              autoFocus
+            />
+
+            <UnderlinedInput.FullComponent
+              label="Nova senha"
+              Icon={Lock}
+              type="password"
+              placeholder="Digite sua nova senha..."
+              name="new_password"
+              onChange={handleInputChange}
+            />
+
+            <UnderlinedInput.FullComponent
+              label="Confirme a nova senha"
+              Icon={Lock}
+              type="password"
+              placeholder="Confirme a senha..."
+              name="new_password_confirmation"
+              onChange={handleInputChange}
+            />
+          </StyledInputGroup>
+
+          <Button
+            onClick={handleSaveNewPassword}
+            color="green"
+            text="Salvar nova senha"
+          />
+        </ContainerInformation>
+      </StyledMain>
+    </CommonPageContainer>
   );
 };

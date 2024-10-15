@@ -45,7 +45,8 @@ export const StyledPageContainer = styled.div`
       background-color: #2bcb9a;
     }
 
-    &.settings-common-page {
+    &.settings-common-page,
+    &.change-password-common-page {
       header,
       .desktop {
         display: none;

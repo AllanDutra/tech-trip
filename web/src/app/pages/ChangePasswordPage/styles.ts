@@ -8,6 +8,12 @@ export const StyledMain = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media screen and (min-width: 1280px) {
+    height: calc(100vh - 74.19px);
+    background-color: #dff7f0;
+    padding: 1.25em;
+  }
 `;
 
 export const SettingsHeader = styled.div`
@@ -17,6 +23,34 @@ export const SettingsHeader = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 1.5em;
+
+  @media screen and (min-width: 1280px) {
+    display: none;
+  }
+`;
+
+export const StyledDesktopHeader = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.875em;
+
+  h2 {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    font-family: "Lilita One", sans-serif;
+    font-weight: 400;
+    font-size: 1.5625em;
+    text-align: center;
+    color: #545456;
+  }
+
+  @media screen and (max-width: 1280px) {
+    display: none;
+  }
 `;
 
 export const SettingsHeaderColumn = styled.div`
@@ -48,10 +82,32 @@ export const ContainerInformation = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.5em;
   border-top-right-radius: 3em;
   border-top-left-radius: 3em;
-  gap: 1em;
+  padding: 1.25em;
+
+  @media screen and (min-width: 1280px) {
+    border-radius: 0.625em;
+    flex: 1;
+    justify-content: space-between;
+  }
+`;
+
+export const StyledInputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 2.5em;
+  padding: 1.25em 0;
+  padding-bottom: 78.88px;
+
+  @media screen and (max-width: 1280px) {
+    flex: 1;
+  }
+
+  @media screen and (min-width: 1280px) {
+    max-width: 80%;
+  }
 `;
 
 export const LabelForm = styled.label`
