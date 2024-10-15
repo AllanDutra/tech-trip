@@ -35,7 +35,7 @@ export const StyledProgressInfo = styled.div`
 
   .mobile-progress {
     display: none;
-    color: #424243 !important;
+    /* color: #424243 !important; */
   }
 
   @media screen and (max-width: 1280px) {

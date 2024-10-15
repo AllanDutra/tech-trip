@@ -40,6 +40,10 @@ export const StyledPageContainer = styled.div`
         padding-right: 6vw;
       }
     }
+
+    &.ranking-common-page {
+      background-color: #2bcb9a;
+    }
   }
 
   @media screen and (min-width: 1281px) {

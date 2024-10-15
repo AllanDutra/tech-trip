@@ -78,7 +78,7 @@ export const RankingPage = () => {
   }, []);
 
   return (
-    <CommonPageContainer>
+    <CommonPageContainer className="ranking-common-page">
       <StyledMain>
         <Featured>
           <StyledLabel>Aluno Destaque</StyledLabel>
@@ -95,7 +95,7 @@ export const RankingPage = () => {
               <RankingPodium position={2} />
             </FeaturedCard>
 
-            <FeaturedCard>
+            <FeaturedCard className="first">
               <CrownSimple weight="fill" size={24} color="#FFD700" />
               <Character.FullComponent
                 size="medium"
@@ -121,36 +121,6 @@ export const RankingPage = () => {
         </Featured>
 
         <StudentList>
-          {studentsRankingWithoutPodium.map((student, index) => (
-            <StudentItem key={student.id}>
-              <Number>{index + 4}</Number>
-              <StudentInfo>
-                <CharacterContainer>
-                  <Character.FullComponent
-                    size="small"
-                    number={student.character_Id}
-                  />
-                  {Functions.getFirstName(student.name)}
-                </CharacterContainer>
-                <StyledTotalScore>{student.totalScore} pts</StyledTotalScore>
-              </StudentInfo>
-            </StudentItem>
-          ))}
-          {studentsRankingWithoutPodium.map((student, index) => (
-            <StudentItem key={student.id}>
-              <Number>{index + 4}</Number>
-              <StudentInfo>
-                <CharacterContainer>
-                  <Character.FullComponent
-                    size="small"
-                    number={student.character_Id}
-                  />
-                  {Functions.getFirstName(student.name)}
-                </CharacterContainer>
-                <StyledTotalScore>{student.totalScore} pts</StyledTotalScore>
-              </StudentInfo>
-            </StudentItem>
-          ))}
           {studentsRankingWithoutPodium.map((student, index) => (
             <StudentItem key={student.id}>
               <Number>{index + 4}</Number>

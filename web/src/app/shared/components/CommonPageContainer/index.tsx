@@ -15,13 +15,17 @@ import { GearSix } from "@phosphor-icons/react";
 
 interface ICommonPageContainerProps {
   children: ReactNode;
+  className?: string;
 }
 
-export function CommonPageContainer({ children }: ICommonPageContainerProps) {
+export function CommonPageContainer({
+  children,
+  className,
+}: ICommonPageContainerProps) {
   const { progress } = useProgress();
 
   return (
-    <StyledPageContainer className="common-page">
+    <StyledPageContainer className={`common-page ${className}`}>
       <AsideNavBar />
 
       <StyledSubPageContainer>

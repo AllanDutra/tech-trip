@@ -8,11 +8,15 @@ export const StyledMain = styled.div`
 
   display: flex;
   flex-direction: column;
+  gap: 0.9375em;
 
   @media screen and (min-width: 1280px) {
     background-color: #dff7f0;
     padding: 1.25em;
-    gap: 0.9375em;
+  }
+
+  @media screen and (max-width: 1280px) {
+    padding-top: 0.625em;
   }
 `;
 
@@ -84,6 +88,10 @@ export const StyledLabel = styled.div`
     font-weight: 400;
     text-align: center;
   }
+
+  @media screen and (max-width: 1280px) {
+    padding-bottom: 0.5625em;
+  }
 `;
 
 export const FeaturedSection = styled.section`
@@ -112,16 +120,45 @@ export const FeaturedCard = styled.div`
     justify-content: flex-start;
     width: auto;
   }
+
+  @media screen and (max-width: 1280px) {
+    * {
+      line-height: 100%;
+    }
+
+    &.first {
+      padding-bottom: 1.5625em;
+    }
+
+    .character-container {
+      box-shadow: 0px 4px 0px 0px #0000001a;
+    }
+  }
 `;
 
 export const Name = styled.span`
   font-weight: 600;
   margin-top: 3px;
+
+  @media screen and (max-width: 1280px) {
+    margin-top: 5px;
+    font-family: "Lilita One", sans-serif;
+    font-weight: 400;
+    font-size: 1.125em;
+    letter-spacing: 0.5px;
+    text-align: center;
+    line-height: 160%;
+  }
 `;
 
 export const Points = styled.span`
   font-size: 0.9em;
   margin-top: 2px;
+
+  @media screen and (max-width: 1280px) {
+    margin-top: 0;
+    font-size: 0.825em;
+  }
 `;
 
 export const CharacterFeatured = styled.div`
@@ -157,6 +194,10 @@ export const StudentList = styled.ul`
   @media screen and (min-width: 1280px) {
     border-radius: 0.625em;
   }
+
+  @media screen and (max-width: 1280px) {
+    padding-bottom: 3.75em;
+  }
 `;
 
 export const StudentItem = styled.li`
@@ -170,7 +211,11 @@ export const StudentItem = styled.li`
   color: #545456;
 `;
 
-export const Number = styled.div``;
+export const Number = styled.div`
+  @media screen and (max-width: 1280px) {
+    padding-left: 0.25em;
+  }
+`;
 
 export const StudentInfo = styled.div`
   border-bottom: 1px solid #ddd;
@@ -180,6 +225,11 @@ export const StudentInfo = styled.div`
   width: 100%;
 
   padding: 0.625em;
+
+  @media screen and (max-width: 1280px) {
+    padding: 0.4375em 1.25em;
+    padding-left: 0;
+  }
 `;
 
 export const CharacterContainer = styled.div`
@@ -196,9 +246,14 @@ export const CharacterContainer = styled.div`
     overflow: hidden;
 
     img {
-      /* width: 2.5em;
-      height: 2.5em; */
       border-radius: 0.875em;
+    }
+  }
+
+  @media screen and (max-width: 1280px) {
+    .character-container {
+      width: 2.8em !important;
+      height: 2.8em !important;
     }
   }
 `;
