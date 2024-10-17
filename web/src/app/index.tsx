@@ -9,6 +9,7 @@ import { NotifyOnReload } from "./shared/components/NotifyOnReload";
 import { ProgressProvider } from "./shared/hooks/useProgress";
 import "react-toastify/dist/ReactToastify.css";
 import { FeedbackProvider } from "./shared/hooks/useFeedback";
+// import { FooterCredits } from "./shared/components/FooterCredits";
 
 export function App() {
   return (

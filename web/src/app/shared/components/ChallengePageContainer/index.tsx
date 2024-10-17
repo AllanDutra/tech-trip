@@ -16,6 +16,7 @@ import { useProgress } from "../../hooks/useProgress";
 import { Functions } from "../../functions";
 import { useLoading } from "../../hooks/useLoading";
 import { TechTripApiService } from "../../services";
+import { FooterCredits } from "../FooterCredits";
 
 interface IChallengePageContainerProps {
   currentLevel: number;
@@ -84,6 +85,8 @@ export function ChallengePageContainer({
             children
           )}
         </StyledMain>
+
+        <FooterCredits />
       </StyledSubPageContainer>
     </StyledPageContainer>
   );

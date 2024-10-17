@@ -10,7 +10,7 @@ import {
   Title,
   ContainedInput,
   Button,
-  SecondaryButton
+  SecondaryButton,
 } from "../../shared/components";
 import { useState } from "react";
 import { IdentificationBadge, Lock } from "@phosphor-icons/react";
@@ -22,6 +22,7 @@ import { appConfigs } from "../../shared/configs/App";
 import { TechTripApiService } from "../../shared/services";
 import { authConfigs } from "../../shared/configs/Auth";
 import { useLoading } from "../../shared/hooks/useLoading";
+import { FooterCredits } from "../../shared/components/FooterCredits";
 
 interface ILoginCredentials {
   user: string;
@@ -131,6 +132,8 @@ export function LoginPage() {
         </LoginFooter>
       </LoginForm>
       {/* <Reference backgroundColor="#57dbb4" description="Background Image Credits" url="https://br.freepik.com/vetores-gratis/mao-desenhar-escola-de-doodle-e-cenografia-de-trabalho_12873159.htm" /> */}
+
+      <FooterCredits />
     </LoginContainer>
   );
 }

@@ -12,6 +12,7 @@ import { StyledProgressBar, StyledProgressInfo } from "./styles";
 import { Link } from "react-router-dom";
 import { routeConfigs } from "../../configs";
 import { GearSix } from "@phosphor-icons/react";
+import { FooterCredits } from "../FooterCredits";
 
 interface ICommonPageContainerProps {
   children: ReactNode;
@@ -55,7 +56,9 @@ export function CommonPageContainer({
             </Link>
           </div>
         </StyledHeader>
-        <StyledMain>{children}</StyledMain>
+        <StyledMain>
+          {children} <FooterCredits />
+        </StyledMain>
       </StyledSubPageContainer>
     </StyledPageContainer>
   );
