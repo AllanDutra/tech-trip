@@ -1,7 +1,8 @@
-import { ReactNode, useMemo } from "react";
+import { ReactNode, useEffect, useMemo } from "react";
 import { Button, Header } from "..";
 import { IconContext, SketchLogo, Star } from "@phosphor-icons/react";
 import { StyledContainer, StyledDiamondMessage, StyledMessage } from "./styles";
+import { useFeedback } from "../../hooks/useFeedback";
 
 interface IContainerProps {
   children: ReactNode;
@@ -120,10 +121,17 @@ function FullComponent({
   onClose,
   onContinue,
 }: IFulLComponentProps) {
+  const { activeVibration, activeSound } = useFeedback();
+
   const PerformanceComponent = useMemo(
     () => PERFORMANCE_MAP[performance] || <></>,
     [performance]
   );
+
+  useEffect(() => {
+    activeVibration();
+    activeSound("level-completed");
+  }, []);
 
   return (
     <Container>

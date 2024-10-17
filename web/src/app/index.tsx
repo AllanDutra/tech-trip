@@ -8,6 +8,7 @@ import { ChallengeCorrectionProvider } from "./shared/hooks/useChallengeCorrecti
 import { NotifyOnReload } from "./shared/components/NotifyOnReload";
 import { ProgressProvider } from "./shared/hooks/useProgress";
 import "react-toastify/dist/ReactToastify.css";
+import { FeedbackProvider } from "./shared/hooks/useFeedback";
 
 export function App() {
   return (
@@ -25,14 +26,16 @@ export function App() {
       />
       <LoadingProvider>
         <AuthenticationProvider>
-          <ChallengeCorrectionProvider>
-            <ProgressProvider>
-              <GlobalStyle />
-              <Loading />
-              <NotifyOnReload />
-              <Routes />
-            </ProgressProvider>
-          </ChallengeCorrectionProvider>
+          <FeedbackProvider>
+            <ChallengeCorrectionProvider>
+              <ProgressProvider>
+                <GlobalStyle />
+                <Loading />
+                <NotifyOnReload />
+                <Routes />
+              </ProgressProvider>
+            </ChallengeCorrectionProvider>
+          </FeedbackProvider>
         </AuthenticationProvider>
       </LoadingProvider>
     </>

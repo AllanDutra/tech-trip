@@ -10,6 +10,7 @@ import { useLoading } from "../useLoading";
 import { TechTripApiService } from "../../services";
 import { IProcessAttemptRequest } from "../../services/TechTripApi/ChallengesController";
 import { Functions } from "../../functions";
+import { useFeedback } from "../useFeedback";
 
 type TPerformanceMap = keyof typeof PERFORMANCE_MAP;
 
@@ -46,11 +47,19 @@ function ChallengeCorrectionProvider({
   children,
 }: ChallengeCorrectionProviderProps) {
   const { setIsGlobalLoadingActive } = useLoading();
+  const { activeSound, activeVibration } = useFeedback();
 
   const [challengeCorrection, setChallengeCorrection] =
     useState<IChallengeCorrection>({
       ...INITIAL_CHALLENGE_CORRECTION,
     });
+
+  const showReloadNotification = useCallback(() => {
+    Functions.setReloadNotification(
+      "error",
+      "A tentativa não foi bem-sucedida. Por favor, tente outra vez!"
+    );
+  }, []);
 
   const checkChallengeCorrection = useCallback(
     async (
@@ -66,10 +75,9 @@ function ChallengeCorrectionProvider({
           );
 
         if (!correctAttempt) {
-          Functions.setReloadNotification(
-            "error",
-            "A tentativa não foi bem-sucedida. Por favor, tente outra vez!"
-          );
+          activeVibration();
+
+          activeSound("attempt-failed", showReloadNotification);
 
           return { ...INITIAL_CHALLENGE_CORRECTION };
         }
@@ -90,7 +98,7 @@ function ChallengeCorrectionProvider({
         setIsGlobalLoadingActive(false);
       }
     },
-    []
+    [activeVibration, activeSound, showReloadNotification]
   );
 
   return (
