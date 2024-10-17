@@ -11,6 +11,7 @@ import { TechTripApiService } from "../../services";
 import { IProcessAttemptRequest } from "../../services/TechTripApi/ChallengesController";
 import { Functions } from "../../functions";
 import { useFeedback } from "../useFeedback";
+// import { Functions } from "../../functions";
 
 type TPerformanceMap = keyof typeof PERFORMANCE_MAP;
 
@@ -64,7 +65,8 @@ function ChallengeCorrectionProvider({
   const checkChallengeCorrection = useCallback(
     async (
       challengeAttempt: IProcessAttemptRequest,
-      goToNextChallenge: boolean = true
+      goToNextChallenge: boolean = true,
+      shouldShowCorrectionPage: boolean = true
     ): Promise<IChallengeCorrection> => {
       try {
         setIsGlobalLoadingActive(true);
@@ -89,7 +91,7 @@ function ChallengeCorrectionProvider({
           challengePerformance: challengePerformance as TPerformanceMap,
         };
 
-        if (goToNextChallenge) {
+        if (goToNextChallenge || shouldShowCorrectionPage) {
           setChallengeCorrection({ ...correctionResult });
         }
 

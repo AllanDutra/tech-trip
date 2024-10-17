@@ -1,11 +1,9 @@
 // import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import {
   Button,
   ChallengeMessage,
   ChallengeResponse,
-  ToastError,
-  ToastSuccess,
-  ToastWarning,
 } from "../../shared/components";
 import { ChallengePageContainer } from "../../shared/components/ChallengePageContainer";
 import {
@@ -16,47 +14,39 @@ import {
   StyledMain,
 } from "./styles";
 import { Investigator } from "../../shared/assets";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { useChallengeCorrection } from "../../shared/hooks/useChallengeCorrection";
 
 export const Challenge10Page = () => {
-  const [response, setResponse] = useState<number>();
+  const { checkChallengeCorrection } = useChallengeCorrection();
+  const [response, setResponse] = useState<string>("");
 
   const options = [
-    { content: "Acreditar na notícia de imediato" },
-    { content: "Procurar a notícia em sites confiáveis" },
-    { content: "Ver se os amigos já ouviram falar disso" },
+    { letter: "A", content: "Acreditar na notícia de imediato" },
+    { letter: "B", content: "Procurar a notícia em sites confiáveis" },
+    { letter: "C", content: "Ver se os amigos já ouviram falar disso" },
   ];
 
-  const challengeOptions = options.map((option, index) => ({
+  const challengeOptions = options.map((option) => ({
     content: option.content,
-    selected: index === response,
+    selected: option.letter === response,
     onClick: () => {
-      setResponse(index);
+      setResponse(option.letter);
     },
   }));
 
-  const handleConfirm = (result: boolean) => {
-    if (response == undefined) {
-      ToastWarning({
-        message: "Selecione uma alternativa",
-        positionProp: "top-right",
-      });
+  const handleVerify = useCallback(async () => {
+    if (response == "") {
+      toast.warning("Selecione uma alternativa");
       return;
     }
 
-    if (result == true) {
-      ToastSuccess({
-        message:
-          "Parabéns! Buscar informações em fontes confiáveis é sempre a melhor escolha ao se deparar com uma notícia.",
-        positionProp: "top-right",
-      });
-    } else {
-      ToastError({
-        message: "Ops! Tente novamente.",
-        positionProp: "top-right",
-      });
-    }
-  };
+    await checkChallengeCorrection({
+      challenge_Id: 10,
+      steps: 1,
+      studentResponse: response,
+    });
+  }, [checkChallengeCorrection, response]);
 
   return (
     <ChallengePageContainer
@@ -114,8 +104,7 @@ export const Challenge10Page = () => {
               color={"green"}
               text="Confirmar"
               onClick={() => {
-                const result = true;
-                handleConfirm(result);
+                handleVerify();
               }}
             />
           </StyledMain>

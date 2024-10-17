@@ -11,6 +11,7 @@ import {
   StyledGroupedControlButtons,
 } from "./styles";
 import { ICharacterCoordinates, IMatrizSquareConfiguration } from "../Maze";
+import { useChallengeCorrection } from "../../../../shared/hooks/useChallengeCorrection";
 
 type TControlDirection = "Top" | "Left" | "Bottom" | "Right";
 
@@ -131,14 +132,29 @@ export function ControlButtons({
     [finalDestinationCoordinates, characterCoordinates]
   );
 
+  const { checkChallengeCorrection } = useChallengeCorrection();
+
   useEffect(() => {
     console.log("steps: ", steps);
 
     if (characterIsAtFinalDestination) {
-      // TODO: IMPLEMENT ROUTINE TO SEND REQUEST TO API HERE
+      const verifyChallenge = async () => {
+        try {
+          await checkChallengeCorrection({
+            challenge_Id: 2,
+            steps: steps.toString(),
+            studentResponse: "",
+          });
+          console.log("completed!");
+        } catch (error) {
+          console.error("Error sending request to API:", error);
+        }
+      };
+
+      verifyChallenge();
       console.log("completed!");
     }
-  }, [characterIsAtFinalDestination]);
+  }, [characterIsAtFinalDestination, checkChallengeCorrection, steps]);
 
   return (
     <StyledControlButtonsContainer>

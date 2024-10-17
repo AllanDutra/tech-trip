@@ -10,7 +10,7 @@ import {
   Title,
   ContainedInput,
   Button,
-  SecondaryButton,
+  SecondaryButton
 } from "../../shared/components";
 import { useState } from "react";
 import { IdentificationBadge, Lock } from "@phosphor-icons/react";
@@ -130,6 +130,7 @@ export function LoginPage() {
           />
         </LoginFooter>
       </LoginForm>
+      {/* <Reference backgroundColor="#57dbb4" description="Background Image Credits" url="https://br.freepik.com/vetores-gratis/mao-desenhar-escola-de-doodle-e-cenografia-de-trabalho_12873159.htm" /> */}
     </LoginContainer>
   );
 }

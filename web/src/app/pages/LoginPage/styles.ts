@@ -2,8 +2,12 @@ import styled from "styled-components";
 
 export const LoginContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  /* gap: 10vh; */
+  justify-content: space-between;
   align-items: center;
   justify-content: center;
+  /* height: 101vh; */
   height: 100vh;
   background-color: #2bcb9a;
   background-image: url("src/app/shared/assets/Images/Background.png");

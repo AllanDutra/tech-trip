@@ -35,9 +35,11 @@ import { toast } from "react-toastify";
 import { appConfigs } from "../../shared/configs/App";
 import { IStudentClaims } from "../../shared/services/TechTripApi/StudentsController";
 import { TechTripApiService } from "../../shared/services";
+import { useLoading } from "../../shared/hooks/useLoading";
 
-export function RegisterPage() {
+export const RegisterPage = () => {
   const navigate = useNavigate();
+  const [password, setPassword] = useState<string>("");
 
   const [student, setStudent] = useState<IStudentClaims>({
     id: 0,
@@ -53,7 +55,6 @@ export function RegisterPage() {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    console.log(student);
     setStudent((prevStudent) => ({
       ...prevStudent,
       [name]: value,
@@ -73,25 +74,60 @@ export function RegisterPage() {
     setSelectedCharacterId(id);
   };
 
+  const { isGlobalLoadingActive, setIsGlobalLoadingActive } = useLoading();
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (isGlobalLoadingActive) return;
+
     try {
+      setIsGlobalLoadingActive(true);
       student.gender = selectedGender;
       student.character_Id = selectedCharacterId;
 
-      const studentId = await TechTripApiService.StudentsController.register(
-        {} as any // TODO: change
+      if (
+        !student.name ||
+        !student.email ||
+        !student.user ||
+        !password ||
+        !student.birth ||
+        !selectedGender ||
+        !selectedCharacterId
+      ) {
+        toast.error("Por favor, preencha todos os campos.");
+        return;
+      }
+
+      const studentData = {
+        name: student.name,
+        email: student.email,
+        user: student.user,
+        password: password,
+        birth: student.birth,
+        gender: student.gender,
+        character_Id: student.character_Id,
+        preference_Sound: student.preference_Sound,
+        preference_Vibration: student.preference_Vibration,
+      };
+
+      const response = await TechTripApiService.StudentsController.register(
+        studentData
       );
 
-      if (typeof studentId === "number") {
+      if (response && typeof response === "number") {
         toast.success("Usuário registrado com sucesso!");
-
-        navigate(routeConfigs.Login);
-      } else {
-        // toast.error(studentId.message);
-      }
+        setTimeout(() => {
+          navigate(routeConfigs.Login);
+        }, 6000);
+      } 
+      // else {
+      //   toast.error("Erro ao registrar usuário.");
+      // }
     } catch (error) {
       toast.error("Erro ao conectar");
+    }
+    finally{
+      setIsGlobalLoadingActive(false);
     }
   };
 
@@ -159,8 +195,8 @@ export function RegisterPage() {
               placeholder="Mínimo de 8 caracteres..."
               name="password"
               type="password"
-              value={""}
-              onChange={handleInputChange}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <ContainedInput.FullComponent
               label="Data de nascimento"
@@ -200,4 +236,4 @@ export function RegisterPage() {
       </RegisterContainer>
     </StyledMain>
   );
-}
+};

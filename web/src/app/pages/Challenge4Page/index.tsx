@@ -6,8 +6,20 @@ import {
   StyledImageContainer,
 } from "./styles";
 import ElephantImage from "../../shared/assets/ChallengesImages/4/elephant.svg";
+import { useCallback } from "react";
+import { useChallengeCorrection } from "../../shared/hooks/useChallengeCorrection";
 
 export function Challenge4Page() {
+  const { checkChallengeCorrection } = useChallengeCorrection();
+
+  const handleVerify = useCallback(async (answer: number) => {
+    await checkChallengeCorrection({
+      challenge_Id: 4,
+      steps: 1,
+      studentResponse: answer.toString(),
+    });
+  }, [checkChallengeCorrection]);
+
   return (
     <ChallengePageContainer currentLevel={4}>
       <StyledContainer>
@@ -23,10 +35,13 @@ export function Challenge4Page() {
         </StyledImageContainer>
 
         <StyledButtonGroup>
-          {/* // TODO: IMPLEMENT ROUTINE TO SEND MESSAGE FOR API HERE */}
-          <Button color="green" text="VERDADEIRA" />
+          <Button
+            onClick={() => handleVerify(1)}
+            color="green"
+            text="VERDADEIRA"
+          />
 
-          <Button color="red" text="FALSA" />
+          <Button onClick={() => handleVerify(0)} color="red" text="FALSA" />
         </StyledButtonGroup>
       </StyledContainer>
     </ChallengePageContainer>

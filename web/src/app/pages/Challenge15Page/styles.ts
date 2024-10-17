@@ -25,11 +25,16 @@ export const ImageArea = styled.div`
   align-self: center;
   margin-top: 3.75em;
   margin-bottom: 7.5em;
-  @media (min-width: 1024px) {
+  scale: 0.8;
+
+  @media (max-width: 1024px) {
+    scale: 0.6;
+  }
+  @media (min-width: 1025px) {
     width: 18.5em;
     height: 10.5625em;
-    margin-bottom: 7.5em;
-    /* scale: 1.2; */
+    margin-bottom: 8.5em;
+    scale: 1;
   }
 `;
 
@@ -59,4 +64,9 @@ export const Message = styled.div`
   @media (min-width: 1024px) {
     padding: 3.75em 8.75em 3.75em 8.75em;
   }
+`;
+
+export const ButtonArea = styled.div`
+  margin-bottom: 3.75em;
+  width: 100%;
 `;

@@ -19,6 +19,7 @@ const Challenge10 = "/desafio-dez";
 const Challenge11 = "/desafio-onze";
 const Challenge12 = "/desafio-doze";
 const Challenge13 = "/desafio-treze";
+const Challenge14 = "/desafio-quatorze";
 const Challenge15 = "/desafio-quinze";
 
 const routes = {
@@ -39,10 +40,11 @@ const routes = {
   Challenge8,
   Challenge9,
   Challenge10,
-  Challenge13,
-  Challenge15,
   Challenge11,
   Challenge12,
+  Challenge13,
+  Challenge14,
+  Challenge15,
 };
 
 type TRoutes = typeof routes;

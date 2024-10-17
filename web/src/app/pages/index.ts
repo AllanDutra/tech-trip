@@ -15,4 +15,5 @@ export * from "./Challenge8Page";
 export * from "./Challenge9Page";
 export * from "./Challenge10Page";
 export * from "./Challenge13Page";
+export * from "./Challenge14Page";
 export * from "./Challenge15Page";
