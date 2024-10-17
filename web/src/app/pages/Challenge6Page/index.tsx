@@ -7,6 +7,7 @@ import {
   StyledContainer,
   StyledMessageGroup,
 } from "./styles";
+import { useChallengeCorrection } from "../../shared/hooks/useChallengeCorrection";
 
 export type TNoughtAndCrossesGameOption = "O" | "X" | "";
 
@@ -20,6 +21,17 @@ const INITIAL_GAME_MATRIZ: TNoughtAndCrossesGameOption[][] = [
 
 export function Challenge6Page() {
   const [steps, setSteps] = useState(1);
+
+  const { checkChallengeCorrection } = useChallengeCorrection();
+
+  const handleVerify = useCallback(async () => {
+    console.log(steps);
+    await checkChallengeCorrection({
+      challenge_Id: 6,
+      steps: steps,
+      studentResponse: "WON",
+    });
+  }, [steps, checkChallengeCorrection]);
 
   const [isFirstTime, setIsFirstTime] = useState(true);
 
@@ -186,11 +198,10 @@ export function Challenge6Page() {
                 onClick={handleTryAgain}
               />
             ) : (
-              // TODO: CALL API HERE
               <Button
                 color="green"
                 text="Avançar"
-                onClick={() => console.log(steps)}
+                onClick={() => handleVerify()}
               />
             ))}
         </StyledButtonGroup>

@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  ChallengeMessage,
-} from "../../../../shared/components";
+import { Button, ChallengeMessage } from "../../../../shared/components";
 import {
   BoxColor,
   ColorName,
@@ -14,8 +11,8 @@ import {
   ExplanationAreas,
 } from "../../styles";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
-import { routeConfigs } from "../../../../shared/configs";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { useChallengeCorrection } from "../../../../shared/hooks/useChallengeCorrection";
 
 type ColorInfo = {
   name: string;
@@ -105,8 +102,6 @@ const NavigationButtons = ({
   handlePrevSubStep,
   handleNextSubStep,
 }: NavigationButtonsProps) => {
-  const navigate = useNavigate();
-
   return (
     <ButtonsArea className={className}>
       <Button color="green" onClick={handlePrevSubStep}>
@@ -117,7 +112,7 @@ const NavigationButtons = ({
           <CaretRight />
         </Button>
       ) : (
-        <Button color="green" onClick={() => navigate(routeConfigs.Map)}>
+        <Button color="green" onClick={() => handleVerify()}>
           Avançar
         </Button>
       )}
@@ -126,7 +121,16 @@ const NavigationButtons = ({
 };
 
 export function SecondStep({ selectedColor, setStep }) {
-  const navigate = useNavigate();
+  const { checkChallengeCorrection } = useChallengeCorrection();
+
+  const handleVerify = useCallback(async () => {
+    await checkChallengeCorrection({
+      challenge_Id: 7,
+      steps: 4,
+      studentResponse: "",
+    });
+  }, [checkChallengeCorrection]);
+
   const color_details = get_color_info(selectedColor);
   console.log(color_details, selectedColor);
 
@@ -202,13 +206,12 @@ export function SecondStep({ selectedColor, setStep }) {
           />
         </Explanation>
       </ExplanationAreas>
-      
-        <ButtonsArea className="visible">
-          <Button color="green" onClick={() => navigate(routeConfigs.Map)}>
-            Avançar
-          </Button>
-        </ButtonsArea>
 
+      <ButtonsArea className="visible">
+        <Button color="green" onClick={() => handleVerify()}>
+          Avançar
+        </Button>
+      </ButtonsArea>
     </StyledMain>
   );
 }

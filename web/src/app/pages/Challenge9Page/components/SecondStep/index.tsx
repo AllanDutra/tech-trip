@@ -5,13 +5,11 @@ import { routeConfigs } from "../../../../shared/configs";
 import { ButtonsArea, ImageRobbot, Message, StyledMain } from "../../styles";
 
 interface ISecondStepProps {
-  response: number | null;
+  result: boolean;
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export function SecondStep({ response, setStep }: ISecondStepProps) {
-  const rightOption = 3;
-  const result = rightOption == response;
+export function SecondStep({ result, setStep }: ISecondStepProps) {
   const navigate = useNavigate();
 
   return (
@@ -47,7 +45,7 @@ export function SecondStep({ response, setStep }: ISecondStepProps) {
           <Button
             color="green"
             text="Avançar"
-            onClick={() => navigate(routeConfigs.Map)}
+            onClick={() => navigate(routeConfigs.Challenge10)}
           />
         )}
         {!result && (

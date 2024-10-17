@@ -23,6 +23,7 @@ import {
   Challenge9Page,
   Challenge10Page,
   Challenge13Page,
+  Challenge14Page,
   Challenge15Page,
 } from "../pages";
 import { Challenge3Page } from "../pages/Challenge3Page";
@@ -122,7 +123,12 @@ export function Routes() {
           path={routeConfigs.Challenge13}
           element={<PrivateRoute PageComponent={Challenge13Page} />}
         />
-        {/* // TODO: 14  */}
+
+        <Route
+          path={routeConfigs.Challenge14}
+          element={<PrivateRoute PageComponent={Challenge14Page} />}
+        />
+
         <Route
           path={routeConfigs.Challenge15}
           element={<PrivateRoute PageComponent={Challenge15Page} />}

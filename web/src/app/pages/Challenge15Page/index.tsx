@@ -1,31 +1,59 @@
-import { useState } from "react";
-import { Button, ChallengeMessage, ChallengeResponse } from "../../shared/components";
+import { useCallback, useState } from "react";
+import {
+  Button,
+  ChallengeMessage,
+  ChallengeResponse,
+} from "../../shared/components";
 import { ChallengePageContainer } from "../../shared/components/ChallengePageContainer";
-import { ImageArea, Message, ResponseArea, StyledMain } from "./styles";
+import {
+  ButtonArea,
+  ImageArea,
+  Message,
+  ResponseArea,
+  StyledMain,
+} from "./styles";
 import { Bruna } from "../../shared/assets";
-
+import { useChallengeCorrection } from "../../shared/hooks/useChallengeCorrection";
 export const Challenge15Page = () => {
-  const [response, setResponse] = useState<number>();
+  const [response, setResponse] = useState<string>("");
+  const { checkChallengeCorrection } = useChallengeCorrection();
 
   interface IOption {
     text: string;
     content: string;
+    letter: string;
   }
   const options: IOption[] = [
-    { text: "Computador: ", content: "Escrever e imprimir convites em papel." },
-    { text: "Celular: ", content: "Enviar mensagens de texto ou um e-mail." },
     {
+      letter: "A",
+      text: "Computador: ",
+      content: "Escrever e imprimir convites em papel.",
+    },
+    {
+      letter: "B",
+      text: "Celular: ",
+      content: "Enviar mensagens de texto ou um e-mail.",
+    },
+    {
+      letter: "C",
       text: "Tablet: ",
       content: "Fazer um vídeo convite e enviar para os amigos.",
     },
   ];
 
-  const challengeOptions = options.map((option, index) => ({
-    content: option.content,
-    text: option.text,
-    selected: index === response,
+  const handleVerify = useCallback(async () => {
+    await checkChallengeCorrection({
+      challenge_Id: 15,
+      steps: 1,
+      studentResponse: response,
+    });
+  }, [checkChallengeCorrection, response]);
+
+  const challengeOptions = options.map((option) => ({
+    content: option.text + option.content,
+    selected: option.letter === response,
     onClick: () => {
-      setResponse(index);
+      setResponse(option.letter);
     },
   }));
 
@@ -50,7 +78,7 @@ export const Challenge15Page = () => {
               />
             </Message>
             <ImageArea>
-                <Bruna />
+              <Bruna />
             </ImageArea>
             <ResponseArea>
               <ChallengeResponse.FullComponent
@@ -58,9 +86,15 @@ export const Challenge15Page = () => {
                 size="large"
               />
             </ResponseArea>
-            <Button text="Confirmar" color="green" onClick={() => {
-
-            }}/>
+            <ButtonArea>
+              <Button
+                text="Confirmar"
+                color="green"
+                onClick={() => {
+                  handleVerify();
+                }}
+              />
+            </ButtonArea>
           </StyledMain>
         </>
       }

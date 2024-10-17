@@ -35,6 +35,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { appConfigs } from "../../shared/configs/App";
 import { IStudentClaims } from "../../shared/services/TechTripApi/StudentsController";
 import { TechTripApiService } from "../../shared/services";
+import { useLoading } from "../../shared/hooks/useLoading";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -73,9 +74,14 @@ export const RegisterPage = () => {
     setSelectedCharacterId(id);
   };
 
+  const { isGlobalLoadingActive, setIsGlobalLoadingActive } = useLoading();
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (isGlobalLoadingActive) return;
+
     try {
+      setIsGlobalLoadingActive(true);
       student.gender = selectedGender;
       student.character_Id = selectedCharacterId;
 
@@ -113,11 +119,15 @@ export const RegisterPage = () => {
         setTimeout(() => {
           navigate(routeConfigs.Login);
         }, 6000);
-      } else {
-        toast.error("Erro ao registrar usuário.");
-      }
+      } 
+      // else {
+      //   toast.error("Erro ao registrar usuário.");
+      // }
     } catch (error) {
       toast.error("Erro ao conectar");
+    }
+    finally{
+      setIsGlobalLoadingActive(false);
     }
   };
 

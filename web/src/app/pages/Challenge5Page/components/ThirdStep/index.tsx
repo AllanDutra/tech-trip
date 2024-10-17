@@ -1,16 +1,26 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { Button, ChallengeMessage } from "../../../../shared/components";
 import { StyledContainer } from "./styles";
 import Tree1 from "../../../../shared/assets/ChallengesImages/5/tree1.svg";
 import Tree2 from "../../../../shared/assets/ChallengesImages/5/tree2.svg";
 import Tree3 from "../../../../shared/assets/ChallengesImages/5/tree3.svg";
 import { TSeedId } from "../..";
+import { useChallengeCorrection } from "../../../../shared/hooks/useChallengeCorrection";
 
 interface IThirdStepProps {
   selectedSeed?: TSeedId;
 }
 
 export function ThirdStep({ selectedSeed }: IThirdStepProps) {
+  const { checkChallengeCorrection } = useChallengeCorrection();
+  const handleVerify = useCallback(async () => {
+    await checkChallengeCorrection({
+      challenge_Id: 5,
+      steps: 3,
+      studentResponse: "",
+    });
+  }, [checkChallengeCorrection]);
+
   const treeImage = useMemo(() => {
     if (selectedSeed === 1) return Tree1;
 
@@ -31,7 +41,8 @@ export function ThirdStep({ selectedSeed }: IThirdStepProps) {
       {treeImage ? <img src={treeImage} alt="Tree" /> : <div />}
 
       {/* // TODO: CALL API HERE */}
-      <Button color="green" text="AVANÇAR" />
+
+      <Button onClick={() => handleVerify()} color="green" text="AVANÇAR" />
     </StyledContainer>
   );
 }

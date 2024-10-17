@@ -81,17 +81,7 @@ export function Challenge2Page() {
   const [characterCoordinates, setCharacterCoordinates] =
     useState<ICharacterCoordinates>({
       ...INITIAL_CHARACTER_COORDINATES,
-    });
-
-  const { checkChallengeCorrection } = useChallengeCorrection();
-
-  const handleVerify = useCallback(async () => {
-    await checkChallengeCorrection({
-      challenge_Id: 2,
-      steps: 1,
-      studentResponse: characterCoordinates,
-    });
-  }, [checkChallengeCorrection, characterCoordinates]);
+    });    
 
   return (
     <ChallengePageContainer currentLevel={2}>

@@ -9,7 +9,7 @@ import { PERFORMANCE_MAP } from "../../components";
 import { useLoading } from "../useLoading";
 import { TechTripApiService } from "../../services";
 import { IProcessAttemptRequest } from "../../services/TechTripApi/ChallengesController";
-import { Functions } from "../../functions";
+// import { Functions } from "../../functions";
 
 type TPerformanceMap = keyof typeof PERFORMANCE_MAP;
 
@@ -53,7 +53,8 @@ function ChallengeCorrectionProvider({
 
   const checkChallengeCorrection = useCallback(
     async (
-      challengeAttempt: IProcessAttemptRequest
+      challengeAttempt: IProcessAttemptRequest,
+      shouldShowCorrectionPage: boolean = true
     ): Promise<IChallengeCorrection> => {
       try {
         setIsGlobalLoadingActive(true);
@@ -64,10 +65,10 @@ function ChallengeCorrectionProvider({
           );
 
         if (!correctAttempt) {
-          Functions.setReloadNotification(
-            "error",
-            "A tentativa não foi bem-sucedida. Por favor, tente outra vez!"
-          );
+          // Functions.setReloadNotification(
+          //   "error",
+          //   "A tentativa não foi bem-sucedida. Por favor, tente outra vez!"
+          // );
 
           return { ...INITIAL_CHALLENGE_CORRECTION };
         }
@@ -79,7 +80,9 @@ function ChallengeCorrectionProvider({
           challengePerformance: challengePerformance as TPerformanceMap,
         };
 
-        setChallengeCorrection({ ...correctionResult });
+        if (shouldShowCorrectionPage) {
+          setChallengeCorrection({ ...correctionResult });
+        }
 
         return correctionResult;
       } finally {

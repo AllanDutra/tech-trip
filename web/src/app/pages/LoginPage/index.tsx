@@ -10,8 +10,7 @@ import {
   Title,
   ContainedInput,
   Button,
-  SecondaryButton,
-  Reference,
+  SecondaryButton
 } from "../../shared/components";
 import { useState } from "react";
 import { IdentificationBadge, Lock } from "@phosphor-icons/react";

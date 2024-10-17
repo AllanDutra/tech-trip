@@ -1,6 +1,5 @@
 import { useMediaQuery } from "react-responsive";
 import {
-  Header,
   ChallengeMessage,
   Button,
   TSelectionVariant,
@@ -23,8 +22,10 @@ import { useState } from "react";
 interface ISecondStepProps {
   play: TSelectionVariant;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  name: string;
+  age: string;
 }
-export const SecondStep = ({ play, setStep }: ISecondStepProps) => {
+export const SecondStep = ({ play, setStep, name, age }: ISecondStepProps) => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
   const isMobile = useMediaQuery({ maxWidth: 1023 });
 
@@ -50,7 +51,7 @@ export const SecondStep = ({ play, setStep }: ISecondStepProps) => {
             <TextAa />
           </ImageArea>
           <Title>
-            Seu nome: <PersonalData color="#5AA1DF"> Oliver </PersonalData>
+            Seu nome: <PersonalData color="#5AA1DF"> {name} </PersonalData>
           </Title>
           <Message>
             <ChallengeMessage
@@ -96,7 +97,7 @@ export const SecondStep = ({ play, setStep }: ISecondStepProps) => {
             <ListNumbers />
           </ImageArea>
           <Title>
-            Sua idade: <PersonalData color="#E23A68"> 8 anos</PersonalData>
+            Sua idade: <PersonalData color="#E23A68"> {age} anos</PersonalData>
           </Title>
           <Message>
             <ChallengeMessage
@@ -148,7 +149,7 @@ export const SecondStep = ({ play, setStep }: ISecondStepProps) => {
             <ChallengeMessage
               children={
                 <>
-                  A informação de que você gosta de brincar é guardada como um
+                  A informação de que você gosta ou não de brincar é guardada como um
                   número especial, chamado de <strong>bit</strong>. O{" "}
                   <strong>bit</strong> pode ser 0 ou 1. Se for 0, significa
                   'não' e se for 1, significa 'sim'. {choiceDescription}
