@@ -69,7 +69,7 @@ export const Column = styled.div`
   gap: 2em;
   align-items: center;
   margin: 0;
-  width: fit-content;
+  width: 100%;
 `;
 
 export const FloatingItem = styled.div<{ floating: boolean; index: number }>`
