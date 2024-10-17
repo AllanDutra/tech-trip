@@ -164,7 +164,12 @@ export function Routes() {
 
         <Route
           path={routeConfigs.Challenge14}
-          element={<PrivateRoute PageComponent={Challenge14Page} />}
+          element={
+            <PrivateRoute
+              PageComponent={Challenge14Page}
+              challengeNumber={14}
+            />
+          }
         />
 
         <Route
