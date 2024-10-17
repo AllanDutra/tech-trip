@@ -62,6 +62,11 @@ A computing education platform designed for children aged 6 to 10, aligned with 
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" height="80" alt="PostgreSQL"/>
 </div>
 
+## © Credits
+
+[Images by Freepik](https://br.freepik.com/)
+Sound Effects by [UNIVERSFIELD](https://pixabay.com/users/universfield-28281460/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=143039) and [Jurij](https://pixabay.com/users/soundreality-31074404/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=158187) from [Pixabay](https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=143039)
+
 <hr/>
 
 Developed by [Allan Dutra](https://www.linkedin.com/in/allan-dutra/) and [Analice Mendes](https://www.linkedin.com/in/analicemendescosta/)!
