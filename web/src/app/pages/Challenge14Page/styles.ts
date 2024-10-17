@@ -22,7 +22,7 @@ export const Item = styled.div<{ shaking: boolean | null }>`
   ${({ shaking }) =>
     shaking &&
     css`
-      animation: ${shakeAnimation} 1s both;
+      animation: ${shakeAnimation} 1s both infinite;
     `}
 `;
 

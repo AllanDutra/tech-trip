@@ -33,7 +33,7 @@ const createItem = (
 };
 
 export const FirstStep = ({ setStep }: IFirstStepProps) => {
-  const [shaking, setIsShaking] = useState(false);
+  const [shaking, setIsShaking] = useState(true);
 
   const handleShake = () => {
     setIsShaking(true);
@@ -68,7 +68,7 @@ export const FirstStep = ({ setStep }: IFirstStepProps) => {
           text="Chamar Mago Sys"
           onClick={(event) => {
             event.preventDefault();
-            handleShake();
+            // handleShake();
           }}
         />
       </ButtonArea>
