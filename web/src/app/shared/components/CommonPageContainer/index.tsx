@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { AsideNavBar } from "../AsideNavBar";
 import {
   StyledHeader,
@@ -13,6 +13,8 @@ import { Link } from "react-router-dom";
 import { routeConfigs } from "../../configs";
 import { GearSix } from "@phosphor-icons/react";
 import { FooterCredits } from "../FooterCredits";
+import { useLoading } from "../../hooks/useLoading";
+import { TechTripApiService } from "../../services";
 
 interface ICommonPageContainerProps {
   children: ReactNode;
@@ -23,7 +25,23 @@ export function CommonPageContainer({
   children,
   className,
 }: ICommonPageContainerProps) {
-  const { progress } = useProgress();
+  const { setIsGlobalLoadingActive } = useLoading();
+  const { progress, setProgress } = useProgress();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setIsGlobalLoadingActive(true);
+
+        const progressData =
+          await TechTripApiService.ChallengesController.getChallengesProgress();
+
+        setProgress({ ...progressData });
+      } finally {
+        setIsGlobalLoadingActive(false);
+      }
+    })();
+  }, []);
 
   return (
     <StyledPageContainer className={`common-page ${className}`}>

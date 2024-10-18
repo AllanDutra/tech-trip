@@ -28,14 +28,14 @@ export function App() {
       <LoadingProvider>
         <AuthenticationProvider>
           <FeedbackProvider>
-            <ChallengeCorrectionProvider>
-              <ProgressProvider>
+            <ProgressProvider>
+              <ChallengeCorrectionProvider>
                 <GlobalStyle />
                 <Loading />
                 <NotifyOnReload />
                 <Routes />
-              </ProgressProvider>
-            </ChallengeCorrectionProvider>
+              </ChallengeCorrectionProvider>
+            </ProgressProvider>
           </FeedbackProvider>
         </AuthenticationProvider>
       </LoadingProvider>

@@ -1,4 +1,4 @@
-import { ReactNode, useCallback } from "react";
+import { ReactNode, useCallback, useEffect } from "react";
 import { AsideNavBar } from "../AsideNavBar";
 import { Header } from "../Header";
 import {
@@ -60,6 +60,12 @@ export function ChallengePageContainer({
     if (!nextLevelRoute) return navigate(routeConfigs.Map);
 
     return navigate(nextLevelRoute);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      setChallengeCorrection({ ...INITIAL_CHALLENGE_CORRECTION });
+    };
   }, []);
 
   return (
